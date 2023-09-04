@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "EyeFilledIcon.jsx", "EyeSlashFilledIcon.jsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
