@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client'
 import { NextUIProvider } from '@nextui-org/react'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Login, LoginAction } from './components/login/login.tsx'
-import { Dashboard } from './components/dashboard/dashbord.tsx'
-import { dashboardLoader } from './components/dashboard/loader.tsx'
+import { Login, LoginAction } from './components/login/Login.tsx'
+import { Dashboard } from './components/dashboard/Dashboard.tsx'
+import { dashboardLoader } from './components/dashboard/Loader.tsx'
 
 const router = createBrowserRouter([
   {

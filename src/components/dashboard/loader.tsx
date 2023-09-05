@@ -1,4 +1,4 @@
-import { redirect, type LoaderFunctionArgs} from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 async function getUsers() {
     const token = localStorage.getItem("token");
@@ -12,7 +12,7 @@ async function getUsers() {
     return data;
 }
 
-export async function dashboardLoader({request}: LoaderFunctionArgs) {
+export async function dashboardLoader() {
     const token = localStorage.getItem("token");
     if (!token) {
         return redirect("/login")
