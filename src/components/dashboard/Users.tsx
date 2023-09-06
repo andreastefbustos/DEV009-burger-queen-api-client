@@ -75,37 +75,39 @@ function Users(): JSX.Element {
                 </Dropdown>
                 <Button color="primary" endContent={<PlusIcon />}>Add New</Button>
             </div>
-            <Table aria-label="Example static collection table">
-                <TableHeader>
-                    <TableColumn>EMAIL</TableColumn>
-                    <TableColumn>ROLE</TableColumn>
-                    <TableColumn>ACTIONS</TableColumn>
-                </TableHeader>
-                <TableBody>
-                    {filteredItems.map((user) => (
-                    <TableRow key={user.email}>
-                        <TableCell>{user.email}</TableCell>
-                        <TableCell>{user.role}</TableCell>
-                        <TableCell>
-                            <div className="relative flex justify-end items-center gap-2">
-                                <Dropdown>
-                                    <DropdownTrigger>
-                                        <Button isIconOnly size="sm" variant="light" aria-label="More options">
-                                            <VerticalDotsIcon className="text-default-300" />
-                                        </Button>
-                                    </DropdownTrigger>
-                                    <DropdownMenu aria-label="Opciones del usuario">
-                                        <DropdownItem>View</DropdownItem>
-                                        <DropdownItem>Edit</DropdownItem>
-                                        <DropdownItem>Delete</DropdownItem>
-                                    </DropdownMenu>
-                                </Dropdown>
-                            </div>
-                        </TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            <div className="table">
+                <Table aria-label="Example static collection table">
+                    <TableHeader>
+                        <TableColumn>EMAIL</TableColumn>
+                        <TableColumn>ROLE</TableColumn>
+                        <TableColumn>ACTIONS</TableColumn>
+                    </TableHeader>
+                    <TableBody>
+                        {filteredItems.map((user) => (
+                            <TableRow key={user.email}>
+                                <TableCell>{user.email}</TableCell>
+                                <TableCell>{user.role}</TableCell>
+                                <TableCell>
+                                    <div className="relative flex justify-end items-center gap-2">
+                                        <Dropdown>
+                                            <DropdownTrigger>
+                                                <Button isIconOnly size="sm" variant="light" aria-label="More options">
+                                                    <VerticalDotsIcon className="text-default-300" />
+                                                </Button>
+                                            </DropdownTrigger>
+                                            <DropdownMenu aria-label="Opciones del usuario">
+                                                <DropdownItem>View</DropdownItem>
+                                                <DropdownItem>Edit</DropdownItem>
+                                                <DropdownItem>Delete</DropdownItem>
+                                            </DropdownMenu>
+                                        </Dropdown>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
         </div>
     );
 }
