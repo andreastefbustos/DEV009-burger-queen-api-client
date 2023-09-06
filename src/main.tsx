@@ -5,7 +5,8 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Login, LoginAction } from './components/login/Login.tsx'
 import { Dashboard } from './components/dashboard/Dashboard.tsx'
-import { dashboardLoader } from './components/dashboard/Loader.tsx'
+import { dashboardLoader } from './components/dashboard/loader.tsx'
+import { RegisterUser } from './components/dashboard/RegisterUser.tsx';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,10 @@ const router = createBrowserRouter([
     element: <Dashboard />,
     loader: dashboardLoader,
   },
-  {},
+  {
+    path: 'register',
+    element: <RegisterUser />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

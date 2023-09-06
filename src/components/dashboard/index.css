@@ -9,3 +9,18 @@
 .table {
     margin-top: 20px;
 }
+
+/* Estilos para el formulario */
+.form-register-user {
+    margin: 80px;
+}
+
+/* Estilos para el titulo de create user */
+h1 {
+    margin-bottom: 50px;
+    color: #9CA3AF;
+}
+
+.button-save-cancel {
+    margin-top: 70px;
+}
