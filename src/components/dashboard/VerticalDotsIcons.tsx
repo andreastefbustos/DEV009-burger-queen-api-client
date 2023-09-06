@@ -3,7 +3,7 @@ type VerticalDotsIconProps = {
     width?: number;
     height?: number;
     [key: string]: unknown; // Esto es para ...props
-  };
+};
 
 export const VerticalDotsIcon = ({size = 24, width, height, ...props}: VerticalDotsIconProps) => (
     <svg
