@@ -1,6 +1,6 @@
 import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
 import { MailIcon } from "./MailIcon";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useNavigate } from "react-router-dom";
 
 async function createUser(email: string, password: string, role: string): Promise<Response> {
     return fetch("http://localhost:8080/users", {
@@ -27,6 +27,12 @@ async function CreateUserAction({ request }: { request: Request }) {
 }
 
 function RegisterUser (): JSX.Element {
+    const navigate = useNavigate();
+    
+    const cancelHandler = () => {
+        navigate('/dashboard');
+    };
+
     return (
         <div className="form-register-user">
             <h1>Create User</h1>
@@ -82,7 +88,7 @@ function RegisterUser (): JSX.Element {
 
                 <div className="button-save-cancel flex justify-center gap-4">
                     <Button color="success" className="text-white text-xl" type="submit">Save</Button>
-                    <Button color="default" variant="light" style={{ color: '#9CA3AF' }} className="text-xl">Cancel</Button>
+                    <Button color="default" variant="light" style={{ color: '#9CA3AF' }} className="text-xl" onClick={cancelHandler}>Cancel</Button>
                 </div>
             </Form>
         </div>

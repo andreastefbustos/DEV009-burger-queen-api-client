@@ -13,7 +13,7 @@ import {
     DropdownItem,
 } from "@nextui-org/react";
 
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { VerticalDotsIcon } from "./VerticalDotsIcons";
 import { ChevronDownIcon } from "./ChevronDownIcon";
 import { PlusIcon } from "./PlusIcon";
@@ -34,6 +34,8 @@ const statusOptions = [
 function Users(): JSX.Element {
     const users = Object.values(useLoaderData() as Record<string, User>) as User[];
     const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set());
+    const navigate = useNavigate();
+
     
     const filteredItems = useMemo(() => {
         let filteredUsers = [...users];
@@ -44,6 +46,10 @@ function Users(): JSX.Element {
         
         return filteredUsers;
     }, [users, statusFilter]);
+
+    const addNewHandler = () => {
+        navigate('/dashboard/users/create');
+    };
     
     return (
         <div>
@@ -73,7 +79,7 @@ function Users(): JSX.Element {
                     ))}
                     </DropdownMenu>
                 </Dropdown>
-                <Button color="primary" endContent={<PlusIcon />}>Add New</Button>
+                <Button color="primary" endContent={<PlusIcon />} onClick={addNewHandler}>Add New</Button>
             </div>
             <div className="table">
                 <Table aria-label="Example static collection table">

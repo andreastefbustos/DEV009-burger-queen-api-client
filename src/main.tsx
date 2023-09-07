@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     loader: dashboardLoader,
   },
   {
-    path: 'dashboard/create/user',
+    path: 'dashboard/users/create',
     element: <RegisterUser />,
     action: CreateUserAction,
   },
