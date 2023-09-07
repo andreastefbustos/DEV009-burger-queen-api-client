@@ -7,12 +7,17 @@ import { Login, LoginAction } from './components/login/Login.tsx'
 import { Dashboard } from './components/dashboard/Dashboard.tsx'
 import { dashboardLoader } from './components/dashboard/loader.tsx'
 import { RegisterUser } from './components/dashboard/RegisterUser.tsx';
+import { Error } from './components/Error.tsx'
 
 const router = createBrowserRouter([
   {
-    path: 'login',
+    path: '/',
     element: <Login />,
     action: LoginAction,
+  },
+  {
+    path: '/error',
+    element: <Error />,
   },
   {
     path: 'dashboard',

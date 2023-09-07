@@ -2,12 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* body {
   margin: 0;
-  /* display: flex; */
-  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+} */
+
+/* Estilos para el componente de Error */
+.error {
+  position: relative; /* Añade posición relativa al contenedor principal */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: xx-large;
 }
+
+.content-center {
+  position: absolute; /* Asegura que el contenido esté absolutamente posicionado */
+  top: 50%; /* Centra verticalmente */
+  left: 50%; /* Centra horizontalmente */
+  transform: translate(-50%, -50%); /* Desplaza el contenido para un centrado perfecto */
+}
+
+.title-error {
+  color: red;
+}
+
+.p-error {
+  color: grey;
+}
+
+.error_img_burger {
+  position: absolute; /* Añade posición absoluta a la imagen */
+  bottom: 0; /* Coloca la imagen en la parte inferior */
+  right: 0; /* Coloca la imagen a la derecha */
+  width: 300px;
+  height: 200px;
+}
+
 
 
