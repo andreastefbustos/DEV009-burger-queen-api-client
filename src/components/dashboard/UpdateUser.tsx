@@ -33,8 +33,7 @@ function UpdateUser (): JSX.Element {
                     name="password"
                     labelPlacement="outside" 
                     variant="bordered" 
-                    label="Password" 
-                    defaultValue={user.password}
+                    label="Password"
                     placeholder="Enter new password" />
                 </div>
 
