@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom/client'
 import { NextUIProvider } from '@nextui-org/react'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Login, LoginAction } from './components/login/Login.tsx'
+import { Login } from './components/login/Login.tsx'
+import { loginAction } from './components/login/action.tsx'
 import { Dashboard } from './components/dashboard/Dashboard.tsx'
-import { dashboardLoader } from './components/dashboard/loader.tsx'
-import { CreateUserAction, RegisterUser } from './components/dashboard/RegisterUser.tsx';
+import { dashboardLoader, loaderUser } from './components/dashboard/loader.tsx'
+import { CreateFromUser } from './components/dashboard/CreateUser.tsx';
+import { createUserAction } from './components/dashboard/action.tsx'
 import { Error } from './components/Error.tsx'
+import { UpdateUser } from './components/dashboard/UpdateUser.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Login />,
-    action: LoginAction,
+    action: loginAction,
   },
   {
     path: '/error',
@@ -26,8 +29,13 @@ const router = createBrowserRouter([
   },
   {
     path: 'dashboard/users/create',
-    element: <RegisterUser />,
-    action: CreateUserAction,
+    element: <CreateFromUser />,
+    action: createUserAction,
+  },
+  {
+    path: 'dashboard/users/:id/update',
+    element: <UpdateUser />,
+    loader: loaderUser,
   },
 ]);
 

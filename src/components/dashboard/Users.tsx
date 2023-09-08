@@ -12,17 +12,17 @@ import {
     DropdownMenu,
     DropdownItem,
 } from "@nextui-org/react";
-
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { VerticalDotsIcon } from "./VerticalDotsIcons";
 import { ChevronDownIcon } from "./ChevronDownIcon";
 import { PlusIcon } from "./PlusIcon";
 import { capitalize } from "./utils";
 
 type User = {
-  email: string;
-  role: string;
-  status: string;
+    id: number;
+    email: string;
+    role: string;
+    status: string;
 };
 
 const statusOptions = [
@@ -34,7 +34,6 @@ const statusOptions = [
 function Users(): JSX.Element {
     const users = Object.values(useLoaderData() as Record<string, User>) as User[];
     const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set());
-    const navigate = useNavigate();
 
     
     const filteredItems = useMemo(() => {
@@ -46,10 +45,6 @@ function Users(): JSX.Element {
         
         return filteredUsers;
     }, [users, statusFilter]);
-
-    const addNewHandler = () => {
-        navigate('/dashboard/users/create');
-    };
     
     return (
         <div>
@@ -79,7 +74,9 @@ function Users(): JSX.Element {
                     ))}
                     </DropdownMenu>
                 </Dropdown>
-                <Button color="primary" endContent={<PlusIcon />} onClick={addNewHandler}>Add New</Button>
+                <Button color="primary" endContent={<PlusIcon />}>
+                    <Link to="users/create">Add New</Link>
+                </Button>
             </div>
             <div className="table">
                 <Table aria-label="Example static collection table">
@@ -102,8 +99,9 @@ function Users(): JSX.Element {
                                                 </Button>
                                             </DropdownTrigger>
                                             <DropdownMenu aria-label="Opciones del usuario">
-                                                <DropdownItem>View</DropdownItem>
-                                                <DropdownItem>Edit</DropdownItem>
+                                                <DropdownItem>
+                                                    <Link to={`users/${user.id}/update`}>Edit</Link>
+                                                    </DropdownItem>
                                                 <DropdownItem>Delete</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>

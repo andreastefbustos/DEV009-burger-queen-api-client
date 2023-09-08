@@ -1,38 +1,8 @@
 import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
 import { MailIcon } from "./MailIcon";
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, Link} from "react-router-dom";
 
-async function createUser(email: string, password: string, role: string): Promise<Response> {
-    return fetch("http://localhost:8080/users", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({email: email, password: password, role: role})
-    })
-}
-
-async function CreateUserAction({ request }: { request: Request }) {
-    const formData = await request.formData();
-    const email = formData.get("email") as string;
-    const password =  formData.get("password") as string;
-    const role =  formData.get("role") as string;
-    const response = await createUser(email, password, role);
-    if (response.status !== 201) {
-        return redirect("/error")
-    }
-    
-    return redirect("/dashboard");
-
-}
-
-function RegisterUser (): JSX.Element {
-    const navigate = useNavigate();
-    
-    const cancelHandler = () => {
-        navigate('/dashboard');
-    };
-
+function CreateFromUser (): JSX.Element {
     return (
         <div className="form-register-user">
             <h1>Create User</h1>
@@ -88,11 +58,13 @@ function RegisterUser (): JSX.Element {
 
                 <div className="button-save-cancel flex justify-center gap-4">
                     <Button color="success" className="text-white text-xl" type="submit">Save</Button>
-                    <Button color="default" variant="light" style={{ color: '#9CA3AF' }} className="text-xl" onClick={cancelHandler}>Cancel</Button>
+                    <Button  color="default" variant="light" style={{ color: '#9CA3AF' }} className="text-xl">
+                        <Link to="/dashboard">Cancel</Link>
+                    </Button>
                 </div>
             </Form>
         </div>
     );
 }
 
-export { RegisterUser, CreateUserAction };
+export { CreateFromUser };
