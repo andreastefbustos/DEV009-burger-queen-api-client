@@ -99,7 +99,7 @@ function Users(): JSX.Element {
                                                 </Button>
                                             </DropdownTrigger>
                                             <DropdownMenu aria-label="Opciones del usuario">
-                                                <DropdownItem>
+                                                <DropdownItem textValue="Edit">
                                                     <Link to={`users/${user.id}/update`}>Edit</Link>
                                                     </DropdownItem>
                                                 <DropdownItem>Delete</DropdownItem>
