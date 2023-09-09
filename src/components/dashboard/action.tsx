@@ -22,3 +22,15 @@ export async function createUserAction({ request }: { request: Request }) {
     
     return redirect("/dashboard");
 }
+
+// Funciones para eliminar un usuario
+export async function deleteUser(id: string): Promise<Response> {
+    const token = localStorage.getItem("token");
+    return fetch(`http://localhost:8080/users/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token,
+        },
+    })
+}

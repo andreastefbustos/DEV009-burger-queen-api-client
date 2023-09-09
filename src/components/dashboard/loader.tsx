@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 
-async function getUsers() {
+export async function getUsers() {
     const token = localStorage.getItem("token");
     const response = await fetch("http://localhost:8080/users", {
         method: "GET",

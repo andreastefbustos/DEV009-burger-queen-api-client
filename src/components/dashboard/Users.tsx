@@ -11,12 +11,15 @@ import {
     Dropdown,
     DropdownMenu,
     DropdownItem,
+    useDisclosure,
 } from "@nextui-org/react";
 import { Link, useLoaderData } from "react-router-dom";
 import { VerticalDotsIcon } from "./VerticalDotsIcons";
 import { ChevronDownIcon } from "./ChevronDownIcon";
 import { PlusIcon } from "./PlusIcon";
 import { capitalize } from "./utils";
+import OpenModalDelete from "./OpenModalConfirmDelete";
+import { getUsers } from "./loader";
 
 type User = {
     id: number;
@@ -32,10 +35,13 @@ const statusOptions = [
 ];
 
 function Users(): JSX.Element {
-    const users = Object.values(useLoaderData() as Record<string, User>) as User[];
+    const initialUsers = Object.values(useLoaderData() as Record<string, User>) as User[];
     const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set());
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [users, setUsers] = useState<User[]>(initialUsers); // Esto almacenará todos los usuarios
 
-    
+
     const filteredItems = useMemo(() => {
         let filteredUsers = [...users];
 
@@ -102,7 +108,10 @@ function Users(): JSX.Element {
                                                 <DropdownItem textValue="Edit">
                                                     <Link to={`users/${user.id}/update`}>Edit</Link>
                                                     </DropdownItem>
-                                                <DropdownItem>Delete</DropdownItem>
+                                                <DropdownItem onPress={() => {
+                                                    setSelectedUser(user);
+                                                    onOpen()
+                                                }}>Delete</DropdownItem>
                                             </DropdownMenu>
                                         </Dropdown>
                                     </div>
@@ -112,6 +121,13 @@ function Users(): JSX.Element {
                     </TableBody>
                 </Table>
             </div>
+            <OpenModalDelete user={selectedUser} isOpen={isOpen} onOpenChange={onOpenChange} onDelete={async () => {
+                setSelectedUser(null);
+                const updateUsers = await getUsers();
+                console.log(updateUsers);
+                setUsers(updateUsers)
+            }}
+            />
         </div>
     );
 }
