@@ -52,7 +52,9 @@
   background-size: cover; /* Asegura que la imagen cubra todo el espacio del encabezado */
   background-repeat: no-repeat; /* Previene que la imagen se repita */
   background-position: center center; /* Ajusta la posición de la imagen en el centro */
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .userIcon {
