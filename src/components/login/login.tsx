@@ -3,8 +3,13 @@ import { Input, Button } from "@nextui-org/react";
 import { LoginLayout } from "./LoginLayout";
 import './index.css';
 
+type ActionData = {
+    error?: string;
+    message: string;
+};
+
 function Login(): JSX.Element {
-    const actionData = useActionData()
+    const actionData = useActionData() as ActionData;
 
     return (
     <LoginLayout>
@@ -31,8 +36,8 @@ function Login(): JSX.Element {
                     />
                     <Button type="submit" className="button-submit-login font-bold">Sing in</Button>
                 </Form>
+                {actionData && actionData.error && <p className="alert alert-danger">{actionData.message}</p>}
             </div>
-            {actionData && actionData.error && <p>Error de sesión</p>}
         </div>
     </LoginLayout> 
     )
