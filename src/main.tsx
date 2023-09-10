@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { NextUIProvider } from '@nextui-org/react'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Login } from './components/login/Login.tsx'
+import { Login } from './components/login/login.tsx'
 import { loginAction } from './components/login/action.tsx'
 import { Dashboard } from './components/dashboard/Dashboard.tsx'
 import { dashboardLoader, loaderUser } from './components/dashboard/loader.tsx'
@@ -11,6 +11,7 @@ import { CreateFromUser } from './components/dashboard/CreateUser.tsx';
 import { createUserAction, dashboardAction, updateUserAction } from './components/dashboard/action.tsx'
 import { Error } from './components/Error.tsx'
 import { UpdateUser } from './components/dashboard/UpdateUser.tsx'
+import { Header } from './components/Header.tsx'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
     element: <UpdateUser />,
     loader: loaderUser,
     action: updateUserAction,
+  },
+  {
+    path: '/header',
+    element: <Header />,
   },
 ]);
 
