@@ -9,24 +9,6 @@ function CreateFromUser (): JSX.Element {
             <Form className="w-full flex flex-col gap-4" method="POST" id="register">
                 <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                     <Input 
-                    type="name" 
-                    labelPlacement="outside" 
-                    variant="bordered" 
-                    label="First Name" 
-                    placeholder="Enter your first name" />
-                </div>
-
-                <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                    <Input 
-                    type="name" 
-                    labelPlacement="outside" 
-                    variant="bordered" 
-                    label="Last Name" 
-                    placeholder="Enter your last name" />
-                </div>
-
-                <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
-                    <Input 
                     type="email"
                     name="email"
                     labelPlacement="outside" 
@@ -36,9 +18,7 @@ function CreateFromUser (): JSX.Element {
                     startContent={
                         <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }/>
-                </div>
 
-                <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                     <Input 
                     type="password" 
                     name="password"
