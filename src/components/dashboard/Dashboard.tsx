@@ -4,9 +4,10 @@ import {
   Card, 
   CardBody
 } from "@nextui-org/react";
-import { Users } from "./Users";
+import { Users } from "./users/Users";
+import { Products } from "./products/Products";
 import './index.css';
-import { Header } from "../../Header";
+import { Header } from "../../components/Header";
 
 function Dashboard(): JSX.Element {
   return (
@@ -24,7 +25,7 @@ function Dashboard(): JSX.Element {
           <Tab className="title" key="products" title="Products">
             <Card>
               <CardBody>
-
+                <Products />
               </CardBody>
             </Card>
           </Tab>

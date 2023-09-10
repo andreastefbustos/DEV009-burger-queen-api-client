@@ -1,5 +1,5 @@
 import { Input, Radio, RadioGroup, Button, User } from "@nextui-org/react";
-import { MailIcon } from "./MailIcon";
+import { MailIcon } from "../utilities/MailIcon";
 import { Form, useLoaderData, Link } from "react-router-dom";
 
 type User = {

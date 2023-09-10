@@ -1,5 +1,5 @@
 import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
-import { MailIcon } from "../users/MailIcon";
+import { MailIcon } from "../utilities/MailIcon";
 import { Form, Link} from "react-router-dom";
 
 function CreateFromUser (): JSX.Element {

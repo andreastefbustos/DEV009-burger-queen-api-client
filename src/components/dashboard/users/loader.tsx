@@ -14,7 +14,7 @@ export async function dashboardLoader() {
 
     const users = await getUsers();
 
-    return users
+    return {users:users, products: []}
 }
 
 // Se obtiene solo un usuario por medio de su ID

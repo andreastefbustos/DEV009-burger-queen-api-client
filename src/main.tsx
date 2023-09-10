@@ -5,7 +5,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Login } from './components/login/Login.tsx'
 import { loginAction } from './components/login/action.tsx'
-import { Dashboard } from './components/dashboard/users/Dashboard.tsx'
+import { Dashboard } from './components/dashboard/Dashboard.tsx'
 import { dashboardLoader, loaderUser } from './components/dashboard/users/loader.tsx'
 import { CreateFromUser } from './components/dashboard/users/CreateUser.tsx';
 import { createUserAction, dashboardAction, updateUserAction } from './components/dashboard/users/action.tsx'

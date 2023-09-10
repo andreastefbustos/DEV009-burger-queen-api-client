@@ -66,4 +66,26 @@ async function deleteUser(id: string): Promise<Response> {
     })
 }
 
-export { loginUser, getUsers, getUser, createUser, updateUser, deleteUser}
+async function getProducts() {
+    const token = localStorage.getItem("token");
+    const response = await fetch("http://localhost:8080/products", {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    })
+    const data = await response.json();
+    return data;
+}
+
+async function getProduct(id: string): Promise<Response> {
+    return fetch(`http://localhost:8080/products/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+    })
+}
+
+export { loginUser, getUsers, getUser, createUser, updateUser, deleteUser, getProducts, getProduct}

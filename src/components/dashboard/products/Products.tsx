@@ -33,7 +33,7 @@ const statusOptions = [
   { name: "Admin", uid: "admin" },
 ];
 
-function Users(): JSX.Element {
+function Products(): JSX.Element {
     const initialUsers = Object.values(useLoaderData() as Record<string, User>) as User[];
     const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set());
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -54,7 +54,7 @@ function Users(): JSX.Element {
             <div className="flex gap-3">
                 <Dropdown>
                     <DropdownTrigger className="sm:flex" aria-label="Role selection">
-                      <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">Role</Button>
+                      <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">Type</Button>
                     </DropdownTrigger>
                     <DropdownMenu
                     disallowEmptySelection
@@ -84,14 +84,18 @@ function Users(): JSX.Element {
             <div className="table">
                 <Table aria-label="Example static collection table">
                     <TableHeader>
-                        <TableColumn>EMAIL</TableColumn>
-                        <TableColumn>ROLE</TableColumn>
+                        <TableColumn>DATE ENTRY</TableColumn>
+                        <TableColumn>NAME</TableColumn>
+                        <TableColumn>TYPE</TableColumn>
+                        <TableColumn>PRICE</TableColumn>
                         <TableColumn>ACTIONS</TableColumn>
                     </TableHeader>
                     <TableBody>
                         {filteredItems.map((user) => (
                             <TableRow key={user.email}>
+                                <TableCell>{user.role}</TableCell>
                                 <TableCell>{user.email}</TableCell>
+                                <TableCell>{user.role}</TableCell>
                                 <TableCell>{user.role}</TableCell>
                                 <TableCell>
                                     <div className="relative flex justify-end items-center gap-2">
@@ -123,4 +127,4 @@ function Users(): JSX.Element {
     );
 }
 
-export { Users };
+export { Products };
