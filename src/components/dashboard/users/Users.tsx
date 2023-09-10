@@ -15,7 +15,7 @@ import {
 } from "@nextui-org/react";
 import { Link, useLoaderData } from "react-router-dom";
 import { VerticalDotsIcon } from "./VerticalDotsIcons";
-import { ChevronDownIcon } from "./ChevronDownIcon";
+import { ChevronDownIcon } from "../users/ChevronDownIcon";
 import { PlusIcon } from "./PlusIcon";
 import { capitalize } from "./utils";
 import OpenModalDelete from "./OpenModalConfirmDelete";

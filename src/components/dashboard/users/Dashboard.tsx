@@ -6,7 +6,7 @@ import {
 } from "@nextui-org/react";
 import { Users } from "./Users";
 import './index.css';
-import { Header } from "../Header";
+import { Header } from "../../Header";
 
 function Dashboard(): JSX.Element {
   return (

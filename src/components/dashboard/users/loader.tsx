@@ -1,4 +1,4 @@
-import { getUsers, getUser } from "../../api";
+import { getUsers, getUser } from "../../../api";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 
 export async function dashboardLoader() {
