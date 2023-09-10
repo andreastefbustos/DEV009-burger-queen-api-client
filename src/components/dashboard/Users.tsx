@@ -19,7 +19,6 @@ import { ChevronDownIcon } from "./ChevronDownIcon";
 import { PlusIcon } from "./PlusIcon";
 import { capitalize } from "./utils";
 import OpenModalDelete from "./OpenModalConfirmDelete";
-import { getUsers } from "./loader";
 
 type User = {
     id: number;
@@ -39,18 +38,16 @@ function Users(): JSX.Element {
     const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set());
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [users, setUsers] = useState<User[]>(initialUsers); // Esto almacenará todos los usuarios
-
 
     const filteredItems = useMemo(() => {
-        let filteredUsers = [...users];
+        let filteredUsers = [...initialUsers];
 
         if (statusFilter.size !== 0 && statusFilter.size !== statusOptions.length) {
             filteredUsers = filteredUsers.filter((user) => statusFilter.has(user.role));
         }
         
         return filteredUsers;
-    }, [users, statusFilter]);
+    }, [initialUsers, statusFilter]);
     
     return (
         <div>
@@ -121,13 +118,7 @@ function Users(): JSX.Element {
                     </TableBody>
                 </Table>
             </div>
-            <OpenModalDelete user={selectedUser} isOpen={isOpen} onOpenChange={onOpenChange} onDelete={async () => {
-                setSelectedUser(null);
-                const updateUsers = await getUsers();
-                console.log(updateUsers);
-                setUsers(updateUsers)
-            }}
-            />
+            <OpenModalDelete user={selectedUser} isOpen={isOpen} onOpenChange={onOpenChange}/>
         </div>
     );
 }

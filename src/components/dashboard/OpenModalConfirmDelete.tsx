@@ -6,8 +6,7 @@ import {
     ModalFooter, 
     Button } 
 from "@nextui-org/react";
-import { deleteUser } from "./action";
-import { redirect } from "react-router-dom";
+import { Form } from "react-router-dom";
 
 type User = {
     id: number;
@@ -20,22 +19,9 @@ interface ModalProps {
     isOpen: boolean;
     onOpenChange: (isOpen: boolean) => void;
     user: User | null;
-    onDelete: () => void;
 }
 
-export default function OpenModalDelete({ isOpen, onOpenChange, user, onDelete}: ModalProps) {
-    const handleDelete = async () => {
-        if(!user) return;
-        const response = await deleteUser(user.id.toString());
-        if(response.status === 200) {
-            onDelete();
-        } else {
-            return redirect('/error');
-        }
-
-        onOpenChange(false);
-    };
-
+export default function OpenModalDelete({ isOpen, onOpenChange, user}: ModalProps) {
     return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -50,9 +36,12 @@ export default function OpenModalDelete({ isOpen, onOpenChange, user, onDelete}:
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={handleDelete}>
-                  Delete
-                </Button>
+                <Form method="DELETE" id="deleteUser">
+                  <input name="userId" defaultValue={user?.id} hidden></input>
+                  <Button color="primary" type="submit" onPress={onClose}>
+                    Delete
+                  </Button>
+                </Form>
               </ModalFooter>
             </div>
           )}

@@ -1,14 +1,5 @@
+import { loginUser } from "../../api";
 import { redirect } from "react-router-dom";
-
-async function loginUser(email: string, password: string): Promise<Response> {
-    return fetch("http://localhost:8080/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({email: email, password: password})
-    })
-}
 
 export async function loginAction({ request }: { request: Request }) {
     const formData = await request.formData();

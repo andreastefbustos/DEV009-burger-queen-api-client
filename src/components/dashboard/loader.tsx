@@ -1,16 +1,5 @@
+import { getUsers, getUser } from "../../api";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
-
-export async function getUsers() {
-    const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:8080/users", {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + token
-        }
-    })
-    const data = await response.json();
-    return data;
-}
 
 export async function dashboardLoader() {
     const token = localStorage.getItem("token");
@@ -29,16 +18,6 @@ export async function dashboardLoader() {
 }
 
 // Se obtiene solo un usuario por medio de su ID
-async function getUser(id: string): Promise<Response> {
-    return fetch(`http://localhost:8080/users/${id}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "authorization": `Bearer ${localStorage.getItem("token")}`
-        },
-    })
-}
-
 export async function loaderUser ({params}: LoaderFunctionArgs): Promise<Response> {
     const resp: Response = await getUser(params.id as string);
     if(resp.status != 200) {

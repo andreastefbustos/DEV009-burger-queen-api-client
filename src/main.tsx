@@ -8,7 +8,7 @@ import { loginAction } from './components/login/action.tsx'
 import { Dashboard } from './components/dashboard/Dashboard.tsx'
 import { dashboardLoader, loaderUser } from './components/dashboard/loader.tsx'
 import { CreateFromUser } from './components/dashboard/CreateUser.tsx';
-import { createUserAction,updateUserAction } from './components/dashboard/action.tsx'
+import { createUserAction, dashboardAction, updateUserAction } from './components/dashboard/action.tsx'
 import { Error } from './components/Error.tsx'
 import { UpdateUser } from './components/dashboard/UpdateUser.tsx'
 
@@ -26,6 +26,7 @@ const router = createBrowserRouter([
     path: 'dashboard',
     element: <Dashboard />,
     loader: dashboardLoader,
+    action: dashboardAction,
   },
   {
     path: 'dashboard/users/create',

@@ -1,15 +1,5 @@
+import { createUser, updateUser, deleteUser } from "../../api";
 import { redirect, Params } from "react-router-dom";
-
-// Funciones para crear un nuevo usuario
-async function createUser(email: string, password: string, role: string): Promise<Response> {
-    return fetch("http://localhost:8080/users", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({email: email, password: password, role: role})
-    })
-}
 
 export async function createUserAction({ request }: { request: Request }) {
     const formData = await request.formData();
@@ -24,19 +14,6 @@ export async function createUserAction({ request }: { request: Request }) {
     return redirect("/dashboard");
 }
 
-// Funciones para iditar un usuario
-async function updateUser(id: string, password: string, role: string): Promise<Response> {
-    const token = localStorage.getItem("token");
-    return fetch(`http://localhost:8080/users/${id}`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token,
-        },
-        body: JSON.stringify({password: password, role: role})
-    })
-}
-
 export async function updateUserAction({params, request}: {params: Params<string>, request: Request}) {
     const formData = await request.formData();
     const userId = params.id!;
@@ -49,3 +26,14 @@ export async function updateUserAction({params, request}: {params: Params<string
     return redirect("/dashboard");
 }
 
+export async function dashboardAction({ request }: { request: Request }) {
+    const formData = await request.formData();
+    const userId = formData.get("userId");
+    const resp = await deleteUser(userId as string);
+    if (resp.status != 200) {
+        return redirect("/error")
+    }
+
+    return redirect("/dashboard")
+
+}
