@@ -7,7 +7,7 @@ export async function loginAction({ request }: { request: Request }) {
     const password =  formData.get("password") as string;
     const response = await loginUser(email, password);
     if (response.status !== 200) {
-        return redirect("/error")
+        return {error: true, message: "Invalid credential"}
     }
     const data = await response.json();
 

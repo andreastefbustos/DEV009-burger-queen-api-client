@@ -48,7 +48,10 @@ function updateUser(id: string, password: string, role: string): Promise<Respons
             "Content-Type": "application/json",
             "Authorization": "Bearer " + token,
         },
-        body: JSON.stringify({password: password, role: role})
+        body: JSON.stringify({password, role}, (_key, value) => {
+            if (value === "" || value === null || value === undefined) return undefined;
+            return value;
+        })
     })
 }
 
