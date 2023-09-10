@@ -1,5 +1,6 @@
-import { redirect } from "react-router-dom";
+import { redirect, Params } from "react-router-dom";
 
+// Funciones para crear un nuevo usuario
 async function createUser(email: string, password: string, role: string): Promise<Response> {
     return fetch("http://localhost:8080/users", {
         method: "POST",
@@ -23,14 +24,28 @@ export async function createUserAction({ request }: { request: Request }) {
     return redirect("/dashboard");
 }
 
-// Funciones para eliminar un usuario
-export async function deleteUser(id: string): Promise<Response> {
+// Funciones para iditar un usuario
+async function updateUser(id: string, password: string, role: string): Promise<Response> {
     const token = localStorage.getItem("token");
     return fetch(`http://localhost:8080/users/${id}`, {
-        method: "DELETE",
+        method: "PATCH",
         headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + token,
         },
+        body: JSON.stringify({password: password, role: role})
     })
 }
+
+export async function updateUserAction({params, request}: {params: Params<string>, request: Request}) {
+    const formData = await request.formData();
+    const userId = params.id!;
+    const password =  formData.get("password") as string;
+    const role =  formData.get("role") as string;
+    const response = await updateUser(userId, password, role);
+    if (response.status !== 200) {
+        return redirect("/error")
+    }
+    return redirect("/dashboard");
+}
+
