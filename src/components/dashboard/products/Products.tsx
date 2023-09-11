@@ -13,41 +13,46 @@ import {
     DropdownItem,
     useDisclosure,
 } from "@nextui-org/react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { VerticalDotsIcon } from "../utilities/VerticalDotsIcons";
 import { ChevronDownIcon } from "../utilities/ChevronDownIcon";
 import { PlusIcon } from "../utilities/PlusIcon";
 import { capitalize } from "../utilities/utils";
 import OpenModalDelete from "../utilities/OpenModalConfirmDelete";
 
-type User = {
+type Product = {
     id: number;
-    email: string;
-    role: string;
-    status: string;
+    name: string;
+    price: number;
+    image: string;
+    type: string;
+    dateEntry: string;
 };
+interface ProductsProps {
+    products: Product[];
+}
 
 const statusOptions = [
-  { name: "Chef", uid: "chef" },
-  { name: "Waiter", uid: "waiter" },
-  { name: "Admin", uid: "admin" },
+  { type: "Desayuno", uid: "desayuno" },
+  { type: "Almuerzo", uid: "almuerzo" },
+  { type: "Cena", uid: "cena" },
+  { type: "Bebidas", uid: "bebidas" },
 ];
 
-function Products(): JSX.Element {
-    const initialUsers = Object.values(useLoaderData() as Record<string, User>) as User[];
+function Products({products}: ProductsProps): JSX.Element {
     const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set());
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     const filteredItems = useMemo(() => {
-        let filteredUsers = [...initialUsers];
+        let filteredProducts = [...products];
 
         if (statusFilter.size !== 0 && statusFilter.size !== statusOptions.length) {
-            filteredUsers = filteredUsers.filter((user) => statusFilter.has(user.role));
+            filteredProducts = filteredProducts.filter((product) => statusFilter.has(product.type));
         }
         
-        return filteredUsers;
-    }, [initialUsers, statusFilter]);
+        return filteredProducts;
+    }, [products, statusFilter]);
     
     return (
         <div>
@@ -72,7 +77,7 @@ function Products(): JSX.Element {
                     >
                     {statusOptions.map((status) => (
                       <DropdownItem key={status.uid} className="capitalize">
-                        {capitalize(status.name)}
+                        {capitalize(status.type)}
                       </DropdownItem>
                     ))}
                     </DropdownMenu>
@@ -91,12 +96,12 @@ function Products(): JSX.Element {
                         <TableColumn>ACTIONS</TableColumn>
                     </TableHeader>
                     <TableBody>
-                        {filteredItems.map((user) => (
-                            <TableRow key={user.email}>
-                                <TableCell>{user.role}</TableCell>
-                                <TableCell>{user.email}</TableCell>
-                                <TableCell>{user.role}</TableCell>
-                                <TableCell>{user.role}</TableCell>
+                        {filteredItems.map((product) => (
+                            <TableRow key={product.id}>
+                                <TableCell>{product.dateEntry}</TableCell>
+                                <TableCell>{product.name}</TableCell>
+                                <TableCell>{product.type}</TableCell>
+                                <TableCell>{product.price}</TableCell>
                                 <TableCell>
                                     <div className="relative flex justify-end items-center gap-2">
                                         <Dropdown>
@@ -107,10 +112,10 @@ function Products(): JSX.Element {
                                             </DropdownTrigger>
                                             <DropdownMenu aria-label="Opciones del usuario">
                                                 <DropdownItem textValue="Edit">
-                                                    <Link to={`users/${user.id}/update`}>Edit</Link>
+                                                    <Link to={`products/${product.id}/update`}>Edit</Link>
                                                     </DropdownItem>
                                                 <DropdownItem onPress={() => {
-                                                    setSelectedUser(user);
+                                                    setSelectedProduct(product);
                                                     onOpen()
                                                 }}>Delete</DropdownItem>
                                             </DropdownMenu>
@@ -122,7 +127,7 @@ function Products(): JSX.Element {
                     </TableBody>
                 </Table>
             </div>
-            <OpenModalDelete user={selectedUser} isOpen={isOpen} onOpenChange={onOpenChange}/>
+            <OpenModalDelete user={selectedProduct} isOpen={isOpen} onOpenChange={onOpenChange}/>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { getUsers, getUser } from "../../../api";
+import { getUsers, getUser, getProducts } from "../../api";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 
 export async function dashboardLoader() {
@@ -13,8 +13,9 @@ export async function dashboardLoader() {
     }
 
     const users = await getUsers();
+    const products = await getProducts();
 
-    return {users:users, products: []}
+    return { users:users, products: products}
 }
 
 // Se obtiene solo un usuario por medio de su ID

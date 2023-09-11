@@ -13,7 +13,7 @@ import {
     DropdownItem,
     useDisclosure,
 } from "@nextui-org/react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { VerticalDotsIcon } from "../utilities/VerticalDotsIcons";
 import { ChevronDownIcon } from "../utilities/ChevronDownIcon";
 import { PlusIcon } from "../utilities/PlusIcon";
@@ -27,27 +27,30 @@ type User = {
     status: string;
 };
 
+interface UsersProps {
+    users: User[];
+}
+
 const statusOptions = [
   { name: "Chef", uid: "chef" },
   { name: "Waiter", uid: "waiter" },
   { name: "Admin", uid: "admin" },
 ];
 
-function Users(): JSX.Element {
-    const initialUsers = Object.values(useLoaderData() as Record<string, User>) as User[];
+function Users({users}: UsersProps): JSX.Element {
     const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set());
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
     const filteredItems = useMemo(() => {
-        let filteredUsers = [...initialUsers];
+        let filteredUsers = [...users];
 
         if (statusFilter.size !== 0 && statusFilter.size !== statusOptions.length) {
             filteredUsers = filteredUsers.filter((user) => statusFilter.has(user.role));
         }
         
         return filteredUsers;
-    }, [initialUsers, statusFilter]);
+    }, [users, statusFilter]);
     
     return (
         <div>

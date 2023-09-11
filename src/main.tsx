@@ -6,12 +6,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Login } from './components/login/Login.tsx'
 import { loginAction } from './components/login/action.tsx'
 import { Dashboard } from './components/dashboard/Dashboard.tsx'
-import { dashboardLoader, loaderUser } from './components/dashboard/users/loader.tsx'
+import { dashboardLoader, loaderUser } from './components/dashboard/loader.tsx'
 import { CreateFromUser } from './components/dashboard/users/CreateUser.tsx';
 import { createUserAction, dashboardAction, updateUserAction } from './components/dashboard/users/action.tsx'
 import { Error } from './components/Error.tsx'
 import { UpdateUser } from './components/dashboard/users/UpdateUser.tsx'
-import { Header } from './components/Header.tsx'
 
 const router = createBrowserRouter([
   {
@@ -39,10 +38,6 @@ const router = createBrowserRouter([
     element: <UpdateUser />,
     loader: loaderUser,
     action: updateUserAction,
-  },
-  {
-    path: '/header',
-    element: <Header />,
   },
 ]);
 
