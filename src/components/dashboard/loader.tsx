@@ -1,4 +1,4 @@
-import { getUsers, getUser, getProducts } from "../../api";
+import { getUsers, getUser, getProducts, getProduct } from "../../api";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 
 export async function dashboardLoader() {
@@ -21,6 +21,15 @@ export async function dashboardLoader() {
 // Se obtiene solo un usuario por medio de su ID
 export async function loaderUser ({params}: LoaderFunctionArgs): Promise<Response> {
     const resp: Response = await getUser(params.id as string);
+    if(resp.status != 200) {
+        return redirect('/error');
+    }
+    
+    return resp
+}
+
+export async function loaderProduct ({params}: LoaderFunctionArgs): Promise<Response> {
+    const resp: Response = await getProduct(params.id as string);
     if(resp.status != 200) {
         return redirect('/error');
     }

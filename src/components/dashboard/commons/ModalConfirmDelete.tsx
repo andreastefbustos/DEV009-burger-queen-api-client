@@ -1,3 +1,4 @@
+
 import { 
     Modal, 
     ModalContent, 
@@ -8,37 +9,37 @@ import {
 from "@nextui-org/react";
 import { Form } from "react-router-dom";
 
-type User = {
+export type Data = {
     id: number;
-    email: string;
-    role: string;
-    status: string;
+    title: string
+    message: string
+    intent: string
 };
 
 interface ModalProps {
-    isOpen: boolean;
-    onOpenChange: (isOpen: boolean) => void;
-    user: User | null;
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+  data: Data | null;
 }
 
-export default function OpenModalDelete({ isOpen, onOpenChange, user}: ModalProps) {
+export function ModalConfirmDelete({ isOpen, onOpenChange, data}: ModalProps) {
     return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <div>
-              <ModalHeader className="flex flex-col gap-1">Confirmation to delete a user</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">{data?.title}</ModalHeader>
               <ModalBody>
-                <p>Are you sure you want to delete this user?</p>
+                <p>{data?.message}</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
                 <Form method="DELETE" id="deleteUser">
-                  <input name="userId" defaultValue={user?.id} hidden></input>
-                  <Button color="primary" type="submit" onPress={onClose}>
+                  <input name="id" defaultValue={data?.id} hidden></input>
+                  <Button color="primary" type="submit" name="intent" value={data?.intent} onPress={onClose}>
                     Delete
                   </Button>
                 </Form>

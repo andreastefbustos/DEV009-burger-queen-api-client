@@ -6,11 +6,15 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Login } from './components/login/Login.tsx'
 import { loginAction } from './components/login/action.tsx'
 import { Dashboard } from './components/dashboard/Dashboard.tsx'
-import { dashboardLoader, loaderUser } from './components/dashboard/loader.tsx'
+import { dashboardLoader, loaderUser, loaderProduct } from './components/dashboard/loader.tsx'
 import { CreateFromUser } from './components/dashboard/users/CreateUser.tsx';
-import { createUserAction, dashboardAction, updateUserAction } from './components/dashboard/users/action.tsx'
+import { createUserAction, updateUserAction } from './components/dashboard/users/action.tsx'
 import { Error } from './components/Error.tsx'
 import { UpdateUser } from './components/dashboard/users/UpdateUser.tsx'
+import { CreateFromProduct } from './components/dashboard/products/CreateProduct.tsx'
+import { createProductAction, updateProductAction } from './components/dashboard/products/action.tsx'
+import { UpdateProduct } from './components/dashboard/products/UpdateProduct.tsx'
+import { dashboardAction } from './components/dashboard/action.tsx'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +42,17 @@ const router = createBrowserRouter([
     element: <UpdateUser />,
     loader: loaderUser,
     action: updateUserAction,
+  },
+  {
+    path: 'dashboard/products/create',
+    element: <CreateFromProduct />,
+    action: createProductAction,
+  },
+  {
+    path: 'dashboard/products/:id/update',
+    element: <UpdateProduct />,
+    loader: loaderProduct,
+    action: updateProductAction,
   },
 ]);
 

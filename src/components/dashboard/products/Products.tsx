@@ -18,7 +18,7 @@ import { VerticalDotsIcon } from "../utilities/VerticalDotsIcons";
 import { ChevronDownIcon } from "../utilities/ChevronDownIcon";
 import { PlusIcon } from "../utilities/PlusIcon";
 import { capitalize } from "../utilities/utils";
-import OpenModalDelete from "../utilities/OpenModalConfirmDelete";
+import { ModalConfirmDelete, Data } from "../commons/ModalConfirmDelete";
 
 type Product = {
     id: number;
@@ -54,11 +54,18 @@ function Products({products}: ProductsProps): JSX.Element {
         return filteredProducts;
     }, [products, statusFilter]);
     
+    const data: Data = {
+        id: selectedProduct?.id as number,
+        title: "Confirmation to delete a product",
+        message: "Are you sure you want to delete this product?",
+        intent: "product-delete"
+    };
+
     return (
         <div>
             <div className="flex gap-3">
                 <Dropdown>
-                    <DropdownTrigger className="sm:flex" aria-label="Role selection">
+                    <DropdownTrigger className="sm:flex" aria-label="Type selection">
                       <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">Type</Button>
                     </DropdownTrigger>
                     <DropdownMenu
@@ -83,7 +90,7 @@ function Products({products}: ProductsProps): JSX.Element {
                     </DropdownMenu>
                 </Dropdown>
                 <Button color="primary" endContent={<PlusIcon />}>
-                    <Link to="users/create">Add New</Link>
+                    <Link to="products/create">Add New</Link>
                 </Button>
             </div>
             <div className="table">
@@ -127,7 +134,7 @@ function Products({products}: ProductsProps): JSX.Element {
                     </TableBody>
                 </Table>
             </div>
-            <OpenModalDelete user={selectedProduct} isOpen={isOpen} onOpenChange={onOpenChange}/>
+            <ModalConfirmDelete data={data} isOpen={isOpen} onOpenChange={onOpenChange}/>
         </div>
     );
 }

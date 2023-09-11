@@ -48,7 +48,7 @@
   justify-content: space-between; /* Esto separará la imagen y el ícono */
   padding: 10px 20px; /* Esto añade un poco de espacio alrededor del header */
   background-color: #F7F7F7; /* Puedes cambiar esto según tu preferencia */
-  height: 200px; /* Ajusta este valor según tus necesidades */
+  height: 170px; /* Ajusta este valor según tus necesidades */
   background-size: cover; /* Asegura que la imagen cubra todo el espacio del encabezado */
   background-repeat: no-repeat; /* Previene que la imagen se repita */
   background-position: center center; /* Ajusta la posición de la imagen en el centro */

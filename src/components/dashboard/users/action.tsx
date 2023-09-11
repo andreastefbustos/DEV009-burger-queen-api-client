@@ -1,4 +1,4 @@
-import { createUser, updateUser, deleteUser } from "../../../api";
+import { createUser, updateUser } from "../../../api";
 import { redirect, Params } from "react-router-dom";
 
 export async function createUserAction({ request }: { request: Request }) {
@@ -24,16 +24,4 @@ export async function updateUserAction({params, request}: {params: Params<string
         return redirect("/error")
     }
     return redirect("/dashboard");
-}
-
-export async function dashboardAction({ request }: { request: Request }) {
-    const formData = await request.formData();
-    const userId = formData.get("userId");
-    const resp = await deleteUser(userId as string);
-    if (resp.status != 200) {
-        return redirect("/error")
-    }
-
-    return redirect("/dashboard")
-
 }

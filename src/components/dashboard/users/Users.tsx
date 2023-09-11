@@ -18,7 +18,7 @@ import { VerticalDotsIcon } from "../utilities/VerticalDotsIcons";
 import { ChevronDownIcon } from "../utilities/ChevronDownIcon";
 import { PlusIcon } from "../utilities/PlusIcon";
 import { capitalize } from "../utilities/utils";
-import OpenModalDelete from "../utilities/OpenModalConfirmDelete";
+import { Data, ModalConfirmDelete } from "../commons/ModalConfirmDelete";
 
 type User = {
     id: number;
@@ -51,6 +51,13 @@ function Users({users}: UsersProps): JSX.Element {
         
         return filteredUsers;
     }, [users, statusFilter]);
+    
+    const data: Data = {
+        id: selectedUser?.id as number,
+        title: "Confirmation to delete a user",
+        message: `Are you sure you want to delete this user ${selectedUser?.email}?`,
+        intent: "user-delete"
+    };
     
     return (
         <div>
@@ -121,7 +128,7 @@ function Users({users}: UsersProps): JSX.Element {
                     </TableBody>
                 </Table>
             </div>
-            <OpenModalDelete user={selectedUser} isOpen={isOpen} onOpenChange={onOpenChange}/>
+            <ModalConfirmDelete data={data} isOpen={isOpen} onOpenChange={onOpenChange}/>
         </div>
     );
 }
