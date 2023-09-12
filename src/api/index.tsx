@@ -142,8 +142,6 @@ async function deleteProduct(id: string): Promise<Response> {
     })
 }
 
-
-
 export { 
     loginUser, 
     getUsers, 
