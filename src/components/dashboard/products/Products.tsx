@@ -12,7 +12,6 @@ import {
     DropdownMenu,
     DropdownItem,
     useDisclosure,
-    Tooltip,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { VerticalDotsIcon } from "../utilities/VerticalDotsIcons";
@@ -107,11 +106,7 @@ function Products({products}: ProductsProps): JSX.Element {
                         {filteredItems.map((product) => (
                             <TableRow key={product.id}>
                                 <TableCell>{product.dateEntry}</TableCell>
-                                <TableCell>
-                                    <Tooltip content="OVer me">
-                                        <Button>{product.name}</Button>
-                                    </Tooltip>
-                                </TableCell>
+                                <TableCell>{product.name}</TableCell>
                                 <TableCell>{product.type}</TableCell>
                                 <TableCell>{product.price}</TableCell>
                                 <TableCell>
