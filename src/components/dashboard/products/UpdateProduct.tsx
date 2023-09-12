@@ -72,7 +72,7 @@ function UpdateProduct (): JSX.Element {
                     <div className="button-save-cancel flex justify-center gap-4">
                         <Button color="success" className="text-white text-xl" type="submit">Save</Button>
                         <Button color="default" variant="light" style={{ color: '#9CA3AF' }} className="text-xl">
-                            <Link to={"/dashboard"}>Cancel</Link>
+                            <Link to={"/dashboard?tab=products"}>Cancel</Link>
                         </Button>
                     </div>
                 </Form>

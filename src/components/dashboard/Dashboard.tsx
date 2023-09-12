@@ -9,6 +9,7 @@ import { Products } from "./products/Products";
 import './index.css';
 import { Header } from "../../components/Header";
 import { useLoaderData } from "react-router-dom";
+import { useState } from "react";
 
 type User = {
   id: number;
@@ -28,16 +29,23 @@ type Product = {
 interface LoaderData {
   users: User[];
   products: Product[];
+  tab: string;
 }
 
 function Dashboard(): JSX.Element {
-  const data = useLoaderData() as LoaderData
+  const data = useLoaderData() as LoaderData;
+  let defaultTab = "users"
+  if (data.tab !== undefined && data.tab !== "") {
+    defaultTab = data.tab;
+  }
+  
+  const [selected, setSelected] = useState(defaultTab);
   
   return (
     <div>
       <Header />
       <div className="table-user flex w-full flex-col justify-center items-center">
-        <Tabs aria-label="Options">
+        <Tabs aria-label="Options" selectedKey={selected} onSelectionChange={(key) => setSelected(key as string)}>
           <Tab className="title" key="users" title="Users">
             <Card>
               <CardBody>

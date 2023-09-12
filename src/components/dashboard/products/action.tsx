@@ -1,4 +1,4 @@
-import { createProduct, updateProduct } from '../../../api';
+import { checkUnauthorize, createProduct, updateProduct } from '../../../api';
 import { Params, redirect } from 'react-router-dom';
 
 export async function createProductAction({ request }: { request: Request }) {
@@ -8,6 +8,11 @@ export async function createProductAction({ request }: { request: Request }) {
     const image =  formData.get("image") as string;
     const type =  formData.get("type") as string;
     const response = await createProduct(name, price, image, type);
+
+    if (checkUnauthorize(response)) {
+        return redirect("/")
+    }
+
     if (response.status !== 201) {
         return redirect("/error")
     }
@@ -23,9 +28,14 @@ export async function updateProductAction({params, request}: {params: Params<str
     const image =  formData.get("image") as string;
     const type =  formData.get("type") as string;
     const response = await updateProduct(productId, name, price,image,type);
+    
+    if (checkUnauthorize(response)) {
+        return redirect("/")
+    }
+    
     if (response.status !== 200) {
         return redirect("/error")
     }
     
-    return redirect('/dashboard');
+    return redirect('/dashboard?tab=products');
 }
