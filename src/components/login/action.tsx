@@ -1,4 +1,4 @@
-import { loginUser } from "../../api";
+import { checkUnauthorize, loginUser } from "../../api";
 import { redirect } from "react-router-dom";
 
 export async function loginAction({ request }: { request: Request }) {
@@ -6,6 +6,10 @@ export async function loginAction({ request }: { request: Request }) {
     const email = formData.get("email") as string;
     const password =  formData.get("password") as string;
     const response = await loginUser(email, password);
+    if (checkUnauthorize(response)) {
+        return redirect("/")
+    }
+    
     if (response.status !== 200) {
         return {error: true, message: "Invalid credential*"}
     }

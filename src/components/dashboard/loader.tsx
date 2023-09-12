@@ -1,4 +1,4 @@
-import { getUsers, getUser, getProducts, getProduct } from "../../api";
+import { getUsers, getUser, getProducts, getProduct, checkUnauthorize } from "../../api";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 
 export async function dashboardLoader() {
@@ -12,10 +12,15 @@ export async function dashboardLoader() {
         return redirect("/error")
     }
 
-    const users = await getUsers();
-    const products = await getProducts();
+    const respUsers = await getUsers();
+    const respProducts = await getProducts();
 
-    return { users:users, products: products}
+
+    if (checkUnauthorize(respUsers) || checkUnauthorize(respProducts)) {
+        return redirect("/")
+    }
+
+    return { users: await respUsers.json(), products: await respProducts.json()}
 }
 
 // Se obtiene solo un usuario por medio de su ID

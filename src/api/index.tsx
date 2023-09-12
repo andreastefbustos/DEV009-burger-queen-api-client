@@ -1,3 +1,12 @@
+export function checkUnauthorize(response: Response): boolean {
+    if (response.status == 401) {
+        localStorage.removeItem("token")
+        return true
+    }
+
+    return false
+}
+
 async function loginUser(email: string, password: string): Promise<Response> {
     return fetch("http://localhost:8080/login", {
         method: "POST",
@@ -10,14 +19,12 @@ async function loginUser(email: string, password: string): Promise<Response> {
 
 async function getUsers() {
     const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:8080/users", {
+    return await fetch("http://localhost:8080/users", {
         method: "GET",
         headers: {
             "Authorization": "Bearer " + token
         }
     })
-    const data = await response.json();
-    return data;
 }
 
 async function getUser(id: string): Promise<Response> {
@@ -68,14 +75,12 @@ async function deleteUser(id: string): Promise<Response> {
 
 async function getProducts() {
     const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:8080/products", {
+    return await fetch("http://localhost:8080/products", {
         method: "GET",
         headers: {
             "Authorization": "Bearer " + token
         }
     })
-    const data = await response.json();
-    return data;
 }
 
 async function getProduct(id: string): Promise<Response> {
