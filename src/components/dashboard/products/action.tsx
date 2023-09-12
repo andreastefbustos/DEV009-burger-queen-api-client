@@ -12,7 +12,7 @@ export async function createProductAction({ request }: { request: Request }) {
         return redirect("/error")
     }
     
-    return redirect("/dashboard");
+    return redirect('/dashboard');
 }
 
 export async function updateProductAction({params, request}: {params: Params<string>, request: Request}) {
@@ -26,5 +26,6 @@ export async function updateProductAction({params, request}: {params: Params<str
     if (response.status !== 200) {
         return redirect("/error")
     }
-    return redirect("/dashboard");
+    
+    return redirect('/dashboard');
 }

@@ -1,4 +1,4 @@
-import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
+import { Input, Radio, RadioGroup, Button, Image } from "@nextui-org/react";
 import { Form, useLoaderData, Link } from "react-router-dom";
 import { Header } from "../../Header";
 
@@ -59,13 +59,12 @@ function UpdateProduct (): JSX.Element {
                         }
                         />
                     </div>
-                    <img src={product.image} alt="products_img" width={200} height={200}></img>
+                    <Image isZoomed src={product.image} alt="products_img" width={240} className="m-5"/>
 
                     <RadioGroup label="Type" orientation="horizontal" name="type" defaultValue={product.type}>
                         <div className="flex justify-center gap-4">
                             <Radio value="desayuno">Desayuno</Radio>
-                            <Radio value="almuerzo">Almuerzo</Radio>
-                            <Radio value="cena">Cena</Radio>
+                            <Radio value="almuerzo_cena">Almuerzo y Cena</Radio>
                             <Radio value="bebida">Bebida</Radio>
                         </div>
                     </RadioGroup>

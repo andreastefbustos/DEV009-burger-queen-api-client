@@ -49,8 +49,7 @@ function CreateFromProduct (): JSX.Element {
                     <RadioGroup label="Type" orientation="horizontal" name="type">
                         <div className="flex justify-center gap-4">
                             <Radio value="desayuno">Desayuno</Radio>
-                            <Radio value="almuerzo">Almuerzo</Radio>
-                            <Radio value="cena">Cena</Radio>
+                            <Radio value="almuerzo_cena">Almuerzo y Cena</Radio>
                             <Radio value="bebida">Bebida</Radio>
                         </div>
                     </RadioGroup>

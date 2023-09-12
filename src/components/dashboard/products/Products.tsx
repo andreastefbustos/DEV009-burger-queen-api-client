@@ -34,9 +34,8 @@ interface ProductsProps {
 
 const statusOptions = [
   { type: "Desayuno", uid: "desayuno" },
-  { type: "Almuerzo", uid: "almuerzo" },
-  { type: "Cena", uid: "cena" },
-  { type: "Bebidas", uid: "bebidas" },
+  { type: "Almuerzo y Cena", uid: "almuerzo_cena" },
+  { type: "Bebidas", uid: "bebida" },
 ];
 
 function Products({products}: ProductsProps): JSX.Element {
@@ -108,7 +107,7 @@ function Products({products}: ProductsProps): JSX.Element {
                                 <TableCell>{product.dateEntry}</TableCell>
                                 <TableCell>{product.name}</TableCell>
                                 <TableCell>{product.type}</TableCell>
-                                <TableCell>{product.price}</TableCell>
+                                <TableCell>${product.price}</TableCell>
                                 <TableCell>
                                     <div className="relative flex justify-end items-center gap-2">
                                         <Dropdown>
