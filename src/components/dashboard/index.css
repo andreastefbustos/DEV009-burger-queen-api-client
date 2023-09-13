@@ -11,11 +11,11 @@
 }
 
 /* Estilos para el formulario */
-.form-register-user {
+.form {
     margin: 80px;
 }
 
-/* Estilos para el titulo de create user */
+/* Estilos para el titulo de create-update user-product */
 h1 {
     margin-bottom: 50px;
     color: #9CA3AF;
@@ -37,5 +37,15 @@ h1 {
 
     .table {
         display: none;
+    }
+
+    h1 {
+        font-size: xx-large;
+        margin-bottom: 20px;
+        color: #9CA3AF;
+    }
+
+    .form {
+        margin: 40px;
     }
 }
