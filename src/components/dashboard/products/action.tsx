@@ -17,7 +17,7 @@ export async function createProductAction({ request }: { request: Request }) {
         return redirect("/error")
     }
     
-    return redirect('/dashboard');
+    return redirect('/dashboard?tab=products');
 }
 
 export async function updateProductAction({params, request}: {params: Params<string>, request: Request}) {
