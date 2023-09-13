@@ -18,11 +18,11 @@ async function loginUser(email: string, password: string): Promise<Response> {
 }
 
 async function getUsers() {
-    const token = localStorage.getItem("token");
     return await fetch("http://localhost:8080/users", {
         method: "GET",
         headers: {
-            "Authorization": "Bearer " + token
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${localStorage.getItem("token")}`
         }
     })
 }
@@ -48,12 +48,11 @@ async function createUser(email: string, password: string, role: string): Promis
 }
 
 async function updateUser(id: string, password: string, role: string): Promise<Response> {
-    const token = localStorage.getItem("token");
     return fetch(`http://localhost:8080/users/${id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + token,
+            "authorization": `Bearer ${localStorage.getItem("token")}`
         },
         body: JSON.stringify({password, role}, (_key, value) => {
             if (value === "" || value === null || value === undefined) return undefined;
@@ -63,22 +62,21 @@ async function updateUser(id: string, password: string, role: string): Promise<R
 }
 
 async function deleteUser(id: string): Promise<Response> {
-    const token = localStorage.getItem("token");
     return fetch(`http://localhost:8080/users/${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + token,
+            "authorization": `Bearer ${localStorage.getItem("token")}`
         },
     })
 }
 
 async function getProducts() {
-    const token = localStorage.getItem("token");
     return await fetch("http://localhost:8080/products", {
         method: "GET",
         headers: {
-            "Authorization": "Bearer " + token
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${localStorage.getItem("token")}`
         }
     })
 }
@@ -105,12 +103,11 @@ async function createProduct(name: string, price: number, image: string, type: s
 }
 
 async function updateProduct(id: string, name: string, price: number, image: string, type: string): Promise<Response> {
-    const token = localStorage.getItem("token");
     return fetch(`http://localhost:8080/products/${id}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + token,
+            "authorization": `Bearer ${localStorage.getItem("token")}`
         },
         body: JSON.stringify({name, price, image, type}, (_key, value) => {
             if (value === "" || value === null || value === undefined) return undefined;
@@ -132,12 +129,11 @@ function getCurrentDateTime() {
 }
 
 async function deleteProduct(id: string): Promise<Response> {
-    const token = localStorage.getItem("token");
     return fetch(`http://localhost:8080/products/${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + token,
+            "authorization": `Bearer ${localStorage.getItem("token")}`
         },
     })
 }
