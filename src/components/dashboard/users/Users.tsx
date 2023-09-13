@@ -91,7 +91,7 @@ function Users({users}: UsersProps): JSX.Element {
                     <Link to="users/create">Add New</Link>
                 </Button>
             </div>
-            <div className="table">
+            <div className="table_information">
                 <Table aria-label="Example static collection table">
                     <TableHeader>
                         <TableColumn>EMAIL</TableColumn>

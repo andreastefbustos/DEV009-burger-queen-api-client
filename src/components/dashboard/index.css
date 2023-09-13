@@ -6,7 +6,7 @@
     font-size: larger;
 }
 
-.table {
+.table_information {
     margin-top: 20px;
 }
 
@@ -23,4 +23,19 @@ h1 {
 
 .button-save-cancel {
     margin-top: 70px;
+}
+
+@media screen and (max-width: 390px){
+    .title {
+        font-size: medium;
+        width: 90%;
+    }
+
+    .users_table {
+        font-size: small;
+    }
+
+    .table {
+        display: none;
+    }
 }

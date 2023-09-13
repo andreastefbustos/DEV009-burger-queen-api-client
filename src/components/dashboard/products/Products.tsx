@@ -92,7 +92,7 @@ function Products({products}: ProductsProps): JSX.Element {
                     <Link to="products/create">Add New</Link>
                 </Button>
             </div>
-            <div className="table">
+            <div className="table_information">
                 <Table aria-label="Example static collection table">
                     <TableHeader>
                         <TableColumn>DATE ENTRY</TableColumn>
