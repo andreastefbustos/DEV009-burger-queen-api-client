@@ -18,7 +18,7 @@ import { VerticalDotsIcon } from "../utilities/VerticalDotsIcons";
 import { ChevronDownIcon } from "../utilities/ChevronDownIcon";
 import { PlusIcon } from "../utilities/PlusIcon";
 import { capitalize } from "../utilities/utils";
-import { ModalConfirmDelete, Data } from "../commons/ModalConfirmDelete";
+import { ModalConfirmDelete, Data } from "../../commons/ModalConfirmDelete";
 
 type Product = {
     id: number;

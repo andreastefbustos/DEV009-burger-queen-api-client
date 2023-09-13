@@ -1,12 +1,10 @@
 import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
 import { MailIcon } from "../utilities/MailIcon";
 import { Form, Link} from "react-router-dom";
-import { Header } from "../../Header";
 
 function CreateFromUser (): JSX.Element {
     return (
         <div>
-            <Header />
             <div className="form-register-user">
                 <h1>Create User</h1>
                 <Form className="w-full flex flex-col gap-4" method="POST" id="register">

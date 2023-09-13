@@ -1,7 +1,6 @@
 import { Input, Radio, RadioGroup, Button, User } from "@nextui-org/react";
 import { MailIcon } from "../utilities/MailIcon";
 import { Form, useLoaderData, Link } from "react-router-dom";
-import { Header } from "../../Header";
 
 type User = {
     email: string;
@@ -14,7 +13,6 @@ function UpdateUser (): JSX.Element {
 
     return (
         <div>
-            <Header />
             <div className="form-register-user">
                 <h1>Update User</h1>
                 <Form className="w-full flex flex-col gap-4" method="POST" id="register">

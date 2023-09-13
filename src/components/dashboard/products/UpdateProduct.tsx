@@ -1,6 +1,5 @@
 import { Input, Radio, RadioGroup, Button, Image } from "@nextui-org/react";
 import { Form, useLoaderData, Link } from "react-router-dom";
-import { Header } from "../../Header";
 
 type Product = {
     id: number;
@@ -16,7 +15,6 @@ function UpdateProduct (): JSX.Element {
 
     return (
         <div>
-            <Header />
             <div className="form-register-user">
                 <h1>Update Product</h1>
                 <Form className="w-full flex flex-col gap-4" method="POST" id="register">

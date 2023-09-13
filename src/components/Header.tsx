@@ -4,7 +4,7 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-o
 import { useNavigate } from "react-router-dom";
 
 
-function Header () {
+function Header (): JSX.Element {
     const navigate = useNavigate();
 
     const onSignOut = () => {

@@ -18,7 +18,7 @@ import { VerticalDotsIcon } from "../utilities/VerticalDotsIcons";
 import { ChevronDownIcon } from "../utilities/ChevronDownIcon";
 import { PlusIcon } from "../utilities/PlusIcon";
 import { capitalize } from "../utilities/utils";
-import { Data, ModalConfirmDelete } from "../commons/ModalConfirmDelete";
+import { Data, ModalConfirmDelete } from "../../commons/ModalConfirmDelete";
 
 type User = {
     id: number;

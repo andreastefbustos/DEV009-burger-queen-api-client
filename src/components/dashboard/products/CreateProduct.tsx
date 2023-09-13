@@ -1,11 +1,9 @@
 import { Input, Radio, RadioGroup, Button } from "@nextui-org/react";
 import { Form, Link} from "react-router-dom";
-import { Header } from "../../Header";
 
 function CreateFromProduct (): JSX.Element {
     return (
         <div>
-            <Header />
             <div className="form-register-user">
                 <h1>Create Product</h1>
                 <Form className="w-full flex flex-col gap-4" method="POST" id="register">
