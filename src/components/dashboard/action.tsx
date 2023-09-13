@@ -1,5 +1,7 @@
 import { redirect } from "react-router-dom";
-import { deleteUser, deleteProduct, checkUnauthorize } from "../../api";
+import { checkUnauthorize } from "../../services/token";
+import { deleteUser } from "../../services/users";
+import { deleteProduct } from "../../services/products" 
 
 export async function dashboardAction({ request }: { request: Request }) {
     const formData = await request.formData();

@@ -1,4 +1,5 @@
-import { checkUnauthorize, createProduct, updateProduct } from '../../../api';
+import { checkUnauthorize } from '../../../services/token';
+import { createProduct, updateProduct } from '../../../services/products';
 import { Params, redirect } from 'react-router-dom';
 
 export async function createProductAction({ request }: { request: Request }) {

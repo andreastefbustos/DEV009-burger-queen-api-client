@@ -1,4 +1,5 @@
-import { createUser, updateUser } from "../../../api";
+import { checkUnauthorize } from "../../../services/token";
+import { createUser, updateUser } from "../../../services/users";
 import { redirect, Params } from "react-router-dom";
 
 export async function createUserAction({ request }: { request: Request }) {
@@ -7,6 +8,11 @@ export async function createUserAction({ request }: { request: Request }) {
     const password =  formData.get("password") as string;
     const role =  formData.get("role") as string;
     const response = await createUser(email, password, role);
+
+    if (checkUnauthorize(response)) {
+        return redirect("/")
+    }
+
     if (response.status !== 201) {
         return redirect("/error")
     }
@@ -20,6 +26,11 @@ export async function updateUserAction({params, request}: {params: Params<string
     const password =  formData.get("password") as string;
     const role =  formData.get("role") as string;
     const response = await updateUser(userId, password, role);
+    
+    if (checkUnauthorize(response)) {
+        return redirect("/")
+    }
+
     if (response.status !== 200) {
         return redirect("/error")
     }

@@ -1,4 +1,5 @@
-import { checkUnauthorize, loginUser } from "../../api";
+import { checkUnauthorize } from "../../services/token";
+import { loginUser } from "../../services/users";
 import { redirect } from "react-router-dom";
 
 export async function loginAction({ request }: { request: Request }) {

@@ -1,4 +1,6 @@
-import { getUsers, getUser, getProducts, getProduct, checkUnauthorize } from "../../api";
+import { checkUnauthorize } from "../../services/token";
+import { getUsers, getUser } from "../../services/users";
+import { getProducts, getProduct } from "../../services/products";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 
 export async function dashboardLoader({request}: LoaderFunctionArgs) {
