@@ -25,7 +25,7 @@ export function Menu(): JSX.Element {
         <div className="container_cards">
             <div className="cards">
       {products.map((item, index) => (
-        <Card style={{ width: '200px', height: '350px' }} shadow="sm" key={index}>
+        <Card style={{ width: '200px', height: '320px' }} shadow="sm" key={index}>
           <CardBody className="overflow-visible p-0">
 
             <Image style={{height: '180px'}}
