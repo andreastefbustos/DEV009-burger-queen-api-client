@@ -16,6 +16,8 @@ import { CreateFromProduct } from './components/dashboard/products/CreateProduct
 import { createProductAction, updateProductAction } from './components/dashboard/products/action.tsx'
 import { UpdateProduct } from './components/dashboard/products/UpdateProduct.tsx'
 import { dashboardAction } from './components/dashboard/action.tsx'
+import { Menu } from './components/menu/Menu.tsx'
+import { productsLoader } from './components/menu/loader.tsx'
 
 const router = createBrowserRouter([
   {
@@ -58,6 +60,17 @@ const router = createBrowserRouter([
         element: <UpdateProduct />,
         loader: loaderProduct,
         action: updateProductAction,
+      },
+    ]
+  },
+  {
+    path: '/menu',
+    element: <Layout/>,
+    children: [
+      {
+        path: '/menu',
+        element: <Menu />,
+        loader: productsLoader,
       },
     ]
   },

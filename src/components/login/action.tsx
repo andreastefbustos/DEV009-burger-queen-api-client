@@ -25,9 +25,9 @@ export async function loginAction({ request }: { request: Request }) {
         case "admin":
             return redirect("/dashboard");
         case "waiter":
-            return redirect("/tables");
+            return redirect("/menu");
         case "chef":
-            return redirect("/orders");
+            return redirect("/kitchen");
         default:
             return redirect("/error");
     }
