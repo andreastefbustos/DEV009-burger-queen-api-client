@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities; */
 
-.container_cards {
+.container-cards {
     display: flex;
     justify-content: center;
     margin: 40px;
@@ -19,9 +19,18 @@
     color: white;
 }
 
-.flex {
+.footer-title {
     flex-direction: column;
     text-align: center;
+}
+
+.container-tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    /* position: sticky;
+    top: 0;
+    z-index: 1000; */
 }
 
 @media screen and (max-width: 390px){
