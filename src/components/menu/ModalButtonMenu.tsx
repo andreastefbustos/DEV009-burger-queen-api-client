@@ -5,37 +5,36 @@ import {
     ModalBody, 
     ModalFooter, 
     Button, 
-    useDisclosure 
+    useDisclosure,
+    Input
 } from "@nextui-org/react";
 import { FaShoppingCart, FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 import { BsDashCircleFill } from "react-icons/bs";
-import { useState } from "react";
+import { Form } from "react-router-dom";
 
-type ProductCart = {
+type Product = {
     id: number;
     name: string;
     price: number;
     image: string;
+    type: string;
+    dateEntry: string;
+};
+  
+type ProductCart = {
     qty: number;
-  }
+    product: Product
+}
 
 interface CartProps {
     cart: {
-      products: ProductCart[];
+        products: ProductCart[];
     };
 }
 
 function ModalButtonOrder({ cart }: CartProps) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-  //Obtener el carrito del localStorage al cargar el componente
-  const storedCart = JSON.parse(localStorage.getItem('shopCart') as string);
-
-  // Utilizar useState para mantener el estado del carrito
-  const [cartState, setCartState] = useState(storedCart);
- 
-
-console.log(cart)
   return (
     <div className="flex flex-col gap-2">
       <Button onPress={onOpen} className="button-order">
@@ -54,19 +53,39 @@ console.log(cart)
             <>
               <ModalHeader className="flex flex-col gap-1">Order</ModalHeader>
               <ModalBody>
-                <input placeholder="Client"></input>
-                <input placeholder="N table"></input>
+                <Form className="w-full flex flex-col gap-4" method="POST" id="order">
+                    <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                        <Input
+                        type="name"
+                        name="email"
+                        label="Client's Name"
+                        />
 
-                {cartState.products.map((product: ProductCart, index: number) => (
+                        <Input
+                        type="name"
+                        name="table"
+                        label="N* table"
+                        />
+                    </div>
+                </Form>
+               
+                {cart.products.map((product: ProductCart, index: number) => (
                     <div key={index} className="item-order">
-                        <img src={product.image} alt={product.name} style={{width: "70px", height: "70px", borderRadius: "50px"}}/>
-                        <p>
-                            {product.name}
-                            <FaPlusCircle/>{product.qty}<BsDashCircleFill/>
+                        <img 
+                        src={product.product.image} 
+                        alt={product.product.name} 
+                        className="img-item-menu"/>
+                        <p className="name-qty-item-menu">
+                            {product.product.name}
+                            <div className="sum-less">
+                                <FaPlusCircle style={{ color: '#9CA3AF' }}/>
+                                    {product.qty}
+                                <BsDashCircleFill style={{ color: '#9CA3AF' }}/>
+                            </div>
                         </p>
-                        <p>
-                            <FaTrashAlt /> 
-                            ${product.price}
+                        <p className="trash-price-item-menu">
+                            <FaTrashAlt style={{ color: 'red' }}/> 
+                            ${product.product.price}
                         </p>
                     </div>
                 ))}

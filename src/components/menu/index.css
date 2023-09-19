@@ -28,9 +28,6 @@
     display: flex;
     justify-content: center;
     margin-top: 30px;
-    /* position: sticky;
-    top: 0;
-    z-index: 1000; */
 }
 
 .button-order {
@@ -59,6 +56,37 @@
 .item-order {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    border-bottom: 3px solid #c5c9d0;
+    margin: 10px;
+}
+
+.img-item-menu {
+    width: 120px; 
+    height: 90px; 
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.name-qty-item-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sum-less {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    font-weight: bold;
+}
+
+.trash-price-item-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 @media screen and (max-width: 390px){

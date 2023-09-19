@@ -23,11 +23,8 @@ type Product = {
 };
 
 type ProductCart = {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
   qty: number;
+  product: Product
 }
 
 type Cart = {
@@ -37,21 +34,21 @@ type Cart = {
 export function Menu(): JSX.Element {
   const products = useLoaderData() as Product[];
   const [activeTab, setActiveTab] = useState("desayunos"); // Establece un Tab inicial
-  const [shopCart, setShopCart] = useState({products: []} as Cart);
+  
+  const saveShop = localStorage.getItem('shopCart')
+  const saveShopCart = saveShop ? JSON.parse(saveShop) : null
+  const [shopCart, setShopCart] = useState(saveShopCart || {products: []} as Cart);
   
   const addToCard = (product: Product) => {
     // Primero buscamos si el producto se encuentra en el carrito a traves del id
-    const found = shopCart.products.find((productCard) => productCard.id === product.id)
+    const found = shopCart.products.find((productCard: ProductCart) => productCard.product.id === product.id)
     if (found) {
       found.qty += 1
     } else {
       // Si el producto no esta se debe de agregar
       const newProductCard: ProductCart = {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        qty: 1
+        qty: 1,
+        product: product
       };
       shopCart.products.push(newProductCard);
     }
@@ -61,8 +58,6 @@ export function Menu(): JSX.Element {
     // Guardar en localStorage
     localStorage.setItem('shopCart', JSON.stringify(shopCart));
   }
-
-
 
   const filteredProducts = useMemo(() => {
     switch (activeTab) {
