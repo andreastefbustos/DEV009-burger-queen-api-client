@@ -40,12 +40,12 @@ export function Menu(): JSX.Element {
   const [shopCart, setShopCart] = useState({products: []} as Cart);
   
   const addToCard = (product: Product) => {
-    // El carro no esta vacio pero el producto que me pasas no esta en el acrro
+    // Primero buscamos si el producto se encuentra en el carrito a traves del id
     const found = shopCart.products.find((productCard) => productCard.id === product.id)
     if (found) {
       found.qty += 1
     } else {
-      // Que el producto no esta
+      // Si el producto no esta se debe de agregar
       const newProductCard: ProductCart = {
         id: product.id,
         name: product.name,
@@ -57,7 +57,11 @@ export function Menu(): JSX.Element {
     }
 
     setShopCart(shopCart);
+
+    // Guardar en localStorage
+    localStorage.setItem('shopCart', JSON.stringify(shopCart));
   }
+
 
 
   const filteredProducts = useMemo(() => {

@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/react";
 import { FaShoppingCart, FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 import { BsDashCircleFill } from "react-icons/bs";
+import { useState } from "react";
 
 type ProductCart = {
     id: number;
@@ -26,6 +27,13 @@ interface CartProps {
 
 function ModalButtonOrder({ cart }: CartProps) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+  //Obtener el carrito del localStorage al cargar el componente
+  const storedCart = JSON.parse(localStorage.getItem('shopCart') as string);
+
+  // Utilizar useState para mantener el estado del carrito
+  const [cartState, setCartState] = useState(storedCart);
+ 
 
 console.log(cart)
   return (
@@ -49,7 +57,7 @@ console.log(cart)
                 <input placeholder="Client"></input>
                 <input placeholder="N table"></input>
 
-                {cart.products.map((product, index) => (
+                {cartState.products.map((product: ProductCart, index: number) => (
                     <div key={index} className="item-order">
                         <img src={product.image} alt={product.name} style={{width: "70px", height: "70px", borderRadius: "50px"}}/>
                         <p>
