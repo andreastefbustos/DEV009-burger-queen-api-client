@@ -33,8 +33,41 @@
     z-index: 1000; */
 }
 
+.button-order {
+    background-color: #d97706;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 30px;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    font-weight: bold;
+    color: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px;
+    width: 70px;
+    height: 64px;
+}
+
+.modal-order {
+    z-index: 1001;
+}
+
+.item-order {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
 @media screen and (max-width: 390px){
     .cards {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .button-order {
+        width: 60px;
+        height: 54px;
     }
 }
