@@ -40,10 +40,10 @@ function ModalButtonOrder({cart, handleDelete, handleQty, sendOrder}: CartProps 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
 
-  const handleSubmit = (e, onClose) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>, onClose: () => void) => {
     e.preventDefault();
-    const clientName = e.target[0].value;
-    const clientTable = e.target[1].value;
+    const clientName = (e.currentTarget[0] as HTMLInputElement).value;
+    const clientTable = (e.currentTarget[1] as HTMLInputElement).value;
     sendOrder(clientName, clientTable, cart.products);
     onClose();
     return false;
