@@ -18,6 +18,7 @@ import { UpdateProduct } from './components/dashboard/products/UpdateProduct.tsx
 import { dashboardAction } from './components/dashboard/action.tsx'
 import { Menu } from './components/menu/Menu.tsx'
 import { productsLoader } from './components/menu/loader.tsx'
+import orderAction from './components/menu/action.tsx'
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,7 @@ const router = createBrowserRouter([
         path: '/menu',
         element: <Menu />,
         loader: productsLoader,
+        action: orderAction,
       },
     ]
   },

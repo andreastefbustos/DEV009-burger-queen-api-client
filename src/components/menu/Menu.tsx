@@ -8,7 +8,7 @@ import {
   Tab } 
 from "@nextui-org/react";
 import { FaClipboardList } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSubmit } from "react-router-dom";
 import './index.css'
 import { useMemo, useState } from "react";
 import { ModalButtonOrder } from "./ModalButtonMenu";
@@ -34,10 +34,19 @@ type Cart = {
 export function Menu(): JSX.Element {
   const products = useLoaderData() as Product[];
   const [activeTab, setActiveTab] = useState("desayunos"); // Establece un Tab inicial
-  
   const saveShop = localStorage.getItem('shopCart')
   const saveShopCart = saveShop ? JSON.parse(saveShop) : null
   const [shopCart, setShopCart] = useState(saveShopCart || {products: []} as Cart);
+  const submit = useSubmit();
+
+  const sendOrder = (client: string, clientTable: string, products: ProductCart[]) => {
+    setShopCart({ products: []});
+    submit({
+      products: JSON.stringify(products),
+      client: client,
+      clientTable: clientTable
+    }, {method: "POST", action: "/menu"})
+  };
   
   const addToCart = (product: Product) => {
     // Creamos una copia profunda de shopCart
@@ -93,7 +102,7 @@ export function Menu(): JSX.Element {
     };
 
     setShopCart(updatedShopCart);
-    localStorage.setItem('shopCart', JSON.stringify(shopCart));
+    localStorage.setItem('shopCart', JSON.stringify(updatedShopCart));
   }
 
   const filteredProducts = useMemo(() => {
@@ -143,7 +152,7 @@ export function Menu(): JSX.Element {
         ))}
       </div>
     </div>
-    <ModalButtonOrder cart={shopCart} handleDelete={deleteFromCart} handleQty={modifyQty} />
+    <ModalButtonOrder cart={shopCart} handleDelete={deleteFromCart} handleQty={modifyQty} sendOrder={sendOrder} />
     </div>  
   );
 }

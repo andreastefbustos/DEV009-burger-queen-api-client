@@ -32,11 +32,22 @@ interface CartProps {
     };
     handleDelete: (product: Product) => void;
     handleQty: (type:string, product: Product) => void;
+    sendOrder: (client: string, clientTable: string, products: ProductCart[]) => void;
 
 }
 
-function ModalButtonOrder({cart, handleDelete, handleQty}: CartProps ) {
+function ModalButtonOrder({cart, handleDelete, handleQty, sendOrder}: CartProps ) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+
+  const handleSubmit = (e, onClose) => {
+    e.preventDefault();
+    const clientName = e.target[0].value;
+    const clientTable = e.target[1].value;
+    sendOrder(clientName, clientTable, cart.products);
+    onClose();
+    return false;
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -56,18 +67,20 @@ function ModalButtonOrder({cart, handleDelete, handleQty}: CartProps ) {
             <>
               <ModalHeader className="flex flex-col gap-1">Order</ModalHeader>
               <ModalBody>
-                <Form className="w-full flex flex-col gap-4" method="POST" id="order">
+                <Form className="w-full flex flex-col gap-4" method="POST" id="order" onSubmit={(e) => {handleSubmit(e, onClose)}}>
                     <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
                         <Input
                         type="name"
-                        name="email"
+                        name="client"
                         label="Client's Name"
+                        isRequired
                         />
 
                         <Input
                         type="name"
-                        name="table"
+                        name="clientTable"
                         label="N* table"
+                        isRequired
                         />
                     </div>
                 </Form>
@@ -81,9 +94,9 @@ function ModalButtonOrder({cart, handleDelete, handleQty}: CartProps ) {
                         <div className="name-qty-item-menu">
                             {product.product.name}
                             <div className="sum-less">
-                                <FaPlusCircle onClick={() => {handleQty("increment", product.product)}} style={{ color: '#9CA3AF' }}/>
-                                    {product.qty}
                                 <BsDashCircleFill onClick={() => {handleQty("decrement", product.product)}} style={{ color: '#9CA3AF' }}/>
+                                    {product.qty}
+                                <FaPlusCircle onClick={() => {handleQty("increment", product.product)}} style={{ color: '#9CA3AF' }}/>
                             </div>
                         </div>
                         <div className="trash-price-item-menu">
@@ -94,12 +107,11 @@ function ModalButtonOrder({cart, handleDelete, handleQty}: CartProps ) {
                 ))}
                 <p>Total: {cart.products.reduce((acc, product) => acc + (product.product.price * product.qty), 0)}</p>
               </ModalBody>
-              
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button color="primary"  type="submit" form="order">
                   Send Order
                 </Button>
               </ModalFooter>
