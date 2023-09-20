@@ -129,8 +129,8 @@ export function Menu(): JSX.Element {
       </div>
       <div className="container-cards">
       <div className="cards">
-        {filteredProducts.map((item, index) => (
-          <Card style={{ width: '200px', height: '320px' }} shadow="sm" key={index}>
+        {filteredProducts.map((item) => (
+          <Card style={{ width: '200px', height: '320px' }} shadow="sm" key={item.id}>
             <CardBody className="overflow-visible p-0">
               <Image style={{height: '180px'}}
               shadow="sm"

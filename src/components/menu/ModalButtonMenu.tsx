@@ -85,8 +85,8 @@ function ModalButtonOrder({cart, handleDelete, handleQty, sendOrder}: CartProps 
                     </div>
                 </Form>
                
-                {cart.products.map((product: ProductCart, index: number) => (
-                    <div key={index} className="item-order" id={`item-${product.product.id}`}>
+                {cart.products.map((product: ProductCart) => (
+                    <div key={product.product.id} className="item-order" id={`item-${product.product.id}`}>
                         <img 
                         src={product.product.image}
                         alt={product.product.name} 
