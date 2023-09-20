@@ -30,9 +30,12 @@ interface CartProps {
     cart: {
         products: ProductCart[];
     };
+    handleDelete: (product: Product) => void;
+    handleQty: (type:string, product: Product) => void;
+
 }
 
-function ModalButtonOrder({ cart }: CartProps) {
+function ModalButtonOrder({cart, handleDelete, handleQty}: CartProps ) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
   return (
@@ -70,33 +73,34 @@ function ModalButtonOrder({ cart }: CartProps) {
                 </Form>
                
                 {cart.products.map((product: ProductCart, index: number) => (
-                    <div key={index} className="item-order">
+                    <div key={index} className="item-order" id={`item-${product.product.id}`}>
                         <img 
-                        src={product.product.image} 
+                        src={product.product.image}
                         alt={product.product.name} 
                         className="img-item-menu"/>
-                        <p className="name-qty-item-menu">
+                        <div className="name-qty-item-menu">
                             {product.product.name}
                             <div className="sum-less">
-                                <FaPlusCircle style={{ color: '#9CA3AF' }}/>
+                                <FaPlusCircle onClick={() => {handleQty("increment", product.product)}} style={{ color: '#9CA3AF' }}/>
                                     {product.qty}
-                                <BsDashCircleFill style={{ color: '#9CA3AF' }}/>
+                                <BsDashCircleFill onClick={() => {handleQty("decrement", product.product)}} style={{ color: '#9CA3AF' }}/>
                             </div>
-                        </p>
-                        <p className="trash-price-item-menu">
-                            <FaTrashAlt style={{ color: 'red' }}/> 
-                            ${product.product.price}
-                        </p>
+                        </div>
+                        <div className="trash-price-item-menu">
+                            <FaTrashAlt onClick={() => {handleDelete(product.product)}}  style={{ color: 'red' }} /> 
+                            ${product.product.price * product.qty}
+                        </div>
                     </div>
                 ))}
-
+                <p>Total: {cart.products.reduce((acc, product) => acc + (product.product.price * product.qty), 0)}</p>
               </ModalBody>
+              
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
                 <Button color="primary" onPress={onClose}>
-                  Action
+                  Send Order
                 </Button>
               </ModalFooter>
             </>

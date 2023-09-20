@@ -39,23 +39,60 @@ export function Menu(): JSX.Element {
   const saveShopCart = saveShop ? JSON.parse(saveShop) : null
   const [shopCart, setShopCart] = useState(saveShopCart || {products: []} as Cart);
   
-  const addToCard = (product: Product) => {
-    // Primero buscamos si el producto se encuentra en el carrito a traves del id
-    const found = shopCart.products.find((productCard: ProductCart) => productCard.product.id === product.id)
-    if (found) {
-      found.qty += 1
+  const addToCart = (product: Product) => {
+    // Creamos una copia profunda de shopCart
+    const updatedShopCart = { ...shopCart, products: [...shopCart.products] };
+  
+    // Buscamos si el producto ya está en el carrito
+    const foundProduct = updatedShopCart.products.find((productCard: ProductCart) => productCard.product.id === product.id);
+  
+    if (foundProduct) {
+      // Si el producto ya está en el carrito, incrementamos la cantidad
+      foundProduct.qty += 1;
     } else {
-      // Si el producto no esta se debe de agregar
+      // Si no, agregamos el nuevo producto al carrito
       const newProductCard: ProductCart = {
         qty: 1,
         product: product
       };
-      shopCart.products.push(newProductCard);
+      updatedShopCart.products.push(newProductCard);
+    }
+  
+    setShopCart(updatedShopCart);
+  
+    // Guardar en localStorage
+    localStorage.setItem('shopCart', JSON.stringify(updatedShopCart));
+  }
+
+  const modifyQty = (type: string, product:Product) => {
+    const updatedShopCart = { ...shopCart, products: [...shopCart.products] };
+    const foundProduct = updatedShopCart.products.find((productCard: ProductCart) => productCard.product.id === product.id);
+    if (!foundProduct) {
+      return
     }
 
-    setShopCart(shopCart);
+    if (type === "increment") {
+       foundProduct.qty += 1;
+    }else if (type === "decrement") {
+      foundProduct.qty -= 1;
+      if(foundProduct.qty <= 0) {
+        return deleteFromCart(product)
+      }
+    }
 
+    setShopCart(updatedShopCart);
     // Guardar en localStorage
+    localStorage.setItem('shopCart', JSON.stringify(updatedShopCart));
+  }
+
+  const deleteFromCart = (product: Product) => {
+    const filteredProducts = shopCart.products.filter((p: ProductCart) => { return p.product.id != product.id });
+    const updatedShopCart = {
+      ...shopCart,
+      products: filteredProducts
+    };
+
+    setShopCart(updatedShopCart);
     localStorage.setItem('shopCart', JSON.stringify(shopCart));
   }
 
@@ -99,14 +136,14 @@ export function Menu(): JSX.Element {
               <b>{item.name}</b>
               <p className="text-default-500">${item.price}</p>
             </CardFooter>
-            <Button onClick={() => {addToCard(item)}} className="button_add_order" startContent={<FaClipboardList/>}>
+            <Button onClick={() => {addToCart(item)}} className="button_add_order" startContent={<FaClipboardList/>}>
               Add to order
             </Button> 
           </Card>
         ))}
       </div>
     </div>
-    <ModalButtonOrder cart={shopCart} />
+    <ModalButtonOrder cart={shopCart} handleDelete={deleteFromCart} handleQty={modifyQty} />
     </div>  
   );
 }
