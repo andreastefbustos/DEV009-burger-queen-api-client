@@ -105,7 +105,7 @@ function ModalButtonOrder({cart, handleDelete, handleQty, sendOrder}: CartProps 
                         </div>
                     </div>
                 ))}
-                <p>Total: {cart.products.reduce((acc, product) => acc + (product.product.price * product.qty), 0)}</p>
+                <p className="sum-total-price-products">Total: ${cart.products.reduce((acc, product) => acc + (product.product.price * product.qty), 0)}</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>

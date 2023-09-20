@@ -98,6 +98,12 @@
     font-size: larger;
 }
 
+.sum-total-price-products {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 390px){
     .cards {
         grid-template-columns: repeat(1, 1fr);
