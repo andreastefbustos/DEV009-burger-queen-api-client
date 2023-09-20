@@ -7,11 +7,12 @@ import {
   Tabs,
   Tab } 
 from "@nextui-org/react";
-import { FaClipboardList } from "react-icons/fa";
+import { FaClipboardList, FaPlusCircle } from "react-icons/fa";
 import { useLoaderData, useSubmit } from "react-router-dom";
 import './index.css'
 import { useMemo, useState } from "react";
 import { ModalButtonOrder } from "./ModalButtonMenu";
+import { BsDashCircleFill } from "react-icons/bs";
 
 type Product = {
   id: number;
@@ -105,6 +106,13 @@ export function Menu(): JSX.Element {
     localStorage.setItem('shopCart', JSON.stringify(updatedShopCart));
   }
 
+  // Verificación si el producto ya esta en el carro
+  const isProductInCart = (product: Product): boolean => {
+    const foundProductInCart = shopCart.products.find((productCard: ProductCart) => productCard.product.id === product.id )
+    return !!foundProductInCart;
+  }
+
+
   const filteredProducts = useMemo(() => {
     switch (activeTab) {
       case "desayunos":
@@ -145,9 +153,19 @@ export function Menu(): JSX.Element {
               <b>{item.name}</b>
               <p className="text-default-500">${item.price}</p>
             </CardFooter>
-            <Button onClick={() => {addToCart(item)}} className="button_add_order" startContent={<FaClipboardList/>}>
-              Add to order
-            </Button> 
+            {isProductInCart(item) ? 
+              (
+                <div className="sum-less-menu">
+                  <BsDashCircleFill onClick={() => {modifyQty("decrement", item)}} style={{ color: '#9CA3AF' }}/>
+                    <span>{shopCart.products.find((productCart: ProductCart) => productCart.product.id === item.id)?.qty || 0}</span>
+                  <FaPlusCircle onClick={() => {modifyQty("increment", item)}} style={{ color: '#9CA3AF' }}/>
+                </div>
+              ) : 
+              (
+                <Button onClick={() => {addToCart(item)}} className="button_add_order" startContent={<FaClipboardList/>}>
+                  Add to order
+                </Button>
+              )}
           </Card>
         ))}
       </div>
