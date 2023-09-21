@@ -92,7 +92,7 @@ function Users({users}: UsersProps): JSX.Element {
                 </Button>
             </div>
             <div className="table_information">
-                <Table aria-label="Example static collection table">
+                <Table aria-label="table">
                     <TableHeader>
                         <TableColumn>EMAIL</TableColumn>
                         <TableColumn>ROLE</TableColumn>

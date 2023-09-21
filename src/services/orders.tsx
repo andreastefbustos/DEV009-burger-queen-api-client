@@ -39,4 +39,13 @@ async function createOrder(client: string, clientTable: string, products: Produc
     })
 }
 
-export { createOrder };
+async function getOrders() {
+    return fetch("http://localhost:8080/orders", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+}
+export { createOrder, getOrders };

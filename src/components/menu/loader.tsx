@@ -2,8 +2,9 @@ import { checkUnauthorize } from "../../services/token";
 import { getUsers } from "../../services/users";
 import { getProducts } from "../../services/products";
 import { redirect } from "react-router-dom";
+import { getOrders } from "../../services/orders";
 
-export async function productsLoader() {
+async function productsLoader() {
     const token = localStorage.getItem("token");
     if (!token) {
         return redirect("/login")
@@ -24,3 +25,14 @@ export async function productsLoader() {
 
     return respProducts.json();
 }
+
+async function ordersLoader() {
+    const resp: Response = await getOrders();
+    if(resp.status != 200) {
+        return redirect('/error');
+    }
+    
+    return resp
+}
+
+export { productsLoader, ordersLoader };

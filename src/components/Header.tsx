@@ -13,6 +13,14 @@ function Header (): JSX.Element {
         navigate('/');
     }
 
+    const menu = () => {
+        navigate('/menu')
+    }
+
+    const myOrders = () => {
+        navigate('orders')
+    }
+
     return (
         <div className="headerContainer" style={{backgroundImage: `url(${headerImg})`}}>
             <Dropdown>
@@ -22,6 +30,16 @@ function Header (): JSX.Element {
                     </div>
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Static Actions">
+                    <DropdownItem 
+                    key="menu" 
+                    onClick={menu}>
+                        Menu
+                    </DropdownItem>
+                    <DropdownItem 
+                    key="order" 
+                    onClick={myOrders}>
+                        My orders
+                    </DropdownItem>
                     <DropdownItem 
                     key="delete" 
                     className="text-danger" 
