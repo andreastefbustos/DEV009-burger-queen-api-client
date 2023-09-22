@@ -6,10 +6,10 @@ import {
     TableRow, 
     TableCell,
     Tooltip,
-    Chip} from "@nextui-org/react";
+    Chip,
+    ChipProps} from "@nextui-org/react";
 import { useLoaderData } from "react-router-dom";
 import { EyeIcon } from "../../utilities/EyeIcon";
-
 
 type Product = {
     id: number;
@@ -20,20 +20,21 @@ type Product = {
     dateEntry: string;
 };
 
+type OrdersStatus = "pending" | "ready" | "delivered";
+
 type Orders = {
     client: string;
     table: string;
     products: Product;
     userId: number,
-    status: string;
+    status: OrdersStatus;
     dataEntry: string;
 }
 
 function MyOrders() {
     const orders = useLoaderData() as Orders[];
-    console.log(orders)
 
-    const color = {
+    const statusColorMap: Record<string, ChipProps["color"]> = {
         pending: "warning",
         ready: "success",
         delivered: "default",
@@ -49,12 +50,12 @@ function MyOrders() {
                     <TableColumn>ACTIONS</TableColumn>
                 </TableHeader>
                 <TableBody className="table-body">
-                    {orders.map((order) => (
-                        <TableRow key={order.userId}>
+                    {orders.map((order, index) => (
+                        <TableRow key={index}>
                             <TableCell>{order.table}</TableCell>
                             <TableCell>{order.client}</TableCell>
                             <TableCell>
-                                <Chip className="capitalize" color={color[order.status]} size="sm" variant="flat">
+                                <Chip className="capitalize" color={statusColorMap[order.status]} size="sm" variant="flat">
                                     {order.status}
                                 </Chip>
                             </TableCell>
