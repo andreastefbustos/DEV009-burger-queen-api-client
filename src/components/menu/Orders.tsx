@@ -32,6 +32,12 @@ type Orders = {
 function MyOrders() {
     const orders = useLoaderData() as Orders[];
     console.log(orders)
+
+    const color = {
+        pending: "warning",
+        ready: "success",
+        delivered: "default",
+    }
     
     return (
         <div className="order-details">
@@ -48,7 +54,7 @@ function MyOrders() {
                             <TableCell>{order.table}</TableCell>
                             <TableCell>{order.client}</TableCell>
                             <TableCell>
-                                <Chip className="capitalize" color="warning" size="sm" variant="flat">
+                                <Chip className="capitalize" color={color[order.status]} size="sm" variant="flat">
                                     {order.status}
                                 </Chip>
                             </TableCell>
