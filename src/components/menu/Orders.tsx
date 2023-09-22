@@ -7,9 +7,12 @@ import {
     TableCell,
     Tooltip,
     Chip,
-    ChipProps} from "@nextui-org/react";
+    ChipProps,
+    useDisclosure} from "@nextui-org/react";
 import { useLoaderData } from "react-router-dom";
 import { EyeIcon } from "../../utilities/EyeIcon";
+import { ModalButtonOrderDetail } from "./ModalButtonDetailsOrder";
+import { useState } from "react";
 
 type Product = {
     id: number;
@@ -20,12 +23,17 @@ type Product = {
     dateEntry: string;
 };
 
+type ProductCart = {
+    qty: number;
+    product: Product
+}
+
 type OrdersStatus = "pending" | "ready" | "delivered";
 
 type Orders = {
     client: string;
     table: string;
-    products: Product;
+    products: ProductCart[];
     userId: number,
     status: OrdersStatus;
     dataEntry: string;
@@ -33,13 +41,15 @@ type Orders = {
 
 function MyOrders() {
     const orders = useLoaderData() as Orders[];
+    const [selectedOrder, setSelectedOrder] = useState<Orders | null>(null);
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     const statusColorMap: Record<string, ChipProps["color"]> = {
         pending: "warning",
         ready: "success",
         delivered: "default",
     }
-    
+
     return (
         <div className="order-details">
             <Table isHeaderSticky aria-label="Orders"  className="table-container">
@@ -63,7 +73,10 @@ function MyOrders() {
                                 <div className="relative flex items-center justify-center gap-2">
                                     <Tooltip content="Details">
                                         <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                                            <EyeIcon />
+                                            <EyeIcon onClick={()=> {
+                                                setSelectedOrder(order)
+                                                onOpen()
+                                            }} />
                                         </span>
                                     </Tooltip>
                                 </div>
@@ -72,6 +85,14 @@ function MyOrders() {
                     ))}
                 </TableBody>
             </Table>
+
+            {selectedOrder && (
+                <ModalButtonOrderDetail
+                    order={selectedOrder}
+                    isOpen={isOpen}
+                    onOpenChange={onOpenChange}
+                />
+            )}
         </div>
     );
 }

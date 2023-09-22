@@ -18,7 +18,7 @@ import { UpdateProduct } from './components/dashboard/products/UpdateProduct.tsx
 import { dashboardAction } from './components/dashboard/action.tsx'
 import { Menu } from './components/menu/Menu.tsx'
 import { ordersLoader, productsLoader } from './components/menu/loader.tsx'
-import orderAction from './components/menu/action.tsx'
+import {orderAction } from './components/menu/action.tsx'
 import { MyOrders } from './components/menu/Orders.tsx'
 
 const router = createBrowserRouter([

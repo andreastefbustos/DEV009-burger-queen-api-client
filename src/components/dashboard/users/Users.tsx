@@ -128,7 +128,11 @@ function Users({users}: UsersProps): JSX.Element {
                     </TableBody>
                 </Table>
             </div>
-            <ModalConfirmDelete data={data} isOpen={isOpen} onOpenChange={onOpenChange}/>
+            <ModalConfirmDelete 
+                data={data} 
+                isOpen={isOpen} 
+                onOpenChange={onOpenChange}
+            />
         </div>
     );
 }

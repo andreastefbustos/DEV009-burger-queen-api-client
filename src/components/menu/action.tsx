@@ -2,7 +2,7 @@ import { ActionFunctionArgs, redirect } from "react-router-dom";
 import { createOrder } from "../../services/orders";
 import { checkUnauthorize } from "../../services/token";
 
-export default async function orderAction({request}: ActionFunctionArgs) {
+async function orderAction({request}: ActionFunctionArgs) {
     const formData = await request.formData();
     const clientName = formData.get("client") as string;
     const clientTable = formData.get("clientTable") as string;
@@ -25,3 +25,6 @@ export default async function orderAction({request}: ActionFunctionArgs) {
 
     return {orderCreated: true}
 }
+
+export { orderAction };
+
