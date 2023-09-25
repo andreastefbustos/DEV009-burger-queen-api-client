@@ -6,7 +6,7 @@ export async function updateOrderAction ({request}: ActionFunctionArgs) {
     const formData = await request.formData();
     const orderId = formData.get("id") as string;
 
-    const response = await updateOrder(orderId)
+    const response = await updateOrder(orderId, "ready")
 
     if (checkUnauthorize(response)) {
         return redirect("/")

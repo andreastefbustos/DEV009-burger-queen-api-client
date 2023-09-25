@@ -37,6 +37,8 @@ type Orders = {
     userId: number,
     status: OrdersStatus;
     dataEntry: string;
+    dateProcessed: string;
+    id: string;
 }
 
 function MyOrders() {
@@ -63,6 +65,8 @@ function MyOrders() {
                     <TableColumn>CLIENT</TableColumn>
                     <TableColumn>STATUS</TableColumn>
                     <TableColumn>ACTIONS</TableColumn>
+                    <TableColumn>DATE ORDER</TableColumn>
+                    <TableColumn>DATE DELIVERED</TableColumn>
                 </TableHeader>
                 <TableBody className="table-body">
                     {filteredOrders.map((order, index) => (
@@ -86,6 +90,8 @@ function MyOrders() {
                                     </Tooltip>
                                 </div>
                             </TableCell>
+                            <TableCell>{order.dataEntry}</TableCell>
+                            <TableCell>{order.dateProcessed}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

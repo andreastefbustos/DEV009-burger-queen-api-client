@@ -6,6 +6,7 @@ import {
     ModalFooter, 
     Button,
 } from "@nextui-org/react";
+import { Form } from "react-router-dom";
 
 type Product = {
     id: number;
@@ -30,6 +31,7 @@ type Orders = {
     userId: number,
     status: OrdersStatus;
     dataEntry: string;
+    id: string;
 }
 
 
@@ -54,7 +56,10 @@ function ModalButtonOrderDetail({isOpen, onOpenChange, order}: ModalProps ) {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">Order Details</ModalHeader>
-              <ModalBody>   
+              <ModalBody>
+                <Form name="order_delivered" id="order_delivered" method="POST">
+                  <input type="text" name="id" defaultValue={order?.id} hidden/>
+                </Form>   
                 {order?.products.map(productCart => (
                     <div key={productCart.product.id} className="item-order" id={`item-${productCart.product.id}`}>
                         <img 
@@ -78,7 +83,12 @@ function ModalButtonOrderDetail({isOpen, onOpenChange, order}: ModalProps ) {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button className="delivered-button" color="success"  type="submit" form="order">
+                <Button 
+                className="delivered-button" 
+                color="success"  
+                type="submit" 
+                form="order_delivered"
+                onPress={onClose}>
                   Delivered
                 </Button>
               </ModalFooter>

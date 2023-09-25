@@ -1,5 +1,5 @@
 import { ActionFunctionArgs, redirect } from "react-router-dom";
-import { createOrder } from "../../services/orders";
+import { createOrder, updateOrder } from "../../services/orders";
 import { checkUnauthorize } from "../../services/token";
 
 async function orderAction({request}: ActionFunctionArgs) {
@@ -26,5 +26,22 @@ async function orderAction({request}: ActionFunctionArgs) {
     return {orderCreated: true}
 }
 
-export { orderAction };
+async function updateWaiterOrderAction({request}: ActionFunctionArgs) {
+    const formData = await request.formData();
+    const orderId = formData.get("id") as string;
+
+    const response = await updateOrder(orderId, "delivered");
+
+    if(checkUnauthorize(response)) {
+        return redirect("/")
+    }
+
+    if(response.status != 200) {
+        return redirect("/error");
+    }
+
+    return true;
+}
+
+export { orderAction, updateWaiterOrderAction };
 
