@@ -13,6 +13,8 @@ import { useLoaderData } from "react-router-dom";
 import { EyeIcon } from "../../utilities/EyeIcon";
 import { DetailOrder } from "./DetailOrder";
 import { useState } from "react";
+import { getTimeProcessOrder } from "../../utilities/getTimeProcessOrder"
+import { BiTimer } from "react-icons/bi";
 
 type Product = {
     id: number;
@@ -30,19 +32,24 @@ type ProductCart = {
 
 type OrdersStatus = "pending" | "ready" | "delivered";
 
-type Orders = {
+type Order = {
     client: string;
     table: string;
     products: ProductCart[];
     userId: number,
     status: OrdersStatus;
     dataEntry: string;
+    dateProcessed: string
 }
 
-function MyOrders() {
-    const orders = useLoaderData() as Orders[];
-    const [selectedOrder, setSelectedOrder] = useState<Orders | null>(null);
+function KitchenOrders() {
+    let orders = useLoaderData() as Order[];
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
+    orders = orders.filter((order: Order) => {
+        return order.status != "delivered"  
+    })
 
     const statusColorMap: Record<string, ChipProps["color"]> = {
         pending: "warning",
@@ -54,16 +61,16 @@ function MyOrders() {
         <div className="order-details">
             <Table isHeaderSticky aria-label="Orders"  className="table-container">
                 <TableHeader>
+                    <TableColumn style={{display: "flex", alignItems: "center"}}><BiTimer style={{fontSize: "30px"}}/>TIME</TableColumn>
                     <TableColumn>TABLE</TableColumn>
-                    <TableColumn>CLIENT</TableColumn>
                     <TableColumn>STATUS</TableColumn>
                     <TableColumn>ACTIONS</TableColumn>
                 </TableHeader>
                 <TableBody className="table-body">
                     {orders.map((order, index) => (
                         <TableRow key={index}>
+                            <TableCell>{getTimeProcessOrder(order)}</TableCell>
                             <TableCell>{order.table}</TableCell>
-                            <TableCell>{order.client}</TableCell>
                             <TableCell>
                                 <Chip className="capitalize" color={statusColorMap[order.status]} size="sm" variant="flat">
                                     {order.status}
@@ -97,4 +104,4 @@ function MyOrders() {
     );
 }
 
-export { MyOrders };
+export { KitchenOrders };

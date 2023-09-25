@@ -21,6 +21,7 @@ import { ordersLoader, productsLoader } from './components/menu/loader.tsx'
 import {orderAction } from './components/menu/action.tsx'
 import { MyOrders } from './components/menu/Orders.tsx'
 import { ordersKitchenLoader } from './components/kitchen/loader.tsx'
+import { KitchenOrders } from './components/kitchen/Kitchen.tsx'
 
 const router = createBrowserRouter([
   {
@@ -89,7 +90,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/kitchen',
-        element: <MyOrders />,
+        element: <KitchenOrders />,
         loader: ordersKitchenLoader,
       },
     ]

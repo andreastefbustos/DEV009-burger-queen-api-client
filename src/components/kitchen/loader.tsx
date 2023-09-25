@@ -1,5 +1,6 @@
 import { redirect } from "react-router-dom";
 import { getOrders } from "../../services/orders";
+import { checkUnauthorize } from "../../services/token";
 
 async function ordersKitchenLoader() {
     const token = localStorage.getItem("token");
@@ -13,6 +14,11 @@ async function ordersKitchenLoader() {
     }
 
     const resp: Response = await getOrders();
+
+    if (checkUnauthorize(resp)) {
+        return redirect("/")
+    }
+
     if(resp.status != 200) {
         return redirect('/error');
     }

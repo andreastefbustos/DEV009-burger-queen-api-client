@@ -79,7 +79,7 @@ function DetailOrder({isOpen, onOpenChange, order}: ModalProps ) {
                   Close
                 </Button>
                 <Button className="delivered-button" color="success"  type="submit" form="order">
-                  Delivered
+                  Ready
                 </Button>
               </ModalFooter>
             </>
