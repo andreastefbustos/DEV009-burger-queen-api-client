@@ -49,4 +49,15 @@ async function getOrders() {
     })
 }
 
-export { createOrder, getOrders };
+async function updateOrder(id: string) {
+    return fetch(`http://localhost:8080/orders/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({status: "ready", dateProcessed: getCurrentDateTime()})
+    })
+}
+
+export { createOrder, getOrders, updateOrder };

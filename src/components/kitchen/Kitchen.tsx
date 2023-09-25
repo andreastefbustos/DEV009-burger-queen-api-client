@@ -39,7 +39,8 @@ type Order = {
     userId: number,
     status: OrdersStatus;
     dataEntry: string;
-    dateProcessed: string
+    dateProcessed: string;
+    id: string
 }
 
 function KitchenOrders() {
@@ -61,7 +62,11 @@ function KitchenOrders() {
         <div className="order-details">
             <Table isHeaderSticky aria-label="Orders"  className="table-container">
                 <TableHeader>
-                    <TableColumn style={{display: "flex", alignItems: "center"}}><BiTimer style={{fontSize: "30px"}}/>TIME</TableColumn>
+                    <TableColumn 
+                    style={{display: "flex", alignItems: "center"}}>
+                        <BiTimer style={{fontSize: "30px"}}/>
+                        TIME
+                    </TableColumn>
                     <TableColumn>TABLE</TableColumn>
                     <TableColumn>STATUS</TableColumn>
                     <TableColumn>ACTIONS</TableColumn>

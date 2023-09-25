@@ -22,6 +22,7 @@ import {orderAction } from './components/menu/action.tsx'
 import { MyOrders } from './components/menu/Orders.tsx'
 import { ordersKitchenLoader } from './components/kitchen/loader.tsx'
 import { KitchenOrders } from './components/kitchen/Kitchen.tsx'
+import { updateOrderAction } from './components/kitchen/action.tsx'
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,7 @@ const router = createBrowserRouter([
         path: '/kitchen',
         element: <KitchenOrders />,
         loader: ordersKitchenLoader,
+        action: updateOrderAction,
       },
     ]
   },
