@@ -44,6 +44,11 @@ function MyOrders() {
     const [selectedOrder, setSelectedOrder] = useState<Orders | null>(null);
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
+    const user = JSON.parse(localStorage.getItem("user") as string)
+    const filteredOrders = orders.filter((order) => {
+        return order.userId === user.id
+    })
+
     const statusColorMap: Record<string, ChipProps["color"]> = {
         pending: "warning",
         ready: "success",
@@ -60,7 +65,7 @@ function MyOrders() {
                     <TableColumn>ACTIONS</TableColumn>
                 </TableHeader>
                 <TableBody className="table-body">
-                    {orders.map((order, index) => (
+                    {filteredOrders.map((order, index) => (
                         <TableRow key={index}>
                             <TableCell>{order.table}</TableCell>
                             <TableCell>{order.client}</TableCell>
