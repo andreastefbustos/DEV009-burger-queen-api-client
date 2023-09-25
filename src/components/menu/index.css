@@ -119,6 +119,10 @@
     overflow-y: auto;
 }
 
+.delivered-button {
+    color: white;
+}
+
 @media screen and (max-width: 390px){
     .cards {
         grid-template-columns: repeat(1, 1fr);

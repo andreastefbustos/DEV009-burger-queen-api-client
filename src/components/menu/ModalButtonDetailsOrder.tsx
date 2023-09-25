@@ -78,7 +78,7 @@ function ModalButtonOrderDetail({isOpen, onOpenChange, order}: ModalProps ) {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="success"  type="submit" form="order">
+                <Button className="delivered-button" color="success"  type="submit" form="order">
                   Delivered
                 </Button>
               </ModalFooter>
