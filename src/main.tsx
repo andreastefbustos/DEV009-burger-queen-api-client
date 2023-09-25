@@ -20,6 +20,7 @@ import { Menu } from './components/menu/Menu.tsx'
 import { ordersLoader, productsLoader } from './components/menu/loader.tsx'
 import {orderAction } from './components/menu/action.tsx'
 import { MyOrders } from './components/menu/Orders.tsx'
+import { ordersKitchenLoader } from './components/kitchen/loader.tsx'
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,17 @@ const router = createBrowserRouter([
         path: 'orders',
         element: <MyOrders />,
         loader: ordersLoader,
+      },
+    ]
+  },
+  {
+    path: '/kitchen',
+    element: <Layout/>,
+    children: [
+      {
+        path: '/kitchen',
+        element: <MyOrders />,
+        loader: ordersKitchenLoader,
       },
     ]
   },

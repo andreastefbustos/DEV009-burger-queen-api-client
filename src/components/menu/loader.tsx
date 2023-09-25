@@ -1,5 +1,4 @@
 import { checkUnauthorize } from "../../services/token";
-import { getUsers } from "../../services/users";
 import { getProducts } from "../../services/products";
 import { redirect } from "react-router-dom";
 import { getOrders } from "../../services/orders";
@@ -7,7 +6,7 @@ import { getOrders } from "../../services/orders";
 async function productsLoader() {
     const token = localStorage.getItem("token");
     if (!token) {
-        return redirect("/login")
+        return redirect("/")
     }
 
     const user = JSON.parse(localStorage.getItem("user") as string);
@@ -15,11 +14,9 @@ async function productsLoader() {
         return redirect("/error")
     }
 
-    const respUsers = await getUsers();
     const respProducts = await getProducts();
 
-
-    if (checkUnauthorize(respUsers) || checkUnauthorize(respProducts)) {
+    if (checkUnauthorize(respProducts)) {
         return redirect("/")
     }
 
