@@ -64,7 +64,10 @@ function Users({users}: UsersProps): JSX.Element {
             <div className="flex gap-3">
                 <Dropdown>
                     <DropdownTrigger className="sm:flex" aria-label="Role selection">
-                      <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">Role</Button>
+                      <Button 
+                      endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+                        Role
+                      </Button>
                     </DropdownTrigger>
                     <DropdownMenu
                     disallowEmptySelection

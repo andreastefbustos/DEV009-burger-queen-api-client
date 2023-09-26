@@ -8,11 +8,18 @@ import {
     Tooltip,
     Chip,
     ChipProps,
-    useDisclosure} from "@nextui-org/react";
+    useDisclosure,
+    Dropdown,
+    DropdownTrigger,
+    DropdownMenu,
+    Button,
+    DropdownItem} from "@nextui-org/react";
 import { useLoaderData } from "react-router-dom";
 import { EyeIcon } from "../../utilities/EyeIcon";
 import { ModalButtonOrderDetail } from "./ModalButtonDetailsOrder";
 import { useState } from "react";
+import { ChevronDownIcon } from "../../utilities/ChevronDownIcon";
+import { capitalize } from "../../utilities/utils";
 
 type Product = {
     id: number;
@@ -41,14 +48,25 @@ type Orders = {
     id: string;
 }
 
+const statusOptions = [
+    { name: "Pending", uid: "pending" },
+    { name: "Ready", uid: "ready" },
+    { name: "Delivered", uid: "delivered" },
+];
+
 function MyOrders() {
     const orders = useLoaderData() as Orders[];
     const [selectedOrder, setSelectedOrder] = useState<Orders | null>(null);
+    const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set(['ready', 'pending']));
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     const user = JSON.parse(localStorage.getItem("user") as string)
     const filteredOrders = orders.filter((order) => {
-        return order.userId === user.id
+        const belongsToCurrentWaiter = order.userId === user.id;
+
+        const matchesStatusFilter = statusFilter.size === 0 || statusFilter.size === statusOptions.length || statusFilter.has(order.status)
+
+        return belongsToCurrentWaiter && matchesStatusFilter;
     })
 
     const statusColorMap: Record<string, ChipProps["color"]> = {
@@ -58,7 +76,39 @@ function MyOrders() {
     }
 
     return (
-        <div className="order-details">
+        <div>
+            <div className="flex gap-3">
+                <Dropdown className="sm:flex" aria-label="Status selection">
+                    <DropdownTrigger>
+                        <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">
+                            Status
+                        </Button>
+                    </DropdownTrigger>
+                    <DropdownMenu
+                    disallowEmptySelection
+                    aria-label="Table Columns"
+                    defaultSelectedKeys={['ready', 'pending']}
+                    closeOnSelect={false}
+                    selectedKeys={statusFilter}
+                    selectionMode="multiple"
+                    onSelectionChange={(selectedKeys) => {
+                        if (Array.isArray(selectedKeys)) {
+                            setStatusFilter(new Set(selectedKeys.filter(item => typeof item === 'string')));
+                        } else if (selectedKeys instanceof Set) {
+                            setStatusFilter(new Set(Array.from(selectedKeys).filter(item => typeof item === 'string')));
+                        }
+                    }}>
+                        {
+                            statusOptions.map((status) => (
+                                <DropdownItem key={status.uid} className="capitalize">
+                                    {capitalize(status.name)}
+                                </DropdownItem>
+                            ))
+                        }
+                    </DropdownMenu>
+                </Dropdown>
+            </div>
+            <div className="order-details">
             <Table isHeaderSticky aria-label="Orders"  className="table-container">
                 <TableHeader>
                     <TableColumn>ORDER CREATION</TableColumn>
@@ -104,6 +154,7 @@ function MyOrders() {
                     onOpenChange={onOpenChange}
                 />
             )}
+            </div>
         </div>
     );
 }
