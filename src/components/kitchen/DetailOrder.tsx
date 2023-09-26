@@ -81,14 +81,18 @@ function DetailOrder({isOpen, onOpenChange, order}: ModalProps ) {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button 
-                className="delivered-button" 
-                color="success"  
-                type="submit" 
-                form="order_ready" 
-                onPress={onClose}>
-                  Ready
-                </Button>
+                {
+                  order?.status === "pending" && (
+                    <Button 
+                    className="delivered-button" 
+                    color="success"  
+                    type="submit" 
+                    form="order_ready" 
+                    onPress={onClose}>
+                      Ready
+                    </Button>
+                  )
+                }
               </ModalFooter>
             </>
           )}

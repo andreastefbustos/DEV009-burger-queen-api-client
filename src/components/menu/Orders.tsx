@@ -91,7 +91,6 @@ function MyOrders() {
                                     </Tooltip>
                                 </div>
                             </TableCell>
-                            
                             <TableCell>{order.dateProcessed}</TableCell>
                         </TableRow>
                     ))}
