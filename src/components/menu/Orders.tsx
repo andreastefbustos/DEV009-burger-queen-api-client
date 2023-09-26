@@ -61,16 +61,17 @@ function MyOrders() {
         <div className="order-details">
             <Table isHeaderSticky aria-label="Orders"  className="table-container">
                 <TableHeader>
+                    <TableColumn>ORDER CREATION</TableColumn>
                     <TableColumn>TABLE</TableColumn>
                     <TableColumn>CLIENT</TableColumn>
                     <TableColumn>STATUS</TableColumn>
                     <TableColumn>ACTIONS</TableColumn>
-                    <TableColumn>DATE ORDER</TableColumn>
-                    <TableColumn>DATE DELIVERED</TableColumn>
+                    <TableColumn>DELIVERED</TableColumn>
                 </TableHeader>
                 <TableBody className="table-body">
                     {filteredOrders.map((order, index) => (
                         <TableRow key={index}>
+                            <TableCell>{order.dataEntry}</TableCell>
                             <TableCell>{order.table}</TableCell>
                             <TableCell>{order.client}</TableCell>
                             <TableCell>
@@ -90,7 +91,7 @@ function MyOrders() {
                                     </Tooltip>
                                 </div>
                             </TableCell>
-                            <TableCell>{order.dataEntry}</TableCell>
+                            
                             <TableCell>{order.dateProcessed}</TableCell>
                         </TableRow>
                     ))}
