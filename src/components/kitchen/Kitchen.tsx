@@ -62,25 +62,29 @@ function KitchenOrders() {
         <div className="order-details">
             <Table isHeaderSticky aria-label="Orders"  className="table-container">
                 <TableHeader>
+                    <TableColumn>TABLE</TableColumn>
+                    <TableColumn>RECEIVED</TableColumn>
+                    <TableColumn>STATUS</TableColumn>
+                    <TableColumn>READY ORDER</TableColumn>
                     <TableColumn 
                     style={{display: "flex", alignItems: "center"}}>
                         <BiTimer style={{fontSize: "30px"}}/>
                         TIME
                     </TableColumn>
-                    <TableColumn>TABLE</TableColumn>
-                    <TableColumn>STATUS</TableColumn>
                     <TableColumn>ACTIONS</TableColumn>
                 </TableHeader>
                 <TableBody className="table-body">
                     {orders.map((order, index) => (
                         <TableRow key={index}>
-                            <TableCell>{getTimeProcessOrder(order)}</TableCell>
                             <TableCell>{order.table}</TableCell>
+                            <TableCell>{order.dataEntry}</TableCell>
                             <TableCell>
                                 <Chip className="capitalize" color={statusColorMap[order.status]} size="sm" variant="flat">
                                     {order.status}
                                 </Chip>
                             </TableCell>
+                            <TableCell>{order.dateProcessed}</TableCell>
+                            <TableCell>{getTimeProcessOrder(order)}</TableCell>
                             <TableCell>
                                 <div className="relative flex items-center justify-center gap-2">
                                     <Tooltip content="Details">
