@@ -19,13 +19,7 @@ import { ChevronDownIcon } from "../../../utilities/ChevronDownIcon";
 import { PlusIcon } from "../../../utilities/PlusIcon";
 import { capitalize } from "../../../utilities/utils";
 import { Data, ModalConfirmDelete } from "../../commons/ModalConfirmDelete";
-
-type User = {
-    id: number;
-    email: string;
-    role: string;
-    status: string;
-};
+import { User } from "../../../types/user";
 
 interface UsersProps {
     users: User[];

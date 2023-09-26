@@ -20,33 +20,7 @@ import { ModalButtonOrderDetail } from "./ModalButtonDetailsOrder";
 import { useState } from "react";
 import { ChevronDownIcon } from "../../utilities/ChevronDownIcon";
 import { capitalize } from "../../utilities/utils";
-
-type Product = {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    type: string;
-    dateEntry: string;
-};
-
-type ProductCart = {
-    qty: number;
-    product: Product
-}
-
-type OrdersStatus = "pending" | "ready" | "delivered";
-
-type Orders = {
-    client: string;
-    table: string;
-    products: ProductCart[];
-    userId: number,
-    status: OrdersStatus;
-    dataEntry: string;
-    dateProcessed: string;
-    id: string;
-}
+import { Order } from "../../types/order";
 
 const statusOptions = [
     { name: "Pending", uid: "pending" },
@@ -55,8 +29,8 @@ const statusOptions = [
 ];
 
 function MyOrders() {
-    const orders = useLoaderData() as Orders[];
-    const [selectedOrder, setSelectedOrder] = useState<Orders | null>(null);
+    const orders = useLoaderData() as Order[];
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set(['ready', 'pending']));
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 

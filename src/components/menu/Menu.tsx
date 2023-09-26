@@ -13,24 +13,7 @@ import './index.css'
 import { useMemo, useState } from "react";
 import { ModalButtonOrder } from "./ModalButtonMenu";
 import { BsDashCircleFill } from "react-icons/bs";
-
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  type: string;
-  dateEntry: string;
-};
-
-type ProductCart = {
-  qty: number;
-  product: Product
-}
-
-type Cart = {
-  products: ProductCart[]
-}
+import { Cart, Product, ProductCart } from "../../types/product";
 
 export function Menu(): JSX.Element {
   const products = useLoaderData() as Product[];

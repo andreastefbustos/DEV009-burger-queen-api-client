@@ -1,12 +1,7 @@
-import { Input, Radio, RadioGroup, Button, User } from "@nextui-org/react";
+import { Input, Radio, RadioGroup, Button} from "@nextui-org/react";
 import { MailIcon } from "../../../utilities/MailIcon";
 import { Form, useLoaderData, Link } from "react-router-dom";
-
-type User = {
-    email: string;
-    password: string;
-    role: string;
-};
+import { User } from "../../../types/user";
 
 function UpdateUser (): JSX.Element {
     const user = useLoaderData() as User;

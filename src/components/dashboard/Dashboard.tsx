@@ -9,22 +9,8 @@ import { Products } from "./products/Products";
 import './index.css';
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
-
-type User = {
-  id: number;
-  email: string;
-  role: string;
-  status: string;
-};
-
-type Product = {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  type: string;
-  dateEntry: string;
-};
+import { User } from "../../types/user";
+import { Product } from "../../types/product";
 interface LoaderData {
   users: User[];
   products: Product[];

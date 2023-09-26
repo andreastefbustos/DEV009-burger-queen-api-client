@@ -15,33 +15,7 @@ import { DetailOrder } from "./DetailOrder";
 import { useState } from "react";
 import { getTimeProcessOrder } from "../../utilities/getTimeProcessOrder"
 import { BiTimer } from "react-icons/bi";
-
-type Product = {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    type: string;
-    dateEntry: string;
-};
-
-type ProductCart = {
-    qty: number;
-    product: Product
-}
-
-type OrdersStatus = "pending" | "ready" | "delivered";
-
-type Order = {
-    client: string;
-    table: string;
-    products: ProductCart[];
-    userId: number,
-    status: OrdersStatus;
-    dataEntry: string;
-    dateProcessed: string;
-    id: string
-}
+import { Order } from "../../types/order";
 
 function KitchenOrders() {
     let orders = useLoaderData() as Order[];

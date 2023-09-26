@@ -7,36 +7,11 @@ import {
     Button,
 } from "@nextui-org/react";
 import { Form } from "react-router-dom";
-
-type Product = {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    type: string;
-    dateEntry: string;
-};
-
-type ProductCart = {
-    qty: number;
-    product: Product
-}
-
-type OrdersStatus = "pending" | "ready" | "delivered";
-
-type Orders = {
-    client: string;
-    table: string;
-    products: ProductCart[];
-    userId: number,
-    status: OrdersStatus;
-    dataEntry: string;
-    id: string;
-}
+import { Order } from "../../types/order";
 interface ModalProps {
     isOpen: boolean;
     onOpenChange: (isOpen: boolean) => void;
-    order: Orders | null;
+    order: Order | null;
 }
 
 function DetailOrder({isOpen, onOpenChange, order}: ModalProps ) {

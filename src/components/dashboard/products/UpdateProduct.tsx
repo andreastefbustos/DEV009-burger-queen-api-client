@@ -1,14 +1,6 @@
 import { Input, Radio, RadioGroup, Button, Image } from "@nextui-org/react";
 import { Form, useLoaderData, Link } from "react-router-dom";
-
-type Product = {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    type: string;
-    dateEntry: string;
-};
+import { Product } from "../../../types/product";
 
 function UpdateProduct (): JSX.Element {
     const product = useLoaderData() as Product;

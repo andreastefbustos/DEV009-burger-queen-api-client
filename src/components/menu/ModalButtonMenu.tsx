@@ -11,20 +11,7 @@ import {
 import { FaShoppingCart, FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 import { BsDashCircleFill } from "react-icons/bs";
 import { Form } from "react-router-dom";
-
-type Product = {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    type: string;
-    dateEntry: string;
-};
-  
-type ProductCart = {
-    qty: number;
-    product: Product
-}
+import { Product, ProductCart } from "../../types/product";
 
 interface CartProps {
     cart: {

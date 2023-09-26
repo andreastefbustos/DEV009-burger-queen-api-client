@@ -19,15 +19,8 @@ import { ChevronDownIcon } from "../../../utilities/ChevronDownIcon";
 import { PlusIcon } from "../../../utilities/PlusIcon";
 import { capitalize } from "../../../utilities/utils";
 import { ModalConfirmDelete, Data } from "../../commons/ModalConfirmDelete";
+import { Product } from "../../../types/product";
 
-type Product = {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    type: string;
-    dateEntry: string;
-};
 interface ProductsProps {
     products: Product[];
 }
