@@ -77,7 +77,7 @@ function MyOrders() {
 
     return (
         <div>
-            <div className="flex gap-3">
+            <div className="status-selection flex gap-3">
                 <Dropdown className="sm:flex" aria-label="Status selection">
                     <DropdownTrigger>
                         <Button endContent={<ChevronDownIcon className="text-small" />} variant="flat">

@@ -17,7 +17,7 @@ function Header (): JSX.Element {
         navigate('/menu')
     }
 
-    const myOrders = () => {
+    const orders = () => {
         navigate('orders')
     }
 
@@ -37,8 +37,8 @@ function Header (): JSX.Element {
                     </DropdownItem>
                     <DropdownItem 
                     key="order" 
-                    onClick={myOrders}>
-                        My orders
+                    onClick={orders}>
+                        Orders
                     </DropdownItem>
                     <DropdownItem 
                     key="delete" 

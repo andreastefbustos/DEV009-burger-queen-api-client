@@ -123,6 +123,10 @@
     color: white;
 }
 
+.status-selection {
+    margin: 20px 30px;
+}
+
 @media screen and (max-width: 390px){
     .cards {
         grid-template-columns: repeat(1, 1fr);
