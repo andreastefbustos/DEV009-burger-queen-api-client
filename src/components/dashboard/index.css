@@ -1,51 +1,51 @@
 .table-user {
-    margin-top: 60px;
+  margin-top: 60px;
 }
 
 .title {
-    font-size: larger;
+  font-size: larger;
 }
 
 .table_information {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* Estilos para el formulario */
 .form {
-    margin: 80px;
+  margin: 80px;
 }
 
 /* Estilos para el titulo de create-update user-product */
 h1 {
-    margin-bottom: 50px;
-    color: #9CA3AF;
+  margin-bottom: 50px;
+  color: #9CA3AF;
 }
 
 .button-save-cancel {
-    margin-top: 70px;
+  margin-top: 70px;
 }
 
 @media screen and (max-width: 390px){
-    .title {
-        font-size: medium;
-        width: 90%;
-    }
+  .title {
+    font-size: medium;
+    width: 90%;
+  }
 
-    .users_table {
-        font-size: small;
-    }
+  .users_table {
+    font-size: small;
+  }
 
-    .table {
-        display: none;
-    }
+  .table {
+    display: none;
+  }
 
-    h1 {
-        font-size: xx-large;
-        margin-bottom: 20px;
-        color: #9CA3AF;
-    }
+  h1 {
+    font-size: xx-large;
+    margin-bottom: 20px;
+    color: #9CA3AF;
+  }
 
-    .form {
-        margin: 40px;
-    }
+  .form {
+    margin: 40px;
+  }
 }

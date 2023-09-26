@@ -9,9 +9,9 @@ import {
 import { Form } from "react-router-dom";
 import { Order } from "../../types/order";
 interface ModalProps {
-    isOpen: boolean;
-    onOpenChange: (isOpen: boolean) => void;
-    order: Order | null;
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+  order: Order | null;
 }
 
 function DetailOrder({isOpen, onOpenChange, order}: ModalProps ) {
@@ -19,11 +19,11 @@ function DetailOrder({isOpen, onOpenChange, order}: ModalProps ) {
     <div className="flex flex-col gap-2">
   
       <Modal 
-        isOpen={isOpen} 
-        placement="bottom"
-        onOpenChange={onOpenChange} 
-        scrollBehavior="inside"
-        className="modal-order"
+      isOpen={isOpen} 
+      placement="bottom"
+      onOpenChange={onOpenChange} 
+      scrollBehavior="inside"
+      className="modal-order"
       >
         <ModalContent>
           {(onClose) => (
@@ -34,21 +34,21 @@ function DetailOrder({isOpen, onOpenChange, order}: ModalProps ) {
                   <input type="text" name="id" defaultValue={order?.id} hidden />
                 </Form>   
                 {order?.products.map(productCart => (
-                    <div key={productCart.product.id} className="item-order" id={`item-${productCart.product.id}`}>
-                        <img 
-                        src={productCart.product.image}
-                        alt={productCart.product.name} 
-                        className="img-item-menu"/>
-                        <div className="name-qty-item-menu">
-                            {productCart.product.name}
-                            <div className="qty-display">
-                                Quantity: {productCart.qty}   
-                            </div>
-                        </div>
-                        <div className="price-display">
-                            ${productCart.product.price * productCart.qty}
-                        </div>
+                  <div key={productCart.product.id} className="item-order" id={`item-${productCart.product.id}`}>
+                    <img 
+                    src={productCart.product.image}
+                    alt={productCart.product.name} 
+                    className="img-item-menu"/>
+                    <div className="name-qty-item-menu">
+                      {productCart.product.name}
+                      <div className="qty-display">
+                        Quantity: {productCart.qty}   
+                      </div>
                     </div>
+                    <div className="price-display">
+                        ${productCart.product.price * productCart.qty}
+                    </div>
+                  </div>
                 ))}
                 <p className="sum-total-price-products">Total: ${order?.products.reduce((acc, product) => acc + (product.product.price * product.qty), 0)}</p>
               </ModalBody>

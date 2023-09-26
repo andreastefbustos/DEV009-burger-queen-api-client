@@ -36,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Layout/>,
+    element: <Layout excludes={["menu"]}/>,
     children: [
       {
         path: '/dashboard',
@@ -66,11 +66,17 @@ const router = createBrowserRouter([
         loader: loaderProduct,
         action: updateProductAction,
       },
+      {
+        path: 'orders',
+        element: <MyOrders />,
+        loader: ordersLoader,
+        action: updateWaiterOrderAction,
+      }
     ]
   },
   {
     path: '/menu',
-    element: <Layout/>,
+    element: <Layout excludes={[]}/>,
     children: [
       {
         path: '/menu',
@@ -88,7 +94,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/kitchen',
-    element: <Layout/>,
+    element: <Layout excludes={['menu', 'orders']}/>,
     children: [
       {
         path: '/kitchen',

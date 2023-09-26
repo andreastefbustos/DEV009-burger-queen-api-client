@@ -3,142 +3,142 @@
 @tailwind utilities; */
 
 .container-cards {
-    display: flex;
-    justify-content: center;
-    margin: 40px;
+  display: flex;
+  justify-content: center;
+  margin: 40px;
 }
   
 .cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
 
 .button_add_order {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 
 .footer-title {
-    flex-direction: column;
-    text-align: center;
+  flex-direction: column;
+  text-align: center;
 }
 
 .container-tabs {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 .button-order {
-    background-color: #d97706;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 30px;
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    font-weight: bold;
-    color: #FAFAFA;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 20px;
-    width: 70px;
-    height: 64px;
+  background-color: #d97706;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 30px;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  font-weight: bold;
+  color: #FAFAFA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20px;
+  width: 70px;
+  height: 64px;
 }
 
 .modal-order {
-    z-index: 1001;
+  z-index: 1001;
 }
 
 .item-order {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-bottom: 3px solid #c5c9d0;
-    margin: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 3px solid #c5c9d0;
+  margin: 10px;
 }
 
 .img-item-menu {
-    width: 120px; 
-    height: 90px; 
-    border-radius: 10px;
-    padding: 5px;
+  width: 120px; 
+  height: 90px; 
+  border-radius: 10px;
+  padding: 5px;
 }
 
 .name-qty-item-menu {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sum-less {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    align-items: center;
-    margin: 2px;
-    font-weight: bold;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+  font-weight: bold;
 }
 
 .trash-price-item-menu {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sum-less-menu {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    gap: 20px;
-    align-items: center;
-    font-size: larger;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 20px;
+  align-items: center;
+  font-size: larger;
 }
 
 .sum-total-price-products {
-    display: flex;
-    justify-content: flex-end;
-    font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+  font-weight: bold;
 }
 
 .order-details {
-    margin: 30px;
+  margin: 30px;
 }
 
 .table-container {
-   height: 700px;
-   overflow-y: auto;
+  height: 700px;
+  overflow-y: auto;
 }
 
 .table-body {
-    display: block;
-    max-height: 360px;
-    overflow-y: auto;
+  display: block;
+  max-height: 360px;
+  overflow-y: auto;
 }
 
 .delivered-button {
-    color: white;
+  color: white;
 }
 
 .status-selection {
-    margin: 20px 30px;
+  margin: 20px 30px;
 }
 
 @media screen and (max-width: 390px){
-    .cards {
-        grid-template-columns: repeat(1, 1fr);
-    }
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
-    .button-order {
-        width: 60px;
-        height: 54px;
-    }
+  .button-order {
+    width: 60px;
+    height: 54px;
+  }
 
-    .table-container {
-        height: 500px;
-        overflow-y: auto;
-    }
+  .table-container {
+    height: 500px;
+    overflow-y: auto;
+  }
 }

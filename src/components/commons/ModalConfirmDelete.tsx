@@ -1,19 +1,18 @@
-
 import { 
-    Modal, 
-    ModalContent, 
-    ModalHeader, 
-    ModalBody, 
-    ModalFooter, 
-    Button } 
+  Modal, 
+  ModalContent, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter, 
+  Button } 
 from "@nextui-org/react";
 import { Form } from "react-router-dom";
 
 export type Data = {
-    id: number;
-    title: string
-    message: string
-    intent: string
+  id: number;
+  title: string
+  message: string
+  intent: string
 };
 
 interface ModalProps {
@@ -23,7 +22,7 @@ interface ModalProps {
 }
 
 export function ModalConfirmDelete({ isOpen, onOpenChange, data}: ModalProps) {
-    return (
+  return (
     <div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
