@@ -9,22 +9,46 @@ import {
     Chip,
     ChipProps,
     useDisclosure} from "@nextui-org/react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { EyeIcon } from "../../assets/EyeIcon";
 import { DetailOrder } from "./DetailOrder";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getTimeProcessOrder } from "../../utilities/getTimeProcessOrder"
 import { BiTimer } from "react-icons/bi";
 import { Order } from "../../types/order";
+import { getOrders } from "../../services/orders";
 
 function KitchenOrders() {
-    let orders = useLoaderData() as Order[];
+    const [orders, setOrders] = useState<Order[]>(useLoaderData() as Order[]);
     const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
+    const navigate = useNavigate();
 
-    orders = orders.filter((order: Order) => {
+    const order = orders.filter((order: Order) => {
       return order.status != "delivered"  
     })
+
+    const fetchOrders = useCallback(async () => {
+      const resp = await getOrders();
+      // TODO: Handler errors.
+      if (resp.status != 200) {
+        navigate("/error")
+      }
+  
+      // TODO: Compare the newOrders with the old orders.
+      const newOrders = await resp.json()
+      setOrders(newOrders);
+    }, [navigate]);
+  
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        fetchOrders(); // Hacer una solicitud cada 60 segundos
+      }, 60000);
+  
+      return () => {
+        clearInterval(intervalId); // Limpiar el intervalo cuando el componente se desmonta
+      };
+    }, [fetchOrders]);
 
     const statusColorMap: Record<string, ChipProps["color"]> = {
       pending: "warning",
@@ -48,7 +72,7 @@ function KitchenOrders() {
             <TableColumn>ACTIONS</TableColumn>
           </TableHeader>
           <TableBody className="table-body">
-            {orders.map((order, index) => (
+            {order.map((order, index) => (
               <TableRow key={index}>
                 <TableCell>{order.table}</TableCell>
                 <TableCell>{order.dataEntry}</TableCell>

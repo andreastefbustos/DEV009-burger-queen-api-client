@@ -20,7 +20,21 @@ export async function loginAction({ request }: { request: Request }) {
   // save token and user in local storage
   localStorage.setItem("token", data.accessToken);
   localStorage.setItem("user", JSON.stringify(data.user));
-
+  // const objPermissions: {[key: string]: {defaultRoute: string, permissions: string[]}} = {
+  //   admin: {
+  //     defaultRoute: "dashboard",
+  //     permissions: []
+  //   },
+  //   waiter: {
+  //     defaultRoute: "menu",
+  //     permissions: []
+  //   },
+  //   chef: {
+  //     defaultRoute: "kitchen",
+  //     permissions: []
+  //   },
+  // };
+  // return redirect("/" + objPermissions[data.user.role].defaultRoute);
   switch (data.user.role) {
     case "admin":
       return redirect("/dashboard");

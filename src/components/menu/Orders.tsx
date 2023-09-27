@@ -14,13 +14,14 @@ import {
   DropdownMenu,
   Button,
   DropdownItem} from "@nextui-org/react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { EyeIcon } from "../../assets/EyeIcon";
 import { ModalButtonOrderDetail } from "./ModalButtonDetailsOrder";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ChevronDownIcon } from "../../assets/ChevronDownIcon";
 import { capitalize } from "../../utilities/utils";
 import { Order } from "../../types/order";
+import { getOrders } from "../../services/orders";
 
 const statusOptions = [
   { name: "Pending", uid: "pending" },
@@ -29,10 +30,33 @@ const statusOptions = [
 ];
 
 function MyOrders() {
-  const orders = useLoaderData() as Order[];
+  const [orders, setOrders] = useState<Order[]>(useLoaderData() as Order[]);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set(['ready', 'pending']));
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const navigate = useNavigate();
+
+  const fetchOrders = useCallback(async () => {
+    const resp = await getOrders();
+    // TODO: Handler errors.
+    if (resp.status != 200) {
+      navigate("/error")
+    }
+
+    // TODO: Compare the newOrders with the old orders.
+    const newOrders = await resp.json()
+    setOrders(newOrders);
+  }, [navigate]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchOrders(); // Hacer una solicitud cada 60 segundos
+    }, 60000);
+
+    return () => {
+      clearInterval(intervalId); // Limpiar el intervalo cuando el componente se desmonta
+    };
+  }, [fetchOrders]);
 
   const user = JSON.parse(localStorage.getItem("user") as string)
   const filteredOrders = orders.filter((order) => {
