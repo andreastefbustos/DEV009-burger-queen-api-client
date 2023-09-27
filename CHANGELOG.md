@@ -1,3 +1,32 @@
+## <1.0.1> - <2023-09-27>
+### Sprint learnings
+
+* Como obtener el tiempo cuando el pedido ya esta listo a cuando es entregado.
+
+### Added
+
+* Añadir los tipos del handleSumit para los inputs
+* Modificar la keys de los filtros
+* Añadir el icono de ojo para ver el detalle del pedido
+* Se agrego un objeto para cambiar el color del status de la orden. 
+* Añadir la vista del chef, puede ver los pedidos, se puede hacer check cuando ya este listo el pedido, y luego el estado se actualiza a delivered
+
+### Changed
+
+* Cambios en el CSS para la versión del mobile, y otros estilos para el proyecto, como la distribución de la table, tamaño y agregar scroll
+* Agregar una carpeta para los tipados para las orderes, usuarios y productos.
+* Se cambio la distribución de algunas de las carpertas, de utilities -> assets
+
+### Fixed
+
+* Se arreglo el duplicado de las key en el componente de MyOrders.
+* Indentación del código
+* Se trabajo en el componente de Header para que cada usuario pueda visualizar sus respectivos Items, ej. admin -> sing out / chef -> sing out / waiter -> menu, orders, sign out 
+
+### Removed
+
+* Hacer refactorización del código para dejarlo un poco mas limpio. 
+
 ## <1.0.0> - <2023-09-20>
 
 ### Sprint learnings
