@@ -10,7 +10,7 @@ import {
     ChipProps,
     useDisclosure} from "@nextui-org/react";
 import { useLoaderData } from "react-router-dom";
-import { EyeIcon } from "../../utilities/EyeIcon";
+import { EyeIcon } from "../../assets/EyeIcon";
 import { DetailOrder } from "./DetailOrder";
 import { useState } from "react";
 import { getTimeProcessOrder } from "../../utilities/getTimeProcessOrder"

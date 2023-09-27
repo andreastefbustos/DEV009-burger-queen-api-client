@@ -14,9 +14,9 @@ import {
     useDisclosure,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
-import { VerticalDotsIcon } from "../../../utilities/VerticalDotsIcons";
-import { ChevronDownIcon } from "../../../utilities/ChevronDownIcon";
-import { PlusIcon } from "../../../utilities/PlusIcon";
+import { VerticalDotsIcon } from "../../../assets/VerticalDotsIcons";
+import { ChevronDownIcon } from "../../../assets/ChevronDownIcon";
+import { PlusIcon } from "../../../assets/PlusIcon";
 import { capitalize } from "../../../utilities/utils";
 import { Data, ModalConfirmDelete } from "../../commons/ModalConfirmDelete";
 import { User } from "../../../types/user";

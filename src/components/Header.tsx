@@ -1,5 +1,5 @@
 import { FaUserCircle } from "react-icons/fa";
-import headerImg from "../assets/header.png";
+import headerImg from "../assets/img/header.png";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger} from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 

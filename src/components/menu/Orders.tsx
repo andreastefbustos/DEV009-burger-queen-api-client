@@ -15,10 +15,10 @@ import {
   Button,
   DropdownItem} from "@nextui-org/react";
 import { useLoaderData } from "react-router-dom";
-import { EyeIcon } from "../../utilities/EyeIcon";
+import { EyeIcon } from "../../assets/EyeIcon";
 import { ModalButtonOrderDetail } from "./ModalButtonDetailsOrder";
 import { useState } from "react";
-import { ChevronDownIcon } from "../../utilities/ChevronDownIcon";
+import { ChevronDownIcon } from "../../assets/ChevronDownIcon";
 import { capitalize } from "../../utilities/utils";
 import { Order } from "../../types/order";
 
