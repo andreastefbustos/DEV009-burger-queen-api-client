@@ -5,13 +5,18 @@
 .container-cards {
   display: flex;
   justify-content: center;
-  margin: 40px;
+  margin-top: 70px;
 }
   
 .cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+}
+
+.container-cards .cards {
+  max-height: 700px;
+  overflow-y: auto;
 }
 
 .button_add_order {
@@ -27,7 +32,7 @@
 .container-tabs {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin: 20px;
 }
 
 .button-order {
@@ -140,5 +145,9 @@
   .table-container {
     height: 500px;
     overflow-y: auto;
+  }
+
+  .container-cards .cards {
+    max-height: 500px;
   }
 }

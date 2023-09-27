@@ -2,15 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-} */
-
 /* Estilos para el componente de Error */
 .error {
-  position: relative; /* Añade posición relativa al contenedor principal */
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,10 +13,10 @@
 }
 
 .content-center {
-  position: absolute; /* Asegura que el contenido esté absolutamente posicionado */
-  top: 50%; /* Centra verticalmente */
-  left: 50%; /* Centra horizontalmente */
-  transform: translate(-50%, -50%); /* Desplaza el contenido para un centrado perfecto */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .title-error {
@@ -34,9 +28,9 @@
 }
 
 .error_img_burger {
-  position: absolute; /* Añade posición absoluta a la imagen */
-  bottom: 0; /* Coloca la imagen en la parte inferior */
-  right: 0; /* Coloca la imagen a la derecha */
+  position: absolute;
+  bottom: 0;
+  right: 0;
   width: 300px;
   height: 200px;
 }
@@ -44,18 +38,16 @@
 /* Estilos para el Header  */
 .headerContainer {
   display: flex;
-  /* align-items: center; */
   align-items: flex-start;
   justify-content: flex-end;
-  padding: 10px 20px; /* Esto añade un poco de espacio alrededor del header */
-  background-color: #F7F7F7; /* Puedes cambiar esto según tu preferencia */
-  height: 170px; /* Ajusta este valor según tus necesidades */
-  background-size: cover; /* Asegura que la imagen cubra todo el espacio del encabezado */
-  background-repeat: no-repeat; /* Previene que la imagen se repita */
-  background-position: center center; /* Ajusta la posición de la imagen en el centro */
+  padding: 10px 20px;
+  background-color: #F7F7F7;
+  height: 170px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   position: sticky;
   top: 0;
-  /* z-index: 1000; */
 }
 
 .userIcon {

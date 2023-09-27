@@ -1,13 +1,14 @@
-.table-user {
-  margin-top: 60px;
-}
-
 .title {
   font-size: larger;
 }
 
 .table_information {
   margin-top: 20px;
+}
+
+.table-details {
+  max-height: 700px;
+  overflow-y: auto;
 }
 
 /* Estilos para el formulario */
@@ -46,6 +47,15 @@ h1 {
   }
 
   .form {
-    margin: 40px;
+    margin: 30px;
+  }
+
+  .table-details {
+    max-height: 550px;
+    overflow-y: auto;
+  }
+
+  .button-save-cancel {
+    margin-top: 30px;
   }
 }

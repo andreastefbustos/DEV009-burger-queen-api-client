@@ -28,17 +28,17 @@ function Dashboard(): JSX.Element {
   
   return (
     <div>
-      <div className="table-user flex w-full flex-col justify-center items-center">
-        <Tabs aria-label="Options" selectedKey={selected} onSelectionChange={(key) => setSelected(key as string)}>
+      <div className="flex w-full flex-col items-center">
+        <Tabs style={{margin:"20px 0px 10px 0px"}} aria-label="Options" selectedKey={selected} onSelectionChange={(key) => setSelected(key as string)}>
           <Tab className="title" key="users" title="Users">
-            <Card>
+            <Card className="table-details">
               <CardBody>
                 <Users users={data.users} />
               </CardBody>
             </Card>
           </Tab>
           <Tab className="title" key="products" title="Products">
-            <Card>
+            <Card className="table-details">
               <CardBody>
                 <Products products={data.products}/>
               </CardBody>
