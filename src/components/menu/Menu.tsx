@@ -112,7 +112,7 @@ export function Menu(): JSX.Element {
   return (
     <div>
       <div className="container-tabs">
-      <Tabs style={{position: "fixed", zIndex: "1000"}} key="menu" size="lg" aria-label="Tabs menus" onSelectionChange={(key) => setActiveTab(key.toString())}>
+      <Tabs key="menu" size="lg" aria-label="Tabs menus" onSelectionChange={(key) => setActiveTab(key.toString())}>
           <Tab key="desayunos" title="Desayunos" />
           <Tab key="almuerzosCenas" title="Almuerzos y Cenas" />
           <Tab key="bebidas" title="Bebidas" />

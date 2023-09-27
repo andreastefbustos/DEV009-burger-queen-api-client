@@ -14,7 +14,7 @@ import {
   DropdownMenu,
   Button,
   DropdownItem} from "@nextui-org/react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData} from "react-router-dom";
 import { EyeIcon } from "../../assets/EyeIcon";
 import { ModalButtonOrderDetail } from "./ModalButtonDetailsOrder";
 import { useEffect, useState, useCallback } from "react";
@@ -22,6 +22,7 @@ import { ChevronDownIcon } from "../../assets/ChevronDownIcon";
 import { capitalize } from "../../utilities/utils";
 import { Order } from "../../types/order";
 import { getOrders } from "../../services/orders";
+import { CustomAlert } from "../commons/CustomAlert";
 
 const statusOptions = [
   { name: "Pending", uid: "pending" },
@@ -31,27 +32,29 @@ const statusOptions = [
 
 function MyOrders() {
   const [orders, setOrders] = useState<Order[]>(useLoaderData() as Order[]);
+  const [showAlert, setShowAlert] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set(['ready', 'pending']));
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const fetchOrders = useCallback(async () => {
     const resp = await getOrders();
     // TODO: Handler errors.
+    setShowAlert(true);
     if (resp.status != 200) {
-      navigate("/error")
+      setShowAlert(true);
     }
 
     // TODO: Compare the newOrders with the old orders.
     const newOrders = await resp.json()
     setOrders(newOrders);
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchOrders(); // Hacer una solicitud cada 60 segundos
-    }, 60000);
+    }, 5000);
 
     return () => {
       clearInterval(intervalId); // Limpiar el intervalo cuando el componente se desmonta
@@ -75,6 +78,11 @@ function MyOrders() {
 
   return (
     <div>
+      <CustomAlert
+      show={showAlert}
+      onClose={() => setShowAlert(false)}
+      title="You got an error!"
+      message="Change this and that and try again."/>
       <div className="status-selection flex gap-3">
         <Dropdown className="sm:flex" aria-label="Status selection">
           <DropdownTrigger>
