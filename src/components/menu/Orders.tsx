@@ -23,6 +23,7 @@ import { capitalize } from "../../utilities/utils";
 import { Order } from "../../types/order";
 import { getOrders } from "../../services/orders";
 import { CustomAlert } from "../commons/CustomAlert";
+import '../../index.css';
 
 const statusOptions = [
   { name: "Pending", uid: "pending" },
@@ -33,16 +34,18 @@ const statusOptions = [
 function MyOrders() {
   const [orders, setOrders] = useState<Order[]>(useLoaderData() as Order[]);
   const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState<"success" | "error">("success");
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set(['ready', 'pending']));
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  // const navigate = useNavigate();
+  
 
   const fetchOrders = useCallback(async () => {
     const resp = await getOrders();
-
+  
     if (resp.status != 200) {
       setShowAlert(true);
+      setAlertType("error");
     }
 
     // TODO: Compare the newOrders with the old orders.
@@ -81,7 +84,8 @@ function MyOrders() {
       show={showAlert}
       onClose={() => setShowAlert(false)}
       title="You got an error!"
-      message="Try again."/>
+      message="Try again."
+      type={alertType}/>
       <div className="status-selection flex gap-3">
         <Dropdown className="sm:flex" aria-label="Status selection">
           <DropdownTrigger>
