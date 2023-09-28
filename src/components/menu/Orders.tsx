@@ -40,8 +40,7 @@ function MyOrders() {
 
   const fetchOrders = useCallback(async () => {
     const resp = await getOrders();
-    // TODO: Handler errors.
-    setShowAlert(true);
+
     if (resp.status != 200) {
       setShowAlert(true);
     }
@@ -54,7 +53,7 @@ function MyOrders() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchOrders(); // Hacer una solicitud cada 60 segundos
-    }, 5000);
+    }, 60000);
 
     return () => {
       clearInterval(intervalId); // Limpiar el intervalo cuando el componente se desmonta
@@ -82,7 +81,7 @@ function MyOrders() {
       show={showAlert}
       onClose={() => setShowAlert(false)}
       title="You got an error!"
-      message="Change this and that and try again."/>
+      message="Try again."/>
       <div className="status-selection flex gap-3">
         <Dropdown className="sm:flex" aria-label="Status selection">
           <DropdownTrigger>

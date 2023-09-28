@@ -1,3 +1,5 @@
+import { RiCloseCircleFill } from "react-icons/ri";
+
 interface CustomAlertProps {
   show: boolean;
   onClose: () => void;
@@ -12,7 +14,9 @@ export function CustomAlert({show, onClose, title, message}: CustomAlertProps) {
     <div className="custom-alert">
       <div className="custom-alert-header">
         <h4>{title}</h4>
-        <button onClick={onClose}>X</button>
+        <button className="button-alert-message" onClick={onClose}>
+          <RiCloseCircleFill />
+        </button>
       </div>
       <div className="custom-alert-body">
         <p>{message}</p>
