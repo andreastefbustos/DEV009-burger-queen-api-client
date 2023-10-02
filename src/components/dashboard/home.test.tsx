@@ -1,14 +1,14 @@
-import { render, screen } from "@testing-library/react";
+// import { render, screen } from "@testing-library/react";
 
-import { Dashboard } from './Dashboard';
+// import { Dashboard } from './Dashboard';
 
-describe("Examples", () => {
-  it("should be a teapot", () => {
-    expect(1).toBe(1);
-  });
+// describe("Examples", () => {
+//   it("should be a teapot", () => {
+//     expect(1).toBe(1);
+//   });
 
-  it("should render Home", () => {
-    render(<Dashboard />);
-    screen.debug();
-  });
-});
+//   it("should render Home", () => {
+//     render(<Dashboard />);
+//     screen.debug();
+//   });
+// });

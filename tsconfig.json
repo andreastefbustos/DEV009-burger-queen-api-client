@@ -18,7 +18,9 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "typeRoots": ["./node_modules/@types", "./types"],
   },
   "include": ["src", "EyeFilledIcon.jsx", "EyeSlashFilledIcon.jsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
