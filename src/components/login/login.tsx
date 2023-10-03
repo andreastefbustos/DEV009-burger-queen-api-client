@@ -34,7 +34,7 @@ function Login(): JSX.Element {
             placeholder="Enter your password"
             className="max-w-xs "
             />
-            <Button type="submit" className="button-submit-login font-bold">Sing in</Button>
+            <Button type="submit" className="button-submit-login font-bold">Sign in</Button>
           </Form>
           {actionData && actionData.error && <p className="alert alert-danger">{actionData.message}</p>}
         </div>

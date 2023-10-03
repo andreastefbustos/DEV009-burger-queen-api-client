@@ -1,6 +1,7 @@
 module.exports = {
   roots: ["<rootDir>/src"],
   testEnvironment: "jsdom",
+  setupFiles: ["jest-localstorage-mock"],
   transform: {
     "^.+\\.(ts|js|tsx|jsx)$": "@swc/jest",
   },
