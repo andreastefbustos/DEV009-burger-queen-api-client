@@ -1,12 +1,15 @@
 import { checkUnauthorize } from "../../services/token";
 import { loginUser } from "../../services/users";
 import { redirect } from "react-router-dom";
+import { getFormData } from "../../utilities/utils";
+
 
 export async function loginAction({ request }: { request: Request }) {
-  const formData = await request.formData();
-  const email = formData.get("email") as string;
-  const password =  formData.get("password") as string;
+  const user = await getFormData(request);
+  const email = user.email as string;
+  const password =  user.password as string;
   const response = await loginUser(email, password);
+  console.log("HERE", email, password)
 
   if (checkUnauthorize(response)) {
     return redirect("/")
