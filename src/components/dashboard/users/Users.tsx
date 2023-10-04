@@ -32,7 +32,7 @@ const statusOptions = [
 ];
 
 function Users({users}: UsersProps): JSX.Element {
-    const [statusFilter, setStatusFilter] = useState<Set<string | number>>(new Set());
+    const [statusFilter, setStatusFilter] = useState<Set<string>>(new Set());
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
@@ -73,7 +73,7 @@ function Users({users}: UsersProps): JSX.Element {
                       if (Array.isArray(selectedKeys)) {
                         setStatusFilter(new Set(selectedKeys.filter(item => typeof item === 'string')));
                       } else if (selectedKeys instanceof Set) {
-                        setStatusFilter(new Set(Array.from(selectedKeys).filter(item => typeof item === 'string')));
+                        setStatusFilter(new Set(Array.from(selectedKeys).filter(item => typeof item === 'string')) as Set<string>);
                       }
                     }}
                     >
