@@ -1,3 +1,24 @@
+## <1.0.2> - <2023-10-03>
+### Sprint learnings
+
+* Realizar tests complejos que hagan llamados a APIs externas y haciendo mock de request/response.
+
+### Added
+
+* Realización de los respectivos Test, por lo que se realizó las repectivas instalaciones.
+* Los test del Componente Login se encuentran todas las linea cubiertas, testeando cada caso al momento de renderizar dicho componente.
+
+### Changed
+
+* Cambios en el CSS para la versión del mobile, y otros estilos para el proyecto.
+
+### Fixed
+
+* Se trabajo en el componente de Header para que cada usuario pueda visualizar sus respectivos Items, ej. admin -> sign out / chef -> sign out / waiter -> menu, orders, sign out, por lo tanto se mejoro el código que se había realizado
+
+### Removed
+
+* Se removio el coverage folder para no ser incluido en gitHub, ya que no es parte del proyecto.
 ## <1.0.1> - <2023-09-27>
 ### Sprint learnings
 
