@@ -8,7 +8,7 @@ export async function dashboardLoader({request}: LoaderFunctionArgs) {
   const tab = url.searchParams.get("tab");
   const token = localStorage.getItem("token");
   if (!token) {
-    return redirect("/login")
+    return redirect("/")
   }
 
   const user = JSON.parse(localStorage.getItem("user") as string);

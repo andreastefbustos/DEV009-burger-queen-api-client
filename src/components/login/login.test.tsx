@@ -31,7 +31,7 @@ describe("Login", () => {
     localStorage.clear()
     router = createMemoryRouter(routes, {
       initialEntries: ["/"],
-      initialIndex: 2,
+      initialIndex: 0,
     });
   });
   
@@ -54,7 +54,8 @@ describe("Login", () => {
       element: <div />,
     },
     {
-      path: "/error"
+      path: "/error",
+      element: <div/>
     }
   ];
 

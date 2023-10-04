@@ -9,7 +9,7 @@ async function loginUser(email: string, password: string): Promise<Response> {
 }
 
 async function getUsers() {
-  return await fetch("http://localhost:8080/users", {
+  return fetch("http://localhost:8080/users", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

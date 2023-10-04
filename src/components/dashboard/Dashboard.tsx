@@ -23,7 +23,7 @@ function Dashboard(): JSX.Element {
   if (data.tab !== undefined && data.tab !== "") {
     defaultTab = data.tab;
   }
-  
+
   const [selected, setSelected] = useState(defaultTab);
   
   return (

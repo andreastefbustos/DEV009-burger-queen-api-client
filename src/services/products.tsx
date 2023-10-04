@@ -1,7 +1,7 @@
 import { getCurrentDateTime } from "../utilities/getCurrentDateTime"
 
 async function getProducts() {
-  return await fetch("http://localhost:8080/products", {
+  return fetch("http://localhost:8080/products", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
