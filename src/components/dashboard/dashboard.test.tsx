@@ -1,23 +1,33 @@
-import { render, screen, waitFor} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor} from "@testing-library/react";
 import { Dashboard } from "./Dashboard";
 import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { dashboardLoader, loaderProduct, loaderUser } from "./loader";
-import { getUsers, getUser } from "../../services/users";
+import { getUsers, getUser, createUser} from "../../services/users";
 import { getProducts, getProduct } from "../../services/products";
 
 import fetchMock from "jest-fetch-mock"
+import { CreateFromUser } from "./users/CreateUser";
+import { createUserAction } from "./users/action";
+import { getFormData } from "../../utilities/utils";
 // import { Users } from "./users/Users";
 fetchMock.enableMocks();
 
 jest.mock("../../services/users", () => ({
   getUsers: jest.fn(),
   getUser: jest.fn(),
+  createUser: jest.fn(),
+  updateUser: jest.fn(),
 }));
 
 jest.mock("../../services/products", () => ({
   getProducts: jest.fn(),
   getProduct: jest.fn(),
+}));
+
+jest.mock("../../utilities/utils", () => ({
+  ...jest.requireActual('../../utilities/utils'),
+  getFormData: jest.fn(),
 }));
 
 describe("Dasboard", () => {
@@ -221,4 +231,74 @@ describe("Loader Functions", () => {
       expect(result.headers.get("Location")).toBe("/error");
     })
   });
+});
+
+describe("Users", () => {
+  beforeEach(() => {
+    localStorage.clear()
+  });
+  
+  const routes = [
+    {
+      path: "/",
+      element: <div/>
+    },
+    {
+      path: "/users/create",
+      element: <CreateFromUser />,
+      action: createUserAction,
+    },
+    {
+      path: "/dashboard",
+      element: <div />,
+    },
+    {
+      path: "/error",
+      element: <div/>
+    }
+  ];
+
+  it("Create a user successfully", async () => {
+    (createUser as jest.Mock).mockResolvedValueOnce({
+      status: 201,
+      json : jest.fn().mockResolvedValue({
+        email: "test@example.com",
+        password: "password123",
+        role: "Admin",
+      }),
+    });
+
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/users/create"],
+      initialIndex: 0,
+    });
+
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    const emailInput = screen.getByLabelText("Email address");
+    const passwordInput = screen.getByLabelText("Password");
+    const optionRatio = screen.getByText("Admin")
+    const submitButton = screen.getByText("Save");
+
+    fireEvent.change(emailInput, {target: {value: "test@example.com"}});
+    fireEvent.change(passwordInput, {target: {value: "password123"}});
+    fireEvent.click(optionRatio);
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      email: (emailInput as HTMLInputElement).value,
+      password: (passwordInput as HTMLInputElement).value,
+      role: "Admin",
+    });
+
+
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(createUser).toHaveBeenCalledWith((emailInput as HTMLInputElement).value, (passwordInput as HTMLInputElement).value, "Admin");
+      expect(router.state.location.pathname).toBe("/dashboard");
+    });
+  });
+
 });

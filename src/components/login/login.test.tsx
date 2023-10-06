@@ -10,7 +10,6 @@ import { Router } from "@remix-run/router";
 import fetchMock from "jest-fetch-mock"
 fetchMock.enableMocks();
 
-
 jest.mock("../../services/users", () => ({
   loginUser: jest.fn(),
 }));

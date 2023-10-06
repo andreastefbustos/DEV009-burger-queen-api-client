@@ -1,12 +1,13 @@
 import { checkUnauthorize } from "../../../services/token";
 import { createUser, updateUser } from "../../../services/users";
 import { redirect, Params } from "react-router-dom";
+import { getFormData } from "../../../utilities/utils";
 
 export async function createUserAction({ request }: { request: Request }) {
-    const formData = await request.formData();
-    const email = formData.get("email") as string;
-    const password =  formData.get("password") as string;
-    const role =  formData.get("role") as string;
+    const formData = await getFormData(request);
+    const email = formData.email as string;
+    const password =  formData.password as string;
+    const role =  formData.role as string;
     const response = await createUser(email, password, role);
 
     if (checkUnauthorize(response)) {
@@ -21,10 +22,10 @@ export async function createUserAction({ request }: { request: Request }) {
 }
 
 export async function updateUserAction({params, request}: {params: Params<string>, request: Request}) {
-    const formData = await request.formData();
+    const formData = await getFormData(request);
     const userId = params.id!;
-    const password =  formData.get("password") as string;
-    const role =  formData.get("role") as string;
+    const password =  formData.password as string;
+    const role =  formData.role as string;
     const response = await updateUser(userId, password, role);
     
     if (checkUnauthorize(response)) {
