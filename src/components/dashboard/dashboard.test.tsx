@@ -1,13 +1,11 @@
+import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {userEvent} from "@testing-library/user-event";
 import { Dashboard } from "./Dashboard";
-import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { dashboardLoader, loaderProduct, loaderUser } from "./loader";
 import { getUsers, getUser, createUser, updateUser} from "../../services/users";
 import { getProducts, getProduct, createProduct, updateProduct } from "../../services/products";
-
-import fetchMock from "jest-fetch-mock"
 import { CreateFromUser } from "./users/CreateUser";
 import { createUserAction, updateUserAction } from "./users/action";
 import { getFormData } from "../../utilities/utils";
@@ -17,10 +15,13 @@ import { UpdateUser } from "./users/UpdateUser";
 import { CreateFromProduct } from "./products/CreateProduct";
 import { createProductAction, updateProductAction } from "./products/action";
 import { UpdateProduct } from "./products/UpdateProduct";
+import { Products } from "./products/Products";
+import { Product } from "../../types/product";
 
-
+import fetchMock from "jest-fetch-mock"
 fetchMock.enableMocks();
 
+//Mock Users services
 jest.mock("../../services/users", () => ({
   getUsers: jest.fn(),
   getUser: jest.fn(),
@@ -28,6 +29,7 @@ jest.mock("../../services/users", () => ({
   updateUser: jest.fn(),
 }));
 
+//Mock Product services
 jest.mock("../../services/products", () => ({
   getProducts: jest.fn(),
   getProduct: jest.fn(),
@@ -581,7 +583,6 @@ describe("Users", () => {
     await waitFor(() => {
       expect(screen.getByText("admin@gmail.com")).toBeInTheDocument();
       expect(screen.queryByText("waiter@gmail.com")).toBeNull();
-
     })
   });
 });
@@ -867,53 +868,54 @@ describe("Products", () => {
     });
   });
 
-  // it("Filter products", async () => {
-  //   localStorage.setItem("token", "token");
-  //   localStorage.setItem("user", JSON.stringify({role: "admin"}));
-  //   const users = [
-  //     {
-  //       email: "waiter@gmail.com",
-  //       id: 1,
-  //       password: 'password123',
-  //       role: 'waiter',
-  //     },
-  //     {
-  //       email: "admin@gmail.com",
-  //       id: 2,
-  //       password: 'password123',
-  //       role: 'admin',
-  //     }
-  //   ] as User[];
+  it("Filter products", async () => {
+    localStorage.setItem("token", "token");
+    localStorage.setItem("user", JSON.stringify({role: "admin"}));
+    const products = [
+      {
+        id: 1,
+        name: "Sandwich",
+        price: 5,
+        image: "https://example.com/sandwich.jpg",
+        type: "desayuno"
+      },
+      {
+        id: 2,
+        name: "Arroz con carne",
+        price: 10,
+        image: "https://example.com/arroz.jpg",
+        type: "almuerzo_cena"
+      }
+    ] as Product[];
 
-  //   const routes = [
-  //     {
-  //       path: "/products",
-  //       element: <Products users={users} />
-  //     },
-  //   ];
+    const routes = [
+      {
+        path: "/products",
+        element: <Products products={products} />
+      },
+    ];
 
-  //   const router = createMemoryRouter(routes, {
-  //     initialEntries: ["/users"],
-  //     initialIndex: 0,
-  //   });
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/products"],
+      initialIndex: 0,
+    });
 
-  //   render(
-  //     <RouterProvider router={router}/>
-  //   );
+    render(
+      <RouterProvider router={router}/>
+    );
 
-  //   const roles = screen.getByText("Role");
-  //   fireEvent.click(roles);
+    const types = screen.getByText("Type");
+    fireEvent.click(types);
 
-  //   const checkAdmin = screen.getByText("Admin");
-  //   userEvent.click(checkAdmin);
+    const checkDesayuno = screen.getByText("Desayuno");
+    userEvent.click(checkDesayuno);
 
-  //   const checkChef = screen.getByText("Chef");
-  //   userEvent.click(checkChef);
+    const checkAlmuerzoYcena = screen.getByText("Almuerzo y Cena");
+    userEvent.click(checkAlmuerzoYcena);
     
-  //   await waitFor(() => {
-  //     expect(screen.getByText("admin@gmail.com")).toBeInTheDocument();
-  //     expect(screen.queryByText("waiter@gmail.com")).toBeNull();
-
-  //   })
-  // });
+    await waitFor(() => {
+      expect(screen.queryByText("Sandwich")).toBeInTheDocument();
+      expect(screen.queryByText("Arroz con carne")).toBeNull();
+    })
+  });
 });
