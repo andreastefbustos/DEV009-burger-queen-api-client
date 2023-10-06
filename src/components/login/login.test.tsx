@@ -172,7 +172,7 @@ describe("Login", () => {
     });
   });
 
-  it("If user is chef should be redirect to Menu page when credentials are correct", async () => {
+  it("When the user is not admin, chef or waiter, should be redirect to error page", async () => {
     const token = "dummy-token";
     const user = {role: 'unknownRole'};
 
