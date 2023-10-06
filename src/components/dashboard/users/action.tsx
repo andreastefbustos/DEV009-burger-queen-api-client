@@ -27,7 +27,6 @@ export async function updateUserAction({params, request}: {params: Params<string
     const password =  formData.password as string;
     const role =  formData.role as string;
     const response = await updateUser(userId, password, role);
-    console.log("se ejecuta esto?")
     if (checkUnauthorize(response)) {
         return redirect("/")
     }

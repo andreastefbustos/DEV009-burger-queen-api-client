@@ -25,7 +25,7 @@ function UpdateProduct (): JSX.Element {
             type="number"
             name="price"
             label="Price"
-            defaultValue={product.price.toString()} 
+            defaultValue={product.price ? product.price.toString(): ''} 
             placeholder="0.00"
             labelPlacement="outside"
             startContent={

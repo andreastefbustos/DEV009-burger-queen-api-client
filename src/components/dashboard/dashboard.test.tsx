@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { dashboardLoader, loaderProduct, loaderUser } from "./loader";
 import { getUsers, getUser, createUser, updateUser} from "../../services/users";
-import { getProducts, getProduct, createProduct } from "../../services/products";
+import { getProducts, getProduct, createProduct, updateProduct } from "../../services/products";
 
 import fetchMock from "jest-fetch-mock"
 import { CreateFromUser } from "./users/CreateUser";
@@ -15,9 +15,10 @@ import { Users } from "./users/Users";
 import { User } from "../../types/user";
 import { UpdateUser } from "./users/UpdateUser";
 import { CreateFromProduct } from "./products/CreateProduct";
-import { createProductAction } from "./products/action";
-import { Products } from "./products/Products";
-// import { Users } from "./users/Users";
+import { createProductAction, updateProductAction } from "./products/action";
+import { UpdateProduct } from "./products/UpdateProduct";
+
+
 fetchMock.enableMocks();
 
 jest.mock("../../services/users", () => ({
@@ -31,6 +32,7 @@ jest.mock("../../services/products", () => ({
   getProducts: jest.fn(),
   getProduct: jest.fn(),
   createProduct: jest.fn(),
+  updateProduct: jest.fn(),
 }));
 
 jest.mock("../../utilities/utils", () => ({
@@ -38,6 +40,7 @@ jest.mock("../../utilities/utils", () => ({
   getFormData: jest.fn(),
 }));
 
+//Test para el componente de Dashboard
 describe("Dasboard", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -178,6 +181,7 @@ describe("Dasboard", () => {
   });
 });
 
+//Test para el componente de Dashboard Loader con los loader de Users y Products
 describe("Loader Functions", () => {
   const mockRequest = new Request("http://test.com", {
     method: "GET",
@@ -241,6 +245,40 @@ describe("Loader Functions", () => {
   });
 });
 
+//Test para el componente de Users
+const routerForUsers = (initialEntries: string[]) => {
+  const routes = [
+    {
+      path: "/",
+      element: <div/>
+    },
+    {
+      path: "/users/create",
+      element: <CreateFromUser />,
+      action: createUserAction,
+    },
+    {
+      path: '/users/:id/update',
+      element: <UpdateUser />,
+      loader: loaderUser,
+      action: updateUserAction
+    },
+    {
+      path: "/dashboard",
+      element: <div />,
+    },
+    {
+      path: "/error",
+      element: <div/>
+    }
+  ];
+
+  return createMemoryRouter(routes, {
+    initialEntries: initialEntries,
+    initialIndex: 0,
+  });
+};
+
 describe("Users", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -257,31 +295,7 @@ describe("Users", () => {
       }),
     });
 
-    const routes = [
-      {
-        path: "/",
-        element: <div/>
-      },
-      {
-        path: "/users/create",
-        element: <CreateFromUser />,
-        action: createUserAction,
-      },
-      {
-        path: "/dashboard",
-        element: <div />,
-      },
-      {
-        path: "/error",
-        element: <div/>
-      }
-    ];
-
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/users/create"],
-      initialIndex: 0,
-    });
-
+    const router = routerForUsers(["/users/create"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -310,73 +324,214 @@ describe("Users", () => {
     });
   });
 
-  // it("Update a user successfully", async () => {
-  //   const newPassword = "password";
-  //   //1. Mock inicial para obtener los detalles del usuario 
-  //   (getUser as jest.Mock).mockResolvedValueOnce({
-  //     status: 200,
-  //     json: jest.fn().mockResolvedValueOnce({
-  //       id: "1",
-  //       email: "example@gmail.com",
-  //       password: "password123",
-  //       role: "admin",
-  //     })
-  //   });
+  it("Create a new user fails with 401", async () => {
+    (createUser as jest.Mock).mockResolvedValueOnce({
+      status: 401,
+    });
 
-  //   (updateUser as jest.Mock).mockResolvedValueOnce({
-  //     status: 200,
-  //     json: jest.fn().mockResolvedValueOnce({
-  //       id: "1",
-  //       email: "example@gmail.com",
-  //       password: newPassword,
-  //       role: "waiter",
-  //     })
-  //   });
+    const router = routerForUsers(["/users/create"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    const emailInput = screen.getByLabelText("Email address");
+    const passwordInput = screen.getByLabelText("Password");
+    const optionRatio = screen.getByText("Admin")
+    const submitButton = screen.getByText("Save");
+
+    fireEvent.change(emailInput, {target: {value: "admin@example.com"}});
+    fireEvent.change(passwordInput, {target: {value: "password123"}});
+    fireEvent.click(optionRatio);
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      email: (emailInput as HTMLInputElement).value,
+      password: (passwordInput as HTMLInputElement).value,
+      role: "Admin",
+    });
 
 
-  //   (getFormData as jest.Mock).mockResolvedValue({
-  //     password: newPassword,
-  //     role: "waiter",
-  //   });
+    fireEvent.click(submitButton);
 
-  //   const routes = [
-  //     {
-  //       path: '/users/:id/update',
-  //       element: <UpdateUser />,
-  //       loader: loaderUser,
-  //       action: updateUserAction
-  //     },
-  //     {
-  //       path: '/dashboard',
-  //       element: <div/>,
-  //     },
-  //   ];
+    await waitFor(() => {
+      expect(createUser).toHaveBeenCalledWith((emailInput as HTMLInputElement).value, (passwordInput as HTMLInputElement).value, "Admin");
+      expect(router.state.location.pathname).toBe("/");
+    });
+  });
+
+  it("Create a new user fails with 400", async () => {
+    (createUser as jest.Mock).mockResolvedValueOnce({
+      status: 400,
+    });
+
+    const router = routerForUsers(["/users/create"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    const emailInput = screen.getByLabelText("Email address");
+    const passwordInput = screen.getByLabelText("Password");
+    const optionRatio = screen.getByText("Admin")
+    const submitButton = screen.getByText("Save");
+
+    fireEvent.change(emailInput, {target: {value: "admin@example.com"}});
+    fireEvent.change(passwordInput, {target: {value: "password123"}});
+    fireEvent.click(optionRatio);
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      email: (emailInput as HTMLInputElement).value,
+      password: (passwordInput as HTMLInputElement).value,
+      role: "Admin",
+    });
+
+
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(createUser).toHaveBeenCalledWith((emailInput as HTMLInputElement).value, (passwordInput as HTMLInputElement).value, "Admin");
+      expect(router.state.location.pathname).toBe("/error");
+    });
+  });
+
+  it("Update a user successfully", async () => {
+    //1. Mock inicial para obtener los detalles del usuario 
+    (getUser as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValueOnce({
+        id: "1",
+        email: "example@gmail.com",
+        password: "password123",
+        role: "admin",
+      })
+    });
+
+    (updateUser as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValueOnce({
+        id: "1",
+        email: "example@gmail.com",
+        password: "password",
+        role: "waiter",
+      })
+    });
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      password: "password",
+      role: "waiter",
+    });
+
+    const router = routerForUsers(["/users/1/update"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    await waitFor(() => {
+      expect(getUser).toBeCalledTimes(1);
+      const passwordInput = screen.getByLabelText("Password");
+      const optionRatio = screen.getByText("Waiter")
+      const submitButton = screen.getByText("Save");
+
+      fireEvent.change(passwordInput, {target: {value: "password"}});
+      fireEvent.click(optionRatio);
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      expect(updateUser).toBeCalledTimes(1);
+      expect(router.state.location.pathname).toBe("/dashboard");
+    });
+  });
+
+  it("Update user fails with 401", async () => {
+    const newPassword = "password";
+    //1. Mock inicial para obtener los detalles del usuario 
+    (getUser as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValueOnce({
+        id: "1",
+        email: "example@gmail.com",
+        password: "password123",
+        role: "admin",
+      })
+    });
+
+    (updateUser as jest.Mock).mockResolvedValueOnce({
+      status: 401,
+    });
+
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      password: newPassword,
+      role: "waiter",
+    });
   
+    const router = routerForUsers(["/users/1/update"]);
+    render(
+      <RouterProvider router={router}/>
+    );
 
-  //   const router = createMemoryRouter(routes, {
-  //     initialEntries: ["/users/1/update"],
-  //     initialIndex: 0,
-  //   });
+    await waitFor(() => {
+      expect(getUser).toBeCalledTimes(1);
+      const passwordInput = screen.getByLabelText("Password");
+      const optionRatio = screen.getByText("Waiter")
+      const submitButton = screen.getByText("Save");
 
-  //   render(
-  //     <RouterProvider router={router}/>
-  //   );
+      fireEvent.change(passwordInput, {target: {value: newPassword}});
+      fireEvent.click(optionRatio);
 
-  //   await waitFor(() => {
-  //     // expect(updateUser).toHaveBeenCalledWith((passwordInput as HTMLInputElement).value, "Waiter");
-  //     expect(getUser).toBeCalledTimes(1);
-  //     const passwordInput = screen.getByLabelText("Password");
-  //     const optionRatio = screen.getByText("Waiter")
-  //     const submitButton = screen.getByText("Save");
+      fireEvent.click(submitButton);
+    });
 
-  //     fireEvent.change(passwordInput, {target: {value: newPassword}});
-  //     fireEvent.click(optionRatio);
+    await waitFor(() => {
+      expect(updateUser).toBeCalledTimes(1);
+      expect(router.state.location.pathname).toBe("/");
+    });
+  });
 
-  //     fireEvent.click(submitButton);  
-  //     console.log(router.state.location.pathname);
-  //     expect(router.state.location.pathname).toBe("/dashboard");
-  //   });
-  // });
+  it("Update user fails with 400", async () => {
+    const newPassword = "password";
+    //1. Mock inicial para obtener los detalles del usuario 
+    (getUser as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValueOnce({
+        id: "1",
+        email: "example@gmail.com",
+        password: "password123",
+        role: "admin",
+      })
+    });
+
+    (updateUser as jest.Mock).mockResolvedValueOnce({
+      status: 400,
+    });
+
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      password: newPassword,
+      role: "waiter",
+    });
+  
+    const router = routerForUsers(["/users/1/update"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    await waitFor(() => {
+      expect(getUser).toBeCalledTimes(1);
+      const passwordInput = screen.getByLabelText("Password");
+      const optionRatio = screen.getByText("Waiter")
+      const submitButton = screen.getByText("Save");
+
+      fireEvent.change(passwordInput, {target: {value: newPassword}});
+      fireEvent.click(optionRatio);
+
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      expect(updateUser).toBeCalledTimes(1);
+      expect(router.state.location.pathname).toBe("/error");
+    });
+  });
 
   it("Filter users", async () => {
     localStorage.setItem("token", "token");
@@ -431,6 +586,40 @@ describe("Users", () => {
   });
 });
 
+//Test para el componente de Products
+const routerForProducts = (initialEntries: string[]) => {
+  const routes = [
+    {
+      path: "/",
+      element: <div/>
+    },
+    {
+      path: "/products/create",
+      element: <CreateFromProduct />,
+      action: createProductAction,
+    },
+    {
+      path: '/products/:id/update',
+      element: <UpdateProduct />,
+      loader: loaderProduct,
+      action: updateProductAction,
+    },
+    {
+      path: "/dashboard",
+      element: <div />,
+    },
+    {
+      path: "/error",
+      element: <div/>
+    }
+  ];
+
+  return createMemoryRouter(routes, {
+    initialEntries: initialEntries,
+    initialIndex: 0,
+  });
+};
+
 describe("Products", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -448,31 +637,7 @@ describe("Products", () => {
       }),
     });
 
-    const routes = [
-      {
-        path: "/",
-        element: <div/>
-      },
-      {
-        path: "/products/create",
-        element: <CreateFromProduct />,
-        action: createProductAction,
-      },
-      {
-        path: "/dashboard",
-        element: <div />,
-      },
-      {
-        path: "/error",
-        element: <div/>
-      }
-    ];
-
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/products/create"],
-      initialIndex: 0,
-    });
-
+    const router = routerForProducts(["/products/create"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -500,6 +665,205 @@ describe("Products", () => {
     await waitFor(() => {
       expect(createProduct).toHaveBeenCalledWith((nameInput as HTMLInputElement).value, (priceInput as HTMLInputElement).value, (imageInput as HTMLInputElement).value, "Almuerzo y Cena");
       expect(router.state.location.pathname).toBe("/dashboard");
+    });
+  });
+
+  it("Create a new product fails with 401", async () => {
+    (createProduct as jest.Mock).mockResolvedValueOnce({
+      status: 401,
+    });
+
+    const router = routerForProducts(["/products/create"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    const nameInput = screen.getByLabelText("Name");
+    const priceInput = screen.getByLabelText("Price");
+    const imageInput = screen.getByLabelText("Image");
+    const optionRatio = screen.getByText("Almuerzo y Cena")
+    const submitButton = screen.getByText("Save");
+
+    fireEvent.change(nameInput, {target: {value: "Pasta"}});
+    fireEvent.change(priceInput, {target: {value: 5}});
+    fireEvent.change(imageInput, {target: {value: "https://example.com/sandwich.jpg"}});
+    fireEvent.click(optionRatio);
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      name: (nameInput as HTMLInputElement).value,
+      price: (priceInput as HTMLInputElement).value,
+      image: (imageInput as HTMLInputElement).value,
+      type: "Almuerzo y Cena",
+    });
+
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(createProduct).toHaveBeenCalledWith((nameInput as HTMLInputElement).value, (priceInput as HTMLInputElement).value, (imageInput as HTMLInputElement).value, "Almuerzo y Cena");
+      expect(router.state.location.pathname).toBe("/");
+    });
+  });
+
+  it("Create a new product fails with 400", async () => {
+    (createProduct as jest.Mock).mockResolvedValueOnce({
+      status: 400,
+    });
+
+    const router = routerForProducts(["/products/create"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    const nameInput = screen.getByLabelText("Name");
+    const priceInput = screen.getByLabelText("Price");
+    const imageInput = screen.getByLabelText("Image");
+    const optionRatio = screen.getByText("Almuerzo y Cena")
+    const submitButton = screen.getByText("Save");
+
+    fireEvent.change(nameInput, {target: {value: "Pasta"}});
+    fireEvent.change(priceInput, {target: {value: 5}});
+    fireEvent.change(imageInput, {target: {value: "https://example.com/sandwich.jpg"}});
+    fireEvent.click(optionRatio);
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      name: (nameInput as HTMLInputElement).value,
+      price: (priceInput as HTMLInputElement).value,
+      image: (imageInput as HTMLInputElement).value,
+      type: "Almuerzo y Cena",
+    });
+
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(createProduct).toHaveBeenCalledWith((nameInput as HTMLInputElement).value, (priceInput as HTMLInputElement).value, (imageInput as HTMLInputElement).value, "Almuerzo y Cena");
+      expect(router.state.location.pathname).toBe("/error");
+    });
+  });
+
+  it("Update a product successfully", async () => {
+    //1. Mock inicial para obtener los detalles del producto
+    (getProduct as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValueOnce({
+        id: 1,
+        name: "Pasta",
+        price: 5,
+        image: "https://example.com/sandwich.jpg",
+        type: "Almuerzo y Cena"
+      })
+    });
+
+    (updateProduct as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValueOnce({
+        id: 1,
+        name: "Pasta con carne",
+      })
+    });
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      name: "Pasta con carne",
+    });
+
+    const router = routerForProducts(["/products/1/update"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    await waitFor(() => {
+      expect(getProduct).toBeCalledTimes(1);
+      const nameInput = screen.getByLabelText("Name");
+      const submitButton = screen.getByText("Save");
+
+      fireEvent.change(nameInput, {target: {value: "Pasta con carne"}});
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      expect(updateProduct).toBeCalledTimes(1);
+      expect(router.state.location.pathname).toBe("/dashboard");
+    });
+  });
+
+  it("Update product fails with 401", async () => {
+    //1. Mock inicial para obtener los detalles del producto
+    (getProduct as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValueOnce({
+        id: 1,
+        name: "Pasta",
+        price: 5,
+        image: "https://example.com/sandwich.jpg",
+        type: "Almuerzo y Cena"
+      })
+    });
+
+    (updateProduct as jest.Mock).mockResolvedValueOnce({
+      status: 401,
+    });
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      name: "Pasta con carne",
+    });
+
+    const router = routerForProducts(["/products/1/update"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    await waitFor(() => {
+      expect(getProduct).toBeCalledTimes(1);
+      const nameInput = screen.getByLabelText("Name");
+      const submitButton = screen.getByText("Save");
+
+      fireEvent.change(nameInput, {target: {value: "Pasta con carne"}});
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      expect(updateProduct).toBeCalledTimes(1);
+      expect(router.state.location.pathname).toBe("/");
+    });
+  });
+
+  it("Update product fails with 400", async () => {
+    //1. Mock inicial para obtener los detalles del producto
+    (getProduct as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValueOnce({
+        id: 1,
+        name: "Pasta",
+        price: 5,
+        image: "https://example.com/sandwich.jpg",
+        type: "Almuerzo y Cena"
+      })
+    });
+
+    (updateProduct as jest.Mock).mockResolvedValueOnce({
+      status: 400,
+    });
+
+    (getFormData as jest.Mock).mockResolvedValue({
+      name: "Pasta con carne",
+    });
+
+    const router = routerForProducts(["/products/1/update"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    await waitFor(() => {
+      expect(getProduct).toBeCalledTimes(1);
+      const nameInput = screen.getByLabelText("Name");
+      const submitButton = screen.getByText("Save");
+
+      fireEvent.change(nameInput, {target: {value: "Pasta con carne"}});
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      expect(updateProduct).toBeCalledTimes(1);
+      expect(router.state.location.pathname).toBe("/error");
     });
   });
 
