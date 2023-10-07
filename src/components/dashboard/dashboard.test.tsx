@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor} from "@testing-library/react";
-import {userEvent} from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { Dashboard } from "./Dashboard";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { dashboardLoader, loaderProduct, loaderUser } from "./loader";

@@ -1,12 +1,13 @@
 import { ActionFunctionArgs, redirect } from "react-router-dom";
 import { createOrder, updateOrder } from "../../services/orders";
 import { checkUnauthorize } from "../../services/token";
+import { getFormData } from "../../utilities/utils";
 
 async function orderAction({request}: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const clientName = formData.get("client") as string;
-  const clientTable = formData.get("clientTable") as string;
-  const productsStr = formData.get("products") as string;
+  const formData = await getFormData(request);
+  const clientName = formData.client as string;
+  const clientTable = formData.clientTable as string;
+  const productsStr = formData.products as string;
   if (!productsStr) {
     throw new Error("Products are missing");
   }
@@ -27,8 +28,8 @@ async function orderAction({request}: ActionFunctionArgs) {
 }
 
 async function updateWaiterOrderAction({request}: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const orderId = formData.get("id") as string;
+  const formData = await getFormData(request);
+  const orderId = formData.id as string;
 
   const response = await updateOrder(orderId, "delivered");
 
