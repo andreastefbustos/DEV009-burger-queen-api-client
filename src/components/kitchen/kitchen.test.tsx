@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, waitFor} from "@testing-library/react";
+import { screen, render, waitFor} from "@testing-library/react";
 import { getOrders } from "../../services/orders";
 
 import fetchMock from "jest-fetch-mock"
@@ -17,27 +17,39 @@ jest.mock("../../utilities/utils", () => ({
   getFormData: jest.fn(),
 }));
 
-describe("Render view Kitchen", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-  
+const routerForOrders = (initialEntries: string[]) => {
   const routes = [
+    {
+      path: "/",
+      element: <div/>
+    },
     {
       path: '/kitchen',
       element: <KitchenOrders />,
       loader: ordersKitchenLoader,
     },
     {
-      path: "/error",
-      element: <div />
+      path: "/dashboard",
+      element: <div />,
     },
     {
-      path: "/",
-      element: <div />
+      path: "/error",
+      element: <div/>
     }
   ];
 
+  return createMemoryRouter(routes, {
+    initialEntries: initialEntries,
+    initialIndex: 0,
+  });
+};
+
+describe("Render view Kitchen", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    jest.clearAllMocks();
+  });
+  
   it("Render Orders", async () => {
     localStorage.setItem("token", "token");
     localStorage.setItem("user", JSON.stringify({role: "chef"}));
@@ -70,26 +82,20 @@ describe("Render view Kitchen", () => {
       ),
     });
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/kitchen"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForOrders(["/kitchen"]);
     render(
       <RouterProvider router={router}/>
     );
 
     await waitFor(() => {
       expect(getOrders).toHaveBeenCalledTimes(1);
+      expect(screen.getByText("2")).toBeInTheDocument();
     })
   });
 
   it("The user is not log in", async () => {
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/kitchen"],
-      initialIndex: 0,
-    });
-  
+
+    const router = routerForOrders(["/kitchen"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -103,11 +109,7 @@ describe("Render view Kitchen", () => {
     localStorage.setItem("token", "token");
     localStorage.setItem("user", JSON.stringify({role: "admin"}));
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/kitchen"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForOrders(["/kitchen"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -126,11 +128,7 @@ describe("Render view Kitchen", () => {
       json: jest.fn(),
     });
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/kitchen"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForOrders(["/kitchen"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -143,17 +141,13 @@ describe("Render view Kitchen", () => {
   it("Fail render orders", async () => {
     localStorage.setItem("token", "token");
     localStorage.setItem("user", JSON.stringify({role: "chef"}));
-    
+
     (getOrders as jest.Mock).mockResolvedValueOnce({
       status: 400,
       json: jest.fn(),
     });
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/kitchen"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForOrders(["/kitchen"]);
     render(
       <RouterProvider router={router}/>
     );

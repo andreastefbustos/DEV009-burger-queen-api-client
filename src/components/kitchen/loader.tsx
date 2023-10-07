@@ -22,8 +22,8 @@ async function ordersKitchenLoader() {
   if(resp.status != 200) {
     return redirect('/error');
   }
-  
-  return resp
+
+  return resp.json()
 }
 
 export { ordersKitchenLoader };
