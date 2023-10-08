@@ -30,7 +30,7 @@ jest.mock("../../utilities/utils", () => ({
 }));
 
 //Test for Menu
-const routerForMenu = (initialEntries: string[]) => {
+const routerForMenuAndOrders = (initialEntries: string[]) => {
   const routes = [
     {
       path: "/",
@@ -41,6 +41,12 @@ const routerForMenu = (initialEntries: string[]) => {
       element: <Menu />,
       loader: productsLoader,
       action: orderAction,
+    },
+    {
+      path: '/orders',
+      element: <MyOrders />,
+      loader: ordersLoader,
+      action: updateWaiterOrderAction,
     },
     {
       path: "/dashboard",
@@ -78,25 +84,25 @@ describe("Menu", () => {
             image: "https://user-images.githubusercontent.com/101216162/267149526-e902c23c-deba-4e2e-9918-182f61cace0f.png",
             name: "Hamburguesa doble",
             price: "15",
-            type: "almuerzo_cena"
+            type: "desayuno"
           }
         ]
       ),
     })
 
-    const router = routerForMenu(['/menu']);
+    const router = routerForMenuAndOrders(['/menu']);
     render(
       <RouterProvider router={router}/>
     );
 
     await waitFor(() => {
       expect(getProducts).toHaveBeenCalledTimes(1);
-      expect(screen.getByText("Bebidas")).toBeInTheDocument();
+      expect(screen.getByText("Hamburguesa doble")).toBeInTheDocument();
     })
   });
 
   it("The user is not log in", async () => {
-    const router = routerForMenu(["/menu"]);
+    const router = routerForMenuAndOrders(["/menu"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -110,7 +116,7 @@ describe("Menu", () => {
     localStorage.setItem("token", "token");
     localStorage.setItem("user", JSON.stringify({role: "chef"}));
 
-    const router = routerForMenu(["/menu"]);
+    const router = routerForMenuAndOrders(["/menu"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -128,7 +134,7 @@ describe("Menu", () => {
       json: jest.fn(),
     });
 
-    const router = routerForMenu(["/menu"]);
+    const router = routerForMenuAndOrders(["/menu"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -139,29 +145,17 @@ describe("Menu", () => {
   });
 })
 
+//Test para las Ordenes
 describe("Orders", () => {
   beforeEach(() => {
     localStorage.clear();
+    jest.clearAllMocks();
   });
   
-  const routes = [
-    {
-      path: '/orders',
-      element: <MyOrders />,
-      loader: ordersLoader,
-      action: updateWaiterOrderAction,
-    },
-    {
-      path: "/error",
-      element: <div />
-    },
-    {
-      path: "/",
-      element: <div />
-    }
-  ];
-
   it("Render Orders", async () => {
+    localStorage.setItem("token", "token");
+    localStorage.setItem("user", JSON.stringify({id: 1}));
+
     (getOrders as jest.Mock).mockResolvedValueOnce({
       status: 200,
       json: jest.fn().mockResolvedValue(
@@ -190,17 +184,14 @@ describe("Orders", () => {
       ),
     });
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/orders"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForMenuAndOrders(["/orders"]);
     render(
       <RouterProvider router={router}/>
     );
 
     await waitFor(() => {
       expect(getOrders).toHaveBeenCalledTimes(1);
+      expect(screen.getByText("2")).toBeInTheDocument();
     })
   });
 
@@ -210,11 +201,7 @@ describe("Orders", () => {
       json: jest.fn(),
     });
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/orders"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForMenuAndOrders(["/orders"]);
     render(
       <RouterProvider router={router}/>
     );

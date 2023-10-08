@@ -29,7 +29,7 @@ async function ordersLoader() {
     return redirect('/error');
   }
   
-  return resp
+  return resp.json();
 }
 
 export { productsLoader, ordersLoader };
