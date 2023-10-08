@@ -1,9 +1,7 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen, waitFor} from "@testing-library/react";
-import { createOrder, updateOrder } from "../../services/orders";
+import { render, screen, waitFor} from "@testing-library/react";
 import { getProducts } from "../../services/products";
 import { getOrders } from "../../services/orders";
-import { getFormData } from "../../utilities/utils";
 import { ordersLoader, productsLoader } from "./loader";
 import { orderAction, updateWaiterOrderAction } from "./action";
 import { Menu } from "./Menu";
@@ -31,12 +29,13 @@ jest.mock("../../utilities/utils", () => ({
   getFormData: jest.fn(),
 }));
 
-describe("Menu", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-  
+//Test for Menu
+const routerForMenu = (initialEntries: string[]) => {
   const routes = [
+    {
+      path: "/",
+      element: <div/>
+    },
     {
       path: '/menu',
       element: <Menu />,
@@ -44,14 +43,26 @@ describe("Menu", () => {
       action: orderAction,
     },
     {
-      path: "/error",
-      element: <div />
+      path: "/dashboard",
+      element: <div />,
     },
     {
-      path: "/",
-      element: <div />
+      path: "/error",
+      element: <div/>
     }
   ];
+
+  return createMemoryRouter(routes, {
+    initialEntries: initialEntries,
+    initialIndex: 0,
+  });
+};
+
+describe("Menu", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    jest.clearAllMocks();
+  });
 
   it("Render products in menu", async () => {
     localStorage.setItem("token", "token");
@@ -73,26 +84,19 @@ describe("Menu", () => {
       ),
     })
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/menu"],
-      initialIndex: 0,
-    });
-
+    const router = routerForMenu(['/menu']);
     render(
       <RouterProvider router={router}/>
     );
 
     await waitFor(() => {
       expect(getProducts).toHaveBeenCalledTimes(1);
+      expect(screen.getByText("Bebidas")).toBeInTheDocument();
     })
   });
 
   it("The user is not log in", async () => {
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/menu"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForMenu(["/menu"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -106,11 +110,7 @@ describe("Menu", () => {
     localStorage.setItem("token", "token");
     localStorage.setItem("user", JSON.stringify({role: "chef"}));
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/menu"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForMenu(["/menu"]);
     render(
       <RouterProvider router={router}/>
     );
@@ -128,11 +128,7 @@ describe("Menu", () => {
       json: jest.fn(),
     });
 
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/menu"],
-      initialIndex: 0,
-    });
-  
+    const router = routerForMenu(["/menu"]);
     render(
       <RouterProvider router={router}/>
     );
