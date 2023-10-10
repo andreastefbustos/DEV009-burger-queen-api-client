@@ -1,7 +1,7 @@
 import { getCurrentDateTime } from "../utilities/getCurrentDateTime"
 
 async function getProducts() {
-  return fetch("http://localhost:8080/products", {
+  return fetch("https://queen-api-mock.onrender.com/products", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -11,7 +11,7 @@ async function getProducts() {
 }
 
 async function getProduct(id: string): Promise<Response> {
-  return fetch(`http://localhost:8080/products/${id}`, {
+  return fetch(`https://queen-api-mock.onrender.com/products/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +21,7 @@ async function getProduct(id: string): Promise<Response> {
 }
 
 async function createProduct(name: string, price: number, image: string, type: string): Promise<Response> {
-  return fetch("http://localhost:8080/products", {
+  return fetch("https://queen-api-mock.onrender.com/products", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ async function createProduct(name: string, price: number, image: string, type: s
 }
 
 async function updateProduct(id: string, name: string, price: number, image: string, type: string): Promise<Response> {
-  return fetch(`http://localhost:8080/products/${id}`, {
+  return fetch(`https://queen-api-mock.onrender.com/products/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +46,7 @@ async function updateProduct(id: string, name: string, price: number, image: str
 }
 
 async function deleteProduct(id: string): Promise<Response> {
-  return fetch(`http://localhost:8080/products/${id}`, {
+  return fetch(`https://queen-api-mock.onrender.com/products/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

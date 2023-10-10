@@ -9,7 +9,7 @@ async function createOrder(client: string, clientTable: string, products: Produc
 
   const u = JSON.parse(user);
 
-  return fetch("http://localhost:8080/orders", {
+  return fetch("https://queen-api-mock.onrender.com/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,7 @@ async function createOrder(client: string, clientTable: string, products: Produc
 }
 
 async function getOrders() {
-  return fetch("http://localhost:8080/orders", {
+  return fetch("https://queen-api-mock.onrender.com/orders", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ async function getOrders() {
 }
 
 async function updateOrder(id: string, status: string) {
-  return fetch(`http://localhost:8080/orders/${id}`, {
+  return fetch(`https://queen-api-mock.onrender.com/orders/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

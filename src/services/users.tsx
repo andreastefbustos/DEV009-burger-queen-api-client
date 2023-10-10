@@ -1,5 +1,5 @@
 async function loginUser(email: string, password: string): Promise<Response> {
-  return fetch("http://localhost:8080/login", {
+  return fetch("https://queen-api-mock.onrender.com/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -9,7 +9,7 @@ async function loginUser(email: string, password: string): Promise<Response> {
 }
 
 async function getUsers() {
-  return fetch("http://localhost:8080/users", {
+  return fetch("https://queen-api-mock.onrender.com/users", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +19,7 @@ async function getUsers() {
 }
 
 async function getUser(id: string): Promise<Response> {
-  return fetch(`http://localhost:8080/users/${id}`, {
+  return fetch(`https://queen-api-mock.onrender.com/users/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +29,7 @@ async function getUser(id: string): Promise<Response> {
 }
 
 async function createUser(email: string, password: string, role: string): Promise<Response> {
-  return fetch("http://localhost:8080/users", {
+  return fetch("https://queen-api-mock.onrender.com/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -39,7 +39,7 @@ async function createUser(email: string, password: string, role: string): Promis
 }
 
 async function updateUser(id: string, password: string, role: string): Promise<Response> {
-  return fetch(`http://localhost:8080/users/${id}`, {
+  return fetch(`https://queen-api-mock.onrender.com/users/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ async function updateUser(id: string, password: string, role: string): Promise<R
 }
 
 async function deleteUser(id: string): Promise<Response> {
-  return fetch(`http://localhost:8080/users/${id}`, {
+  return fetch(`https://queen-api-mock.onrender.com/users/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
