@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
 
     "typeRoots": ["./node_modules/@types", "./types"],
-    "types": ["jest", "node", "testing-library__jest-dom"],
+    "types": ["jest", "node"],
   },
   "include": ["src", "EyeFilledIcon.jsx", "EyeSlashFilledIcon.jsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
