@@ -12,6 +12,7 @@ import { FaShoppingCart, FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 import { BsDashCircleFill } from "react-icons/bs";
 import { Form } from "react-router-dom";
 import { Product, ProductCart } from "../../types/product";
+import { useState } from "react";
 
 interface CartProps {
   cart: {
@@ -25,12 +26,12 @@ interface CartProps {
 
 function ModalButtonOrder({cart, handleDelete, handleQty, sendOrder}: CartProps ) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [clientName, setClientName] = useState('');
+  const [clientTable, setClientTable] = useState('');
 
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>, onClose: () => void) => {
     e.preventDefault();
-    const clientName = (e.currentTarget[0] as HTMLInputElement).value;
-    const clientTable = (e.currentTarget[1] as HTMLInputElement).value;
     sendOrder(clientName, clientTable, cart.products);
     onClose();
     return false;
@@ -38,7 +39,7 @@ function ModalButtonOrder({cart, handleDelete, handleQty, sendOrder}: CartProps 
 
   return (
     <div className="flex flex-col gap-2">
-      <Button onPress={onOpen} className="button-order">
+      <Button data-testid="open-modal" onPress={onOpen} className="button-order">
         <FaShoppingCart />
       </Button>
   
@@ -60,6 +61,7 @@ function ModalButtonOrder({cart, handleDelete, handleQty, sendOrder}: CartProps 
                     type="name"
                     name="client"
                     label="Client's Name"
+                    onChange={(e) => setClientName(e.target.value)}
                     isRequired
                     />
 
@@ -67,6 +69,7 @@ function ModalButtonOrder({cart, handleDelete, handleQty, sendOrder}: CartProps 
                     type="name"
                     name="clientTable"
                     label="N* table"
+                    onChange={(e) => setClientTable(e.target.value)}
                     isRequired
                     />
                   </div>

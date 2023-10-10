@@ -6,6 +6,7 @@ import fetchMock from "jest-fetch-mock"
 import { KitchenOrders } from "./Kitchen";
 import { ordersKitchenLoader } from "./loader";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
 fetchMock.enableMocks();
 
 jest.mock("../../services/orders", () => ({
@@ -61,17 +62,19 @@ describe("Render view Kitchen", () => {
           {
             client: "Maria",
             table: "2",
-            products: {
-              qty: 2,
-              product: {
-                dateEntry: "2023-09-12 15:16:05",
-                id: 6,
-                image: "https://user-images.githubusercontent.com/101216162/267149526-e902c23c-deba-4e2e-9918-182f61cace0f.png",
-                name: "Hamburguesa doble",
-                price: "15",
-                type: "almuerzo_cena"
+            products: [
+              {
+                qty: 2,
+                product: {
+                  dateEntry: "2023-09-12 15:16:05",
+                  id: 6,
+                  image: "https://user-images.githubusercontent.com/101216162/267149526-e902c23c-deba-4e2e-9918-182f61cace0f.png",
+                  name: "Hamburguesa doble",
+                  price: "15",
+                  type: "almuerzo_cena"
+                }
               }
-            },
+            ],
             userId: 1,
             status: "pending",
             dataEntry: "01-09-2023",
@@ -157,4 +160,59 @@ describe("Render view Kitchen", () => {
     })
   });
   
+  it("See order details", async () => {
+    localStorage.setItem("token", "token");
+    localStorage.setItem("user", JSON.stringify({role: "chef"}));
+
+    (getOrders as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      json: jest.fn().mockResolvedValue(
+        [
+          {
+            client: "Maria",
+            table: "2",
+            products: [
+              {
+                qty: 2,
+                product: {
+                  dateEntry: "2023-09-12 15:16:05",
+                  id: 6,
+                  image: "https://user-images.githubusercontent.com/101216162/267149526-e902c23c-deba-4e2e-9918-182f61cace0f.png",
+                  name: "Hamburguesa doble",
+                  price: "15",
+                  type: "almuerzo_cena"
+                }
+              }
+            ],
+            userId: 1,
+            status: "pending",
+            dataEntry: "01-09-2023",
+            dateProcessed: "01-09-2023",
+            id: 2,
+          }
+        ]
+      ),
+    });
+
+    const router = routerForOrders(["/kitchen"]);
+    render(
+      <RouterProvider router={router}/>
+    );
+
+    await waitFor(() => {
+      expect(getOrders).toHaveBeenCalledTimes(1);
+      expect(screen.getByText("2")).toBeInTheDocument();
+      expect(screen.getByText("pending")).toBeInTheDocument();
+      userEvent.click(screen.getByTestId("action"));
+    })
+
+    await waitFor(() => {
+      expect(screen.getByText("Hamburguesa doble")).toBeInTheDocument();
+      expect(screen.getByText("$30")).toBeInTheDocument();
+      expect(screen.getByText("Quantity: 2")).toBeInTheDocument();
+      expect(screen.getByText("Total: $30")).toBeInTheDocument();
+
+    });
+  });
+
 })

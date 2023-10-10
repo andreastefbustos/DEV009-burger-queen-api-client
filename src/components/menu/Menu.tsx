@@ -139,9 +139,9 @@ export function Menu(): JSX.Element {
             {isProductInCart(item) ? 
               (
                 <div className="sum-less-menu">
-                  <BsDashCircleFill onClick={() => {modifyQty("decrement", item)}} style={{ color: '#9CA3AF' }}/>
+                  <BsDashCircleFill data-testid='decrement' onClick={() => {modifyQty("decrement", item)}} style={{ color: '#9CA3AF' }}/>
                     <span>{shopCart.products.find((productCart: ProductCart) => productCart.product.id === item.id)?.qty || 0}</span>
-                  <FaPlusCircle onClick={() => {modifyQty("increment", item)}} style={{ color: '#9CA3AF' }}/>
+                  <FaPlusCircle data-testid='increment' onClick={() => {modifyQty("increment", item)}} style={{ color: '#9CA3AF' }}/>
                 </div>
               ) : 
               (

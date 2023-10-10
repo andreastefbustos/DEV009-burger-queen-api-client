@@ -13,11 +13,13 @@ async function orderAction({request}: ActionFunctionArgs) {
   }
 
   const products = JSON.parse(productsStr);
+  console.log("VOY a crear la orden")
   const resp = await createOrder(clientName, clientTable, products)
+  console.log("ENTRO 2", resp)
   if (checkUnauthorize(resp)) {
     return redirect("/")
   }
-
+  console.log("ENTRO 3", resp)
   if (resp.status !== 201) {
     return redirect("/error")
   }
