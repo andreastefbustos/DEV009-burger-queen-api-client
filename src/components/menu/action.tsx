@@ -8,18 +8,18 @@ async function orderAction({request}: ActionFunctionArgs) {
   const clientName = formData.client as string;
   const clientTable = formData.clientTable as string;
   const productsStr = formData.products as string;
+
   if (!productsStr) {
     throw new Error("Products are missing");
   }
 
   const products = JSON.parse(productsStr);
-  console.log("VOY a crear la orden")
+
   const resp = await createOrder(clientName, clientTable, products)
-  console.log("ENTRO 2", resp)
   if (checkUnauthorize(resp)) {
     return redirect("/")
   }
-  console.log("ENTRO 3", resp)
+
   if (resp.status !== 201) {
     return redirect("/error")
   }
