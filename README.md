@@ -119,6 +119,11 @@ En resumen, "Burger Queen API Client" sirve para optimizar la operación del res
 
 Comienza tu experiencia accediendo a la aplicación [aquí](https://moonlit-pasca-e1a4fa.netlify.app)
 
+|Waiter                   |Chef                   |Admin                  |
+|-------------------------|-----------------------|-----------------------|
+|email: waiter@gmail.com  |email: chef@gmail.com  |email: admin@gmail.com |
+|contraseña: 123456       |contraseña: 123456     |contraseña: 123456     |
+
 La aplicación cuenta con tres vistas principales según el rol del usuario: **Administrador (Admin)**, **Mesero (Waiter)** y **Chef**. Cada vista está diseñada para satisfacer las necesidades específicas de cada rol. A continuación, se describe cómo usar cada una de estas vistas:
 
 ### 1. Vista de Administrador (Admin)
