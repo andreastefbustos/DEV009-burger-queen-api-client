@@ -119,10 +119,10 @@ En resumen, "Burger Queen API Client" sirve para optimizar la operación del res
 
 Comienza tu experiencia accediendo a la aplicación [aquí](https://burger-queen-abo.netlify.app/)
 
-|Waiter                   |Chef                   |Admin                  |
-|-------------------------|-----------------------|-----------------------|
-|email: waiter@gmail.com  |email: chef@gmail.com  |email: admin@gmail.com |
-|contraseña: 123456       |contraseña: 123456     |contraseña: 123456     |
+|Waiter                |Chef                   |Admin                             |
+|----------------------|-----------------------|----------------------------------|
+|email: cami@gmail.com |email: bustos@gmail.com|email: andreastefbustos@gmail.com |
+|contraseña: 123456    |contraseña: 123456     |contraseña: 123456                |
 
 La aplicación cuenta con tres vistas principales según el rol del usuario: **Administrador (Admin)**, **Mesero (Waiter)** y **Chef**. Cada vista está diseñada para satisfacer las necesidades específicas de cada rol. A continuación, se describe cómo usar cada una de estas vistas:
 

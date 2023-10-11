@@ -1,3 +1,18 @@
+## <1.0.3> - <2023-10-11>
+
+### Added
+
+* Test para el componente padres de Login, Dashboard, Menu y Kitchen 
+* README
+
+### Changed
+
+* Cambios en el CSS para la versión del mobile, y otros estilos para el proyecto.
+
+### Fixed
+
+* Se modificó el error de tsconfig.json
+
 ## <1.0.2> - <2023-10-03>
 ### Sprint learnings
 
@@ -19,6 +34,7 @@
 ### Removed
 
 * Se removio el coverage folder para no ser incluido en gitHub, ya que no es parte del proyecto.
+
 ## <1.0.1> - <2023-09-27>
 ### Sprint learnings
 
