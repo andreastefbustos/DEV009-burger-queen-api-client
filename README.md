@@ -117,7 +117,7 @@ En resumen, "Burger Queen API Client" sirve para optimizar la operación del res
 
 ### Guía de Uso de la Aplicación "Burger Queen API Client"
 
-Comienza tu experiencia accediendo a la aplicación [aquí](https://moonlit-pasca-e1a4fa.netlify.app)
+Comienza tu experiencia accediendo a la aplicación [aquí](https://burger-queen-abo.netlify.app/)
 
 |Waiter                   |Chef                   |Admin                  |
 |-------------------------|-----------------------|-----------------------|

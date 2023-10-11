@@ -7,13 +7,15 @@
 }
 
 .table-details {
-  max-height: 700px;
+  max-height: 450px;
   overflow-y: auto;
 }
 
 /* Estilos para el formulario */
 .form {
-  margin: 80px;
+  margin: 50px;
+  max-height: 480px;
+  overflow-y: auto;
 }
 
 /* Estilos para el titulo de create-update user-product */
@@ -23,7 +25,7 @@ h1 {
 }
 
 .button-save-cancel {
-  margin-top: 70px;
+  margin-top: 50px;
 }
 
 @media screen and (max-width: 390px){
@@ -57,5 +59,67 @@ h1 {
 
   .button-save-cancel {
     margin-top: 30px;
+  }
+}
+
+@media screen and (min-width: 391px)and (max-width: 500px){
+  .table-details {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .title {
+    font-size: medium;
+    width: 90%;
+  }
+
+  .users_table {
+    font-size: small;
+  }
+
+  .table {
+    display: none;
+  }
+
+  h1 {
+    font-size: xx-large;
+    margin-bottom: 20px;
+    color: #9CA3AF;
+  }
+
+  .form {
+    margin: 30px;
+    max-height: 480px;
+    overflow-y: auto;
+  }
+
+  .button-save-cancel {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (min-width: 501px)and (max-width: 1024px){
+  .table-details {
+    max-height: 700px;
+    overflow-y: auto;
+  }
+
+  .table {
+    display: none;
+  }
+
+  h1 {
+    margin-bottom: 50px;
+    color: #9CA3AF;
+  }
+  
+  .button-save-cancel {
+    margin-top: 70px;
+  }
+
+  .form {
+    margin: 80px;
+    max-height: 700px;
+    overflow-y: auto;
   }
 }

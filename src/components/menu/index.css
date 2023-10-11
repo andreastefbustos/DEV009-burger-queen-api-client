@@ -5,7 +5,7 @@
 .container-cards {
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  margin-top: 50px;
 }
   
 .cards {
@@ -15,7 +15,7 @@
 }
 
 .container-cards .cards {
-  height: 700px;
+  max-height: 400px;
   overflow-y: auto;
 }
 
@@ -143,11 +143,37 @@
   }
 
   .table-container {
+    height: 600px;
+    overflow-y: auto;
+  }
+
+  .container-cards .cards {
+    max-height: 700px;
+  }
+}
+
+@media screen and (min-width: 391px)and (max-width: 500px){
+  .cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .button-order {
+    width: 60px;
+    height: 54px;
+  }
+
+  .table-container {
     height: 500px;
     overflow-y: auto;
   }
 
   .container-cards .cards {
-    max-height: 500px;
+    max-height: 400px;
+  }
+}
+
+@media screen and (min-width: 501px)and (max-width: 1024px){
+  .container-cards .cards {
+    max-height: 700px;
   }
 }

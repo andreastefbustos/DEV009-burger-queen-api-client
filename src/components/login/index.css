@@ -21,7 +21,7 @@ h1 {
 .login-container {
   display: flex;
   flex-direction: column;
-  margin-top: 250px;
+  margin-top: 180px;
   margin-left: 120px;
 }
 
@@ -84,8 +84,7 @@ button:focus-visible {
   animation: bounce 1s; /* Aplicando la animación */
 }
 
-/* Estilos para mobile */
-
+/* Estilos para mobile pequeños*/
 @media screen and (max-width: 390px){
   .title-login {
     margin-bottom: 70px;
@@ -98,6 +97,33 @@ button:focus-visible {
     display: flex;
     flex-direction: column;
     margin-top: 200px;
+    margin-left: 50px;
+  }
+}
+
+/* Estilos para mobile un poco mas grandes*/
+@media screen and (min-width: 391px)and (max-width: 500px){
+  .title-login {
+    margin-bottom: 60px;
+    color: #fff;
+    font-size: 50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 150px;
+    margin-left: 50px;
+  }
+}
+
+/* Estilos para tablet*/
+@media screen and (min-width: 501px)and (max-width: 1024px){
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 250px;
     margin-left: 50px;
   }
 }
